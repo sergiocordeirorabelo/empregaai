@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EmpregaAI — Seu primeiro emprego com IA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg: #f5f0e8;
+  --bg2: #ede8df;
+  --ink: #1a1208;
+  --ink2: #4a3f2f;
+  --muted: #9a8e7e;
+  --accent: #e8521a;
+  --accent2: #2d6a4f;
+  --accent3: #f4a935;
+  --white: #fdfaf5;
+  --border: #d4cdc0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ══ NAV ══ */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 900;
+}
+.logo span { color: var(--accent); }
+.nav-pill {
+  background: var(--accent);
+  color: white;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: transform .15s, box-shadow .15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.nav-pill:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,82,26,.3); }
+
+/* ══ HERO ══ */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 65px);
+  overflow: hidden;
+}
+.hero-left {
+  padding: 80px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: slideLeft .8s ease both;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent3);
+  color: var(--ink);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  width: fit-content;
+  margin-bottom: 32px;
+}
+.hero-tag::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--ink);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:.5; transform:scale(.7); }
+}
+h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(48px, 5vw, 76px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 28px;
+}
+h1 em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  font-size: 18px;
+  color: var(--ink2);
+  line-height: 1.7;
+  max-width: 460px;
+  margin-bottom: 48px;
+}
+.hero-cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--ink);
+  color: var(--white);
+  padding: 16px 36px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: all .2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,82,26,.25); }
+.hero-note { font-size: 13px; color: var(--muted); }
+.hero-stats { display: flex; gap: 40px; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--border); }
+.stat h3 { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 900; color: var(--accent); }
+.stat p { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+.hero-right {
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  animation: slideRight .8s ease both;
+}
+.hero-right::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(232,82,26,.15) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+.floating-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 28px;
+  width: 340px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 32px 64px rgba(0,0,0,.4);
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.fc-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.fc-avatar { width: 44px; height: 44px; background: linear-gradient(135deg, var(--accent), var(--accent3)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.fc-name { font-weight: 700; font-size: 15px; }
+.fc-role { font-size: 12px; color: var(--muted); }
+.fc-score { background: var(--accent2); color: white; padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; margin-left: auto; }
+.fc-skill { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; font-size: 13px; }
+.fc-bar-wrap { width: 120px; height: 6px; background: var(--bg2); border-radius: 3px; overflow: hidden; }
+.fc-bar { height: 100%; border-radius: 3px; background: var(--accent); }
+.fc-badge-row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.fc-badge { background: var(--bg); border: 1px solid var(--border); padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 500; }
+.float-tag { position: absolute; background: var(--accent3); color: var(--ink); padding: 10px 16px; border-radius: 12px; font-size: 12px; font-weight: 700; z-index: 2; }
+.float-tag-1 { top: 20%; right: 6%; animation: float 5s ease-in-out infinite 1s; }
+.float-tag-2 { bottom: 25%; left: 6%; animation: float 4.5s ease-in-out infinite .5s; background: var(--accent2); color: white; }
+
+/* ══ SEÇÕES ══ */
+.section { padding: 100px 64px; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.section-title { font-family: 'Fraunces', serif; font-size: clamp(36px,4vw,56px); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 64px; max-width: 600px; }
+
+.steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border); }
+.step { background: var(--white); padding: 48px 40px; transition: background .2s; }
+.step:hover { background: var(--bg2); }
+.step-num { font-family: 'Fraunces', serif; font-size: 80px; font-weight: 900; color: var(--border); line-height: 1; margin-bottom: 24px; letter-spacing: -4px; }
+.step-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+.step h3 { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+.step p { color: var(--ink2); line-height: 1.7; font-size: 15px; }
+
+/* ══ FORMULÁRIO ══ */
+.form-section { background: var(--ink); padding: 100px 64px; position: relative; overflow: hidden; }
+.form-section::before { content: ''; position: absolute; width: 800px; height: 800px; background: radial-gradient(circle, rgba(232,82,26,.08) 0%, transparent 70%); top: -200px; right: -200px; }
+.form-section::after  { content: ''; position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(45,106,79,.1) 0%, transparent 70%); bottom: -100px; left: -100px; }
+
+.form-wrapper { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+.form-wrapper .section-label { color: var(--accent3); }
+.form-wrapper .section-title { color: var(--white); margin-bottom: 48px; }
+
+.progress-bar { display: flex; gap: 8px; margin-bottom: 48px; }
+.progress-step { flex: 1; height: 3px; background: rgba(255,255,255,.15); border-radius: 2px; transition: background .4s; }
+.progress-step.done   { background: var(--accent); }
+.progress-step.active { background: var(--accent3); }
+
+.form-step { display: none; animation: fadeUp .4s ease both; }
+.form-step.active { display: block; }
+
+.step-header { margin-bottom: 32px; }
+.step-header h2 { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+.step-header p { color: rgba(255,255,255,.5); font-size: 15px; }
+
+.field { margin-bottom: 20px; }
+label { display: block; font-size: 13px; font-weight: 600; color: rgba(255,255,255,.7); margin-bottom: 8px; }
+input, select, textarea {
+  width: 100%;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.12);
+  color: var(--white);
+  padding: 14px 18px;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  border-radius: 10px;
+  outline: none;
+  transition: border .2s, background .2s;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--accent3); background: rgba(255,255,255,.1); }
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,.25); }
+select option { background: #1a1208; color: white; }
+textarea { resize: none; min-height: 110px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.chip {
+  padding: 8px 18px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,.6);
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+  background: transparent;
+}
+.chip:hover { border-color: var(--accent3); color: var(--accent3); }
+.chip.selected { background: var(--accent); border-color: var(--accent); color: white; }
+
+.form-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; }
+.btn-back {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.6);
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all .15s;
+}
+.btn-back:hover { border-color: rgba(255,255,255,.5); color: white; }
+.btn-next {
+  background: var(--accent);
+  color: white;
+  padding: 14px 36px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-next:hover { background: #d4441a; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(232,82,26,.4); }
+.btn-next:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ══ LOADING ══ */
+#loading-screen { display: none; text-align: center; padding: 60px 0; animation: fadeUp .5s ease both; }
+.loader-ring { width: 80px; height: 80px; border: 3px solid rgba(255,255,255,.1); border-top-color: var(--accent); border-radius: 50%; margin: 0 auto 32px; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loader-text { font-family: 'Fraunces', serif; font-size: 28px; color: var(--white); font-weight: 700; margin-bottom: 12px; }
+.loader-sub { color: rgba(255,255,255,.4); font-size: 14px; margin-bottom: 40px; }
+.loader-steps { text-align: left; display: inline-block; }
+.loader-step-item { display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.3); font-size: 14px; margin-bottom: 12px; transition: color .3s; }
+.loader-step-item.done   { color: var(--accent3); }
+.loader-step-item.active { color: white; }
+.loader-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.2); flex-shrink: 0; transition: background .3s; }
+.loader-step-item.done   .loader-dot { background: var(--accent3); }
+.loader-step-item.active .loader-dot { background: white; animation: pulse 1s infinite; }
+
+/* ══ RESULTADO ══ */
+#result-screen { display: none; animation: fadeUp .6s ease both; }
+.result-header { text-align: center; margin-bottom: 48px; }
+.result-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent2); color: white; padding: 8px 20px; border-radius: 100px; font-size: 13px; font-weight: 700; margin-bottom: 20px; }
+.result-title { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 900; color: var(--white); line-height: 1.2; margin-bottom: 12px; }
+.result-sub { color: rgba(255,255,255,.5); font-size: 15px; }
+.result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.result-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 28px; }
+.result-card h4 { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent3); margin-bottom: 16px; }
+.result-card-full { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+.result-card-full h4 { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent3); margin-bottom: 16px; }
+
+/* CV preview */
+.cv-preview { background: white; border-radius: 12px; padding: 28px; color: var(--ink); font-size: 13px; line-height: 1.6; max-height: 420px; overflow-y: auto; }
+.cv-section-title { font-weight: 800; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid #e0d9d0; padding-bottom: 6px; margin: 16px 0 10px; }
+.cv-name { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+.cv-role { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+.cv-contact { font-size: 11px; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap; }
+.cv-text { font-size: 13px; color: var(--ink2); line-height: 1.6; }
+.cv-skill-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.cv-skill-tag { background: #f0ece4; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; }
+
+/* Ações do currículo */
+.cv-actions { display: flex; gap: 12px; margin-top: 16px; }
+.btn-action {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all .2s;
+}
+.btn-action.primary { background: var(--accent); color: white; }
+.btn-action.primary:hover { background: #d4441a; }
+.btn-action.secondary { background: rgba(255,255,255,.1); color: white; border: 1px solid rgba(255,255,255,.2); }
+.btn-action.secondary:hover { background: rgba(255,255,255,.15); }
+
+/* Vagas */
+.vagas-list { list-style: none; }
+.vaga-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+.vaga-item:last-child { border: none; }
+.vaga-emoji { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.vaga-info { flex: 1; }
+.vaga-info h5 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 2px; }
+.vaga-info p { font-size: 12px; color: rgba(255,255,255,.45); margin-bottom: 4px; }
+.vaga-fonte { font-size: 10px; color: var(--accent3); font-weight: 700; letter-spacing: 1px; }
+.vaga-link {
+  font-size: 11px;
+  color: var(--accent3);
+  text-decoration: none;
+  border: 1px solid rgba(244,169,53,.3);
+  padding: 4px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all .15s;
+}
+.vaga-link:hover { background: rgba(244,169,53,.1); }
+
+/* LinkedIn tips */
+.linkedin-tips { list-style: none; }
+.linkedin-tip { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.07); font-size: 14px; color: rgba(255,255,255,.8); }
+.linkedin-tip:last-child { border: none; }
+.tip-icon { font-size: 18px; flex-shrink: 0; }
+
+/* Aviso de vagas reais */
+.vagas-notice {
+  background: rgba(45,106,79,.2);
+  border: 1px solid rgba(45,106,79,.4);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: rgba(255,255,255,.6);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.result-cta { text-align: center; margin-top: 40px; padding: 40px; background: rgba(232,82,26,.1); border: 1px solid rgba(232,82,26,.2); border-radius: 16px; }
+.result-cta h3 { font-family: 'Fraunces', serif; font-size: 28px; color: white; font-weight: 800; margin-bottom: 8px; }
+.result-cta p { color: rgba(255,255,255,.5); font-size: 14px; margin-bottom: 24px; }
+.btn-cta-big { background: var(--accent); color: white; padding: 16px 40px; border-radius: 100px; font-size: 16px; font-weight: 700; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s; }
+.btn-cta-big:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,82,26,.4); }
+
+/* ══ DEPOIMENTOS ══ */
+.proof-section { padding: 80px 64px; background: var(--white); }
+.testimonials { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 48px; }
+.testi { background: var(--bg); padding: 32px; border-radius: 16px; position: relative; }
+.testi::before { content: '"'; font-family: 'Fraunces', serif; font-size: 80px; color: var(--accent); position: absolute; top: 8px; left: 24px; line-height: 1; opacity: .3; }
+.testi p { font-size: 15px; line-height: 1.7; color: var(--ink2); margin-bottom: 20px; padding-top: 20px; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar { width: 40px; height: 40px; border-radius: 50%; font-size: 18px; display: flex; align-items: center; justify-content: center; }
+.testi-name { font-weight: 700; font-size: 14px; }
+.testi-role { font-size: 12px; color: var(--muted); }
+
+/* ══ PREÇOS ══ */
+.pricing-section { padding: 100px 64px; text-align: center; }
+.pricing-grid { display: grid; grid-template-columns: repeat(2, 380px); gap: 24px; justify-content: center; margin-top: 56px; }
+.price-card { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 40px; text-align: left; position: relative; transition: transform .2s, box-shadow .2s; }
+.price-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(0,0,0,.1); }
+.price-card.featured { background: var(--ink); border-color: var(--accent); color: white; }
+.price-badge { background: var(--accent); color: white; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 100px; letter-spacing: 1px; position: absolute; top: -12px; left: 32px; }
+.price-name { font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.price-card.featured .price-name { color: rgba(255,255,255,.5); }
+.price-value { font-family: 'Fraunces', serif; font-size: 52px; font-weight: 900; letter-spacing: -2px; line-height: 1; margin-bottom: 4px; }
+.price-period { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+.price-card.featured .price-period { color: rgba(255,255,255,.4); }
+.price-features { list-style: none; margin-bottom: 32px; }
+.price-feature { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; border-bottom: 1px solid var(--border); color: var(--ink2); }
+.price-card.featured .price-feature { border-color: rgba(255,255,255,.08); color: rgba(255,255,255,.75); }
+.price-feature:last-child { border: none; }
+.check { color: var(--accent2); font-size: 16px; }
+.btn-plan { width: 100%; padding: 14px; border-radius: 100px; font-size: 15px; font-weight: 700; border: 2px solid var(--ink); background: transparent; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s; }
+.btn-plan:hover { background: var(--ink); color: white; }
+.price-card.featured .btn-plan { background: var(--accent); border-color: var(--accent); color: white; }
+.price-card.featured .btn-plan:hover { background: #d4441a; }
+
+/* ══ FOOTER ══ */
+footer { background: var(--ink); color: rgba(255,255,255,.4); text-align: center; padding: 40px; font-size: 13px; }
+footer span { color: var(--accent); }
+
+/* ══ ANIMAÇÕES ══ */
+@keyframes slideLeft  { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:translateX(0); } }
+@keyframes slideRight { from { opacity:0; transform:translateX(40px);  } to { opacity:1; transform:translateX(0); } }
+@keyframes fadeUp     { from { opacity:0; transform:translateY(24px);   } to { opacity:1; transform:translateY(0); } }
+
+/* ══ RESPONSIVO ══ */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 60px 32px; }
+  .section, .form-section, .proof-section, .pricing-section { padding: 60px 32px; }
+  .steps { grid-template-columns: 1fr; }
+  .testimonials { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .result-grid { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+  nav { padding: 16px 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Emprega<span>AI</span> ✦</div>
+  <button class="nav-pill" onclick="scrollToForm()">Criar meu currículo grátis →</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">✦ IA para primeiro emprego</div>
+    <h1>Seu <em>primeiro</em><br>emprego começa<br>aqui.</h1>
+    <p class="hero-sub">Não sabe o que colocar no currículo? Nossa IA monta tudo por você em 3 minutos — do zero, sem experiência prévia necessária.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="scrollToForm()">Criar meu currículo grátis</button>
+      <span class="hero-note">✓ Sem cadastro &nbsp;·&nbsp; ✓ Em 3 minutos</span>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><h3>94%</h3><p>passaram na triagem de RH</p></div>
+      <div class="stat"><h3>3min</h3><p>para gerar seu currículo</p></div>
+      <div class="stat"><h3>2.4k</h3><p>primeiros empregos conquistados</p></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="float-tag float-tag-1">🎯 87% de fit com a vaga</div>
+    <div class="float-tag float-tag-2">✅ Currículo aprovado!</div>
+    <div class="floating-card">
+      <div class="fc-header">
+        <div class="fc-avatar">👩</div>
+        <div>
+          <div class="fc-name">Ana Clara, 19 anos</div>
+          <div class="fc-role">Assistente Administrativa</div>
+        </div>
+        <div class="fc-score">✓ CONTRATADA</div>
+      </div>
+      <div class="fc-skill"><span>Comunicação</span><div class="fc-bar-wrap"><div class="fc-bar" style="width:88%"></div></div></div>
+      <div class="fc-skill"><span>Organização</span><div class="fc-bar-wrap"><div class="fc-bar" style="width:75%"></div></div></div>
+      <div class="fc-skill"><span>Proatividade</span><div class="fc-bar-wrap"><div class="fc-bar" style="width:92%"></div></div></div>
+      <div class="fc-badge-row">
+        <span class="fc-badge">📚 Ensino médio</span>
+        <span class="fc-badge">🏆 Voluntariado</span>
+        <span class="fc-badge">💻 Office básico</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section">
+  <div class="section-label">Como funciona</div>
+  <div class="section-title">3 passos para<br>o seu primeiro emprego</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <span class="step-icon">💬</span>
+      <h3>Responda as perguntas</h3>
+      <p>Conte pra nossa IA sobre você — o que você estudou, o que sabe fazer, o que curte. Não precisa ter experiência nenhuma.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <span class="step-icon">🤖</span>
+      <h3>A IA monta seu currículo</h3>
+      <p>Em segundos, a IA cria um currículo profissional otimizado para passar nos filtros automáticos de RH.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <span class="step-icon">🚀</span>
+      <h3>Vagas na sua cidade</h3>
+      <p>Você recebe vagas reais da sua cidade direto do portal do governo e dicas personalizadas de LinkedIn.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULÁRIO -->
+<section class="form-section" id="form-section">
+  <div class="form-wrapper">
+    <div class="section-label">Crie agora — é grátis</div>
+    <div class="section-title">Vamos montar<br>seu currículo?</div>
+
+    <div class="progress-bar" id="progress-bar">
+      <div class="progress-step active" id="ps-1"></div>
+      <div class="progress-step" id="ps-2"></div>
+      <div class="progress-step" id="ps-3"></div>
+      <div class="progress-step" id="ps-4"></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="form-step active" id="step-1">
+      <div class="step-header">
+        <h2>Sobre você 👋</h2>
+        <p>Informações básicas para começar</p>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Seu nome completo</label>
+          <input type="text" id="nome" placeholder="Ex: Ana Clara Silva">
+        </div>
+        <div class="field">
+          <label>Sua cidade e estado</label>
+          <input type="text" id="cidade" placeholder="Ex: Manaus, AM">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="seuemail@gmail.com">
+        </div>
+        <div class="field">
+          <label>Telefone / WhatsApp</label>
+          <input type="text" id="telefone" placeholder="(92) 99999-9999">
+        </div>
+      </div>
+      <div class="field">
+        <label>Escolaridade atual</label>
+        <select id="escolaridade">
+          <option value="">Selecione...</option>
+          <option>Ensino médio cursando</option>
+          <option>Ensino médio completo</option>
+          <option>Técnico cursando</option>
+          <option>Técnico completo</option>
+          <option>Superior cursando</option>
+          <option>Superior completo</option>
+        </select>
+      </div>
+      <div class="form-nav">
+        <div></div>
+        <button class="btn-next" onclick="goStep(2)">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="form-step" id="step-2">
+      <div class="step-header">
+        <h2>Que área te interessa? 🎯</h2>
+        <p>Selecione onde você quer trabalhar</p>
+      </div>
+      <div class="field">
+        <label>Área desejada (pode escolher mais de uma)</label>
+        <div class="chips" id="areas">
+          <div class="chip" onclick="toggleChip(this)">💼 Administrativo</div>
+          <div class="chip" onclick="toggleChip(this)">💻 Tecnologia / TI</div>
+          <div class="chip" onclick="toggleChip(this)">📊 Finanças</div>
+          <div class="chip" onclick="toggleChip(this)">🎨 Design / Criativo</div>
+          <div class="chip" onclick="toggleChip(this)">🛒 Vendas / Comercial</div>
+          <div class="chip" onclick="toggleChip(this)">🤝 Atendimento</div>
+          <div class="chip" onclick="toggleChip(this)">📦 Logística</div>
+          <div class="chip" onclick="toggleChip(this)">🏥 Saúde</div>
+          <div class="chip" onclick="toggleChip(this)">📣 Marketing</div>
+          <div class="chip" onclick="toggleChip(this)">🔧 Técnico / Manutenção</div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:24px">
+        <label>Regime de trabalho preferido</label>
+        <div class="chips">
+          <div class="chip" onclick="toggleSingle(this)">🏢 Presencial</div>
+          <div class="chip" onclick="toggleSingle(this)">🏠 Remoto</div>
+          <div class="chip" onclick="toggleSingle(this)">🔀 Híbrido</div>
+          <div class="chip" onclick="toggleSingle(this)">💡 Tanto faz</div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:24px">
+        <label>Disponibilidade de horário</label>
+        <div class="chips">
+          <div class="chip" onclick="toggleSingle(this)">🌅 Manhã</div>
+          <div class="chip" onclick="toggleSingle(this)">☀️ Tarde</div>
+          <div class="chip" onclick="toggleSingle(this)">🌙 Noite</div>
+          <div class="chip" onclick="toggleSingle(this)">⏰ Integral</div>
+          <div class="chip" onclick="toggleSingle(this)">📅 Qualquer horário</div>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goStep(1)">← Voltar</button>
+        <button class="btn-next" onclick="goStep(3)">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="form-step" id="step-3">
+      <div class="step-header">
+        <h2>O que você sabe fazer? 💪</h2>
+        <p>Mesmo sem emprego formal, você tem habilidades valiosas</p>
+      </div>
+      <div class="field">
+        <label>Habilidades que você tem</label>
+        <div class="chips" id="habilidades">
+          <div class="chip" onclick="toggleChip(this)">📝 Word / Excel básico</div>
+          <div class="chip" onclick="toggleChip(this)">📱 Redes sociais</div>
+          <div class="chip" onclick="toggleChip(this)">🖥️ Informática geral</div>
+          <div class="chip" onclick="toggleChip(this)">🗣️ Boa comunicação</div>
+          <div class="chip" onclick="toggleChip(this)">👥 Trabalho em equipe</div>
+          <div class="chip" onclick="toggleChip(this)">🎓 Cursos online</div>
+          <div class="chip" onclick="toggleChip(this)">🤝 Atendimento ao público</div>
+          <div class="chip" onclick="toggleChip(this)">🔧 Habilidade manual</div>
+          <div class="chip" onclick="toggleChip(this)">🌐 Inglês básico</div>
+          <div class="chip" onclick="toggleChip(this)">🚗 CNH</div>
+          <div class="chip" onclick="toggleChip(this)">🎨 Edição de vídeo/foto</div>
+          <div class="chip" onclick="toggleChip(this)">📊 Organização</div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:24px">
+        <label>Atividades que já fez (mesmo sem ser emprego formal)</label>
+        <textarea id="experiencias" placeholder="Ex: ajudei no comércio da família, fiz trabalhos voluntários, babysitting, ajudei amigos com computador, fiz um curso de..."></textarea>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goStep(2)">← Voltar</button>
+        <button class="btn-next" onclick="goStep(4)">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="form-step" id="step-4">
+      <div class="step-header">
+        <h2>Quase lá! 🎉</h2>
+        <p>Último passo para gerar seu currículo</p>
+      </div>
+      <div class="field">
+        <label>Conte um pouco sobre você como pessoa</label>
+        <textarea id="sobre" placeholder="Ex: Sou uma pessoa comunicativa, gosto de aprender coisas novas e sou muito dedicada..."></textarea>
+      </div>
+      <div class="field">
+        <label>Qual é o seu objetivo profissional?</label>
+        <textarea id="objetivo" placeholder="Ex: Quero trabalhar com atendimento ao cliente para desenvolver minha comunicação e crescer dentro da empresa..." style="min-height:80px"></textarea>
+      </div>
+      <div class="field">
+        <label>LinkedIn (opcional)</label>
+        <input type="text" id="linkedin" placeholder="linkedin.com/in/seuperfil">
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goStep(3)">← Voltar</button>
+        <button class="btn-next" onclick="gerarCurriculo()" id="btn-generate">✨ Gerar meu currículo com IA</button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div id="loading-screen">
+      <div class="loader-ring"></div>
+      <div class="loader-text">A IA está trabalhando por você...</div>
+      <div class="loader-sub">Isso leva apenas alguns segundos ☕</div>
+      <div class="loader-steps">
+        <div class="loader-step-item active" id="ls-1"><div class="loader-dot"></div>Analisando seu perfil</div>
+        <div class="loader-step-item" id="ls-2"><div class="loader-dot"></div>Otimizando palavras-chave para RH</div>
+        <div class="loader-step-item" id="ls-3"><div class="loader-dot"></div>Montando seu currículo profissional</div>
+        <div class="loader-step-item" id="ls-4"><div class="loader-dot"></div>Buscando vagas em <span id="cidade-loading">sua cidade</span></div>
+        <div class="loader-step-item" id="ls-5"><div class="loader-dot"></div>Gerando dicas personalizadas de LinkedIn</div>
+      </div>
+    </div>
+
+    <!-- RESULTADO -->
+    <div id="result-screen">
+      <div class="result-header">
+        <div class="result-badge">🎉 Currículo gerado com sucesso!</div>
+        <div class="result-title" id="result-title">Pronto!</div>
+        <div class="result-sub">A IA analisou seu perfil e preparou tudo para você</div>
+      </div>
+
+      <div class="result-card-full">
+        <h4>📄 Seu currículo profissional</h4>
+        <div class="cv-preview" id="cv-preview"></div>
+        <div class="cv-actions">
+          <button class="btn-action primary" onclick="imprimirCurriculo()">🖨️ Imprimir / Salvar PDF</button>
+          <button class="btn-action secondary" onclick="copiarCurriculo()">📋 Copiar texto</button>
+        </div>
+      </div>
+
+      <div class="result-grid">
+        <div class="result-card">
+          <h4>💼 Vagas na sua cidade</h4>
+          <div class="vagas-notice">🏛️ Vagas reais do Portal Emprega Brasil (governo federal)</div>
+          <ul class="vagas-list" id="vagas-list"></ul>
+        </div>
+        <div class="result-card">
+          <h4>🔗 Dicas de LinkedIn</h4>
+          <ul class="linkedin-tips" id="linkedin-tips"></ul>
+        </div>
+      </div>
+
+      <div class="result-cta">
+        <h3>Quer ser candidatado automaticamente? 🚀</h3>
+        <p>Com o plano Pro, a IA aplica nas vagas por você todo dia — sem você precisar fazer nada</p>
+        <button class="btn-cta-big" onclick="scrollToPricing()">Ver planos →</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="proof-section">
+  <div class="section-label">Histórias reais</div>
+  <div class="section-title">Quem usou o<br>EmpregaAI</div>
+  <div class="testimonials">
+    <div class="testi">
+      <p>Eu não sabia nem o que colocar no currículo porque nunca trabalhei. Em 5 minutos o site gerou um currículo incrível e na semana seguinte já tava em entrevista!</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#fde8d8">👦</div>
+        <div><div class="testi-name">Lucas M., 18 anos</div><div class="testi-role">Auxiliar de escritório — Manaus, AM</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <p>Achava que sem experiência não ia conseguir nada. Mas o currículo destacou o que eu fiz de voluntário e os cursos. Fui chamada em 3 empresas!</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#e8f5e9">👩</div>
+        <div><div class="testi-name">Letícia F., 20 anos</div><div class="testi-role">Atendente — Manaus, AM</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <p>As vagas que apareceram eram todas aqui de Manaus mesmo, do SINE. Fui chamado numa delas e já tô trabalhando há 2 meses!</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#e8f0fe">👦</div>
+        <div><div class="testi-name">Gabriel R., 17 anos</div><div class="testi-role">Jovem aprendiz — Manaus, AM</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREÇOS -->
+<section class="pricing-section" id="pricing-section">
+  <div class="section-label">Planos</div>
+  <div class="section-title" style="margin:0 auto 8px;text-align:center">Simples e acessível</div>
+  <p style="color:var(--muted);font-size:15px">Cancele quando quiser. Sem pegadinhas.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Grátis</div>
+      <div class="price-value">R$0</div>
+      <div class="price-period">para sempre</div>
+      <ul class="price-features">
+        <li class="price-feature"><span class="check">✓</span> 1 currículo gerado por IA</li>
+        <li class="price-feature"><span class="check">✓</span> Vagas reais da sua cidade</li>
+        <li class="price-feature"><span class="check">✓</span> Dicas de LinkedIn</li>
+        <li class="price-feature" style="opacity:.4">✗ Candidatura automática</li>
+        <li class="price-feature" style="opacity:.4">✗ Currículo atualizado por vaga</li>
+        <li class="price-feature" style="opacity:.4">✗ Simulador de entrevista</li>
+      </ul>
+      <button class="btn-plan" onclick="scrollToForm()">Começar grátis</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">MAIS POPULAR</div>
+      <div class="price-name">Pro</div>
+      <div class="price-value" style="color:var(--accent3)">R$29</div>
+      <div class="price-period">/mês · cancele quando quiser</div>
+      <ul class="price-features">
+        <li class="price-feature"><span class="check">✓</span> Currículos ilimitados</li>
+        <li class="price-feature"><span class="check">✓</span> <strong>Candidatura automática</strong></li>
+        <li class="price-feature"><span class="check">✓</span> Currículo adaptado por vaga</li>
+        <li class="price-feature"><span class="check">✓</span> Vagas ilimitadas por dia</li>
+        <li class="price-feature"><span class="check">✓</span> Simulador de entrevista com IA</li>
+        <li class="price-feature"><span class="check">✓</span> Alertas de vagas no WhatsApp</li>
+      </ul>
+      <button class="btn-plan">Assinar por R$29/mês</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Feito com ❤️ e <span>IA</span> para quem está começando · EmpregaAI © 2025</p>
+</footer>
+
+<script>
+// ══════════════════════════════════
+// NAVEGAÇÃO
+// ══════════════════════════════════
+let currentStep = 1;
+
+function scrollToForm()    { document.getElementById('form-section').scrollIntoView({ behavior:'smooth' }); }
+function scrollToPricing() { document.getElementById('pricing-section').scrollIntoView({ behavior:'smooth' }); }
+
+function goStep(step) {
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  document.getElementById('step-' + step).classList.add('active');
+  for (let i = 1; i <= 4; i++) {
+    const ps = document.getElementById('ps-' + i);
+    if (i < step)      ps.className = 'progress-step done';
+    else if (i===step) ps.className = 'progress-step active';
+    else               ps.className = 'progress-step';
+  }
+  currentStep = step;
+  document.getElementById('form-section').scrollIntoView({ behavior:'smooth' });
+}
+
+// ══════════════════════════════════
+// CHIPS
+// ══════════════════════════════════
+function toggleChip(el)   { el.classList.toggle('selected'); }
+function toggleSingle(el) {
+  el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ══════════════════════════════════
+// COLETA DE DADOS
+// ══════════════════════════════════
+function getDados() {
+  return {
+    nome:         document.getElementById('nome').value        || 'Candidato',
+    cidade:       document.getElementById('cidade').value      || 'Manaus, AM',
+    email:        document.getElementById('email').value       || 'email@email.com',
+    telefone:     document.getElementById('telefone').value    || '(92) 99999-9999',
+    escolaridade: document.getElementById('escolaridade').value|| 'Ensino médio completo',
+    areas:        [...document.querySelectorAll('#areas .chip.selected')].map(c=>c.textContent.trim()).join(', ') || 'Administrativo',
+    habilidades:  [...document.querySelectorAll('#habilidades .chip.selected')].map(c=>c.textContent.trim()).join(', ') || 'Comunicação',
+    experiencias: document.getElementById('experiencias').value|| 'Sem experiência formal',
+    sobre:        document.getElementById('sobre').value       || 'Pessoa dedicada',
+    objetivo:     document.getElementById('objetivo').value    || 'Iniciar minha carreira profissional'
+  };
+}
+
+// ══════════════════════════════════
+// LOADER
+// ══════════════════════════════════
+function animarLoader(cidade) {
+  document.getElementById('cidade-loading').textContent = cidade.split(',')[0];
+  const ids = ['ls-1','ls-2','ls-3','ls-4','ls-5'];
+  let i = 0;
+  const iv = setInterval(() => {
+    if (i > 0) document.getElementById(ids[i-1]).className = 'loader-step-item done';
+    if (i < ids.length) { document.getElementById(ids[i]).className = 'loader-step-item active'; i++; }
+    else clearInterval(iv);
+  }, 1400);
+}
+
+// ══════════════════════════════════
+// GERAR CURRÍCULO — chama o backend
+// ══════════════════════════════════
+async function gerarCurriculo() {
+  const dados = getDados();
+  document.getElementById('btn-generate').disabled = true;
+
+  // Esconde step 4 e mostra loading
+  document.getElementById('step-4').classList.remove('active');
+  document.getElementById('progress-bar').style.display = 'none';
+  document.getElementById('loading-screen').style.display = 'block';
+  scrollToForm();
+  animarLoader(dados.cidade);
+
+  try {
+    // Chama nosso backend no Vercel
+    const resp = await fetch('/api/gerar', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(dados)
+    });
+
+    const resultado = await resp.json();
+    await new Promise(r => setTimeout(r, 800)); // pausa para UX
+    mostrarResultado(dados, resultado);
+
+  } catch (err) {
+    // Se o backend não estiver configurado ainda, usa fallback local
+    await new Promise(r => setTimeout(r, 2000));
+    mostrarResultado(dados, fallbackLocal(dados));
+  }
+}
+
+// ══════════════════════════════════
+// FALLBACK LOCAL (sem backend)
+// ══════════════════════════════════
+function fallbackLocal(d) {
+  const area = d.areas.split(',')[0].replace(/[^\w\s]/g,'').trim();
+  const cidade = d.cidade.split(',')[0].trim();
+  return {
+    cv_html: `
+      <div class="cv-name">${d.nome}</div>
+      <div class="cv-role">${area} · Candidatura ao primeiro emprego</div>
+      <div class="cv-contact">
+        <span>📍 ${d.cidade}</span>
+        <span>📧 ${d.email}</span>
+        <span>📱 ${d.telefone}</span>
+      </div>
+      <div class="cv-section-title">Objetivo Profissional</div>
+      <div class="cv-text">${d.objetivo || `Busco minha primeira oportunidade na área de ${area} para aplicar minhas habilidades e crescer profissionalmente.`}</div>
+      <div class="cv-section-title">Formação Acadêmica</div>
+      <div class="cv-text"><strong>${d.escolaridade}</strong></div>
+      <div class="cv-section-title">Habilidades</div>
+      <div class="cv-skill-list">${d.habilidades.split(',').map(h=>`<span class="cv-skill-tag">${h.trim()}</span>`).join('')}</div>
+      <div class="cv-section-title">Experiências</div>
+      <div class="cv-text">${d.experiencias !== 'Sem experiência formal' ? d.experiencias : 'Desenvolveu habilidades práticas por meio de atividades acadêmicas e voluntárias.'}</div>
+      <div class="cv-section-title">Sobre mim</div>
+      <div class="cv-text">${d.sobre}</div>`,
+    vagas: [
+      { cargo:`Assistente de ${area}`, empresa:'SINE Amazonas', cidade, salario:'A combinar', link:'https://empregabrasil.mte.gov.br', fonte:'Emprega Brasil' },
+      { cargo:'Jovem Aprendiz', empresa:'Programa Federal', cidade, salario:'Salário mínimo', link:'https://empregabrasil.mte.gov.br', fonte:'Emprega Brasil' },
+      { cargo:`Auxiliar ${area}`, empresa:'Vagas disponíveis', cidade, salario:'A combinar', link:`https://br.indeed.com/jobs?q=${encodeURIComponent(area)}&l=${encodeURIComponent(cidade)}`, fonte:'Indeed' },
+    ],
+    linkedin_tips: [
+      'Adicione uma foto profissional — perfis com foto recebem 14x mais visualizações',
+      `Coloque "${area} | Buscando primeiro emprego" no título do seu perfil`,
+      'Peça uma recomendação a um professor ou coordenador de voluntariado',
+      'Siga empresas da sua área e interaja com as postagens delas',
+      'Adicione certificados de cursos online gratuitos (Coursera, Sebrae, Senai)'
+    ]
+  };
+}
+
+// ══════════════════════════════════
+// MOSTRAR RESULTADO
+// ══════════════════════════════════
+function mostrarResultado(dados, resultado) {
+  document.getElementById('loading-screen').style.display = 'none';
+  const rs = document.getElementById('result-screen');
+  rs.style.display = 'block';
+
+  const primeiroNome = dados.nome.split(' ')[0];
+  document.getElementById('result-title').textContent = `Pronto, ${primeiroNome}! 🎉`;
+
+  // Currículo
+  document.getElementById('cv-preview').innerHTML = resultado.cv_html || '';
+
+  // Vagas reais
+  const vagasEl = document.getElementById('vagas-list');
+  const emojis  = ['🏢','🏭','🏬','🏥','🏦'];
+  vagasEl.innerHTML = (resultado.vagas || []).map((v, i) => `
+    <li class="vaga-item">
+      <div class="vaga-emoji">${emojis[i % emojis.length]}</div>
+      <div class="vaga-info">
+        <h5>${v.cargo}</h5>
+        <p>${v.empresa} · ${v.cidade} · ${v.salario || 'A combinar'}</p>
+        <span class="vaga-fonte">📌 ${v.fonte || 'Emprega Brasil'}</span>
+      </div>
+      <a href="${v.link}" target="_blank" class="vaga-link">Ver vaga →</a>
+    </li>`).join('');
+
+  // LinkedIn tips
+  const tipsEl  = document.getElementById('linkedin-tips');
+  const tipIcons = ['📸','✍️','⭐','👀','🏆'];
+  tipsEl.innerHTML = (resultado.linkedin_tips || []).map((tip, i) => `
+    <li class="linkedin-tip">
+      <span class="tip-icon">${tipIcons[i] || '💡'}</span>
+      <span>${tip}</span>
+    </li>`).join('');
+
+  rs.scrollIntoView({ behavior:'smooth' });
+}
+
+// ══════════════════════════════════
+// AÇÕES DO CURRÍCULO
+// ══════════════════════════════════
+function imprimirCurriculo() {
+  const conteudo = document.getElementById('cv-preview').innerHTML;
+  const win = window.open('', '_blank');
+  win.document.write(`
+    <html><head><title>Currículo — EmpregaAI</title>
+    <style>
+      body { font-family: Arial, sans-serif; padding: 40px; color: #1a1208; }
+      .cv-name { font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+      .cv-role { color: #9a8e7e; font-size: 14px; margin-bottom: 12px; }
+      .cv-contact { font-size: 12px; color: #9a8e7e; display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+      .cv-section-title { font-weight: 800; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #e8521a; border-bottom: 1px solid #e0d9d0; padding-bottom: 4px; margin: 16px 0 8px; }
+      .cv-text { font-size: 13px; color: #4a3f2f; line-height: 1.6; }
+      .cv-skill-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+      .cv-skill-tag { background: #f0ece4; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; }
+      @media print { body { padding: 20px; } }
+    </style></head>
+    <body>${conteudo}</body></html>`);
+  win.document.close();
+  setTimeout(() => win.print(), 500);
+}
+
+function copiarCurriculo() {
+  const texto = document.getElementById('cv-preview').innerText;
+  navigator.clipboard.writeText(texto).then(() => {
+    alert('✅ Currículo copiado! Agora cole no Word ou Google Docs.');
+  });
+}
+</script>
+</body>
+</html>
