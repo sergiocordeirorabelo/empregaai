@@ -1089,15 +1089,61 @@ function fallbackLocal(d) {
       pontos_melhorar: ['Adicionar mais experiências', 'Completar perfil LinkedIn'],
       resumo: `Seu perfil tem boas chances em ${area} — continue melhorando!`
     },
+    const a = encodeURIComponent(area);
+    const c = encodeURIComponent(cidade);
+    const estado = d.cidade.split(',')[1]?.trim() || 'AM';
+    const e = encodeURIComponent(estado);
+
+    // Formatos de URL testados e confirmados para cada portal
+    const ah = encodeURIComponent(area.toLowerCase().replace(/ /g,'-'));
+    const ch = encodeURIComponent(cidade.toLowerCase().replace(/ /g,'-'));
+    const ai = encodeURIComponent(area.toLowerCase().replace(/ /g,'-'));
+    const ci = encodeURIComponent(`${cidade}, ${estado}`);
+
     vagas: [
-      { cargo:`Vagas de ${area} — Indeed Brasil`, empresa:'Múltiplas', cidade, salario:'Vários', link:`https://br.indeed.com/jobs?q=${a}&l=${c}%2C+${e}&sort=date&fromage=14`, fonte:'Indeed Brasil', descricao:'Maior buscador de vagas do Brasil — filtra por cidade e área' },
-      { cargo:`Vagas de ${area} — LinkedIn`, empresa:'Múltiplas', cidade, salario:'Vários', link:`https://www.linkedin.com/jobs/search/?keywords=${a}&location=${c}%2C%20${e}%2C%20Brasil&f_TPR=r604800&sortBy=DD`, fonte:'LinkedIn Vagas', descricao:'Vagas exclusivas que não aparecem em outros portais' },
-      { cargo:`Vagas de ${area} — Catho`, empresa:'Múltiplas', cidade, salario:'Vários', link:`https://www.catho.com.br/vagas/?q=${a}&where=${c}`, fonte:'Catho', descricao:'Um dos maiores portais de emprego do Brasil' },
-      { cargo:`Vagas de ${area} — InfoJobs`, empresa:'Múltiplas', cidade, salario:'Vários', link:`https://www.infojobs.com.br/empregos-em-${encodeURIComponent(cidade.toLowerCase())}/cargo_${encodeURIComponent(area.toLowerCase())}.aspx`, fonte:'InfoJobs', descricao:'Ótimo para atendimento, vendas e administrativo' },
-      { cargo:`Vagas de ${area} — Gupy`, empresa:'Grandes empresas', cidade, salario:'Vários', link:`https://portal.gupy.io/job-search/term=${a}&cityName=${c}&stateSlug=${e}`, fonte:'Gupy', descricao:'Plataforma usada por grandes empresas — vagas selecionadas' },
-      { cargo:`Vagas de ${area} — Empregos.com.br`, empresa:'Múltiplas', cidade, salario:'Vários', link:`https://www.empregos.com.br/vagas/${encodeURIComponent(cidade.toLowerCase())}/${encodeURIComponent(area.toLowerCase())}`, fonte:'Empregos.com.br', descricao:'Forte em vagas locais e regionais' },
-      { cargo:`Jovem Aprendiz / Estágio — Nube`, empresa:'Nube', cidade, salario:'Bolsa + benefícios', link:`https://www.nube.com.br/candidato/oportunidade/busca?descricao=${a}&cidade=${c}&uf=${e}`, fonte:'Nube', descricao:'Especializado em estágio e jovem aprendiz para primeiro emprego' },
-      { cargo:`Vagas de ${area} — Sólides Vagas`, empresa:'Múltiplas', cidade, salario:'Vários', link:`https://vagas.solides.com.br/?search=${a}&location=${c}`, fonte:'Sólides Vagas', descricao:'Portal moderno com vagas de pequenas e médias empresas' },
+      {
+        cargo:`Vagas de ${area} — Indeed Brasil`, empresa:'Múltiplas', cidade, salario:'Vários',
+        // Formato confirmado: br.indeed.com/q-CARGO-l-CIDADE,-UF-vagas.html
+        link:`https://br.indeed.com/q-${ai}-l-${ci}-vagas.html`,
+        fonte:'Indeed Brasil', descricao:'Maior buscador do Brasil — já filtrado pela sua cidade'
+      },
+      {
+        cargo:`Vagas de ${area} — LinkedIn`, empresa:'Múltiplas', cidade, salario:'Vários',
+        link:`https://www.linkedin.com/jobs/search/?keywords=${a}&location=${c}%2C%20${e}%2C%20Brasil`,
+        fonte:'LinkedIn Vagas', descricao:'Vagas exclusivas que não aparecem em outros portais'
+      },
+      {
+        cargo:`Vagas de ${area} — Catho`, empresa:'Múltiplas', cidade, salario:'Vários',
+        // Formato: /vagas/area/cidade
+        link:`https://www.catho.com.br/vagas/${ah}/${ch}/`,
+        fonte:'Catho', descricao:'Um dos maiores portais de emprego do Brasil'
+      },
+      {
+        cargo:`Vagas de ${area} — InfoJobs`, empresa:'Múltiplas', cidade, salario:'Vários',
+        // Formato: /empregos-em-CIDADE/cargo_AREA.aspx
+        link:`https://www.infojobs.com.br/empregos-em-${ch}/cargo_${ah}.aspx`,
+        fonte:'InfoJobs', descricao:'Ótimo para atendimento, vendas e administrativo'
+      },
+      {
+        cargo:`Vagas de ${area} — Gupy`, empresa:'Grandes empresas', cidade, salario:'Vários',
+        link:`https://portal.gupy.io/job-search/term=${a}%20${c}`,
+        fonte:'Gupy', descricao:'Usado por grandes empresas — Ambev, iFood, Nubank e outras'
+      },
+      {
+        cargo:`Vagas de ${area} — Empregos.com.br`, empresa:'Múltiplas', cidade, salario:'Vários',
+        link:`https://www.empregos.com.br/vagas/${ch}/${ah}`,
+        fonte:'Empregos.com.br', descricao:'Forte em vagas locais e de pequenas empresas'
+      },
+      {
+        cargo:`Jovem Aprendiz / Estágio — Nube`, empresa:'Nube', cidade, salario:'Bolsa + benefícios',
+        link:`https://www.nube.com.br/candidato/oportunidade/busca?descricao=${a}&cidade=${c}&uf=${e}`,
+        fonte:'Nube', descricao:'Especializado em estágio e jovem aprendiz — primeiro emprego'
+      },
+      {
+        cargo:`Vagas de ${area} — Selpe`, empresa:'Múltiplas', cidade, salario:'Vários',
+        link:`https://www.selpe.com.br/vagas/?s=${a}+${c}`,
+        fonte:'Selpe', descricao:'Portal focado no Norte e Nordeste do Brasil'
+      },
     ]
   };
 }
