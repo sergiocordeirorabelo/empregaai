@@ -1,9 +1,9 @@
 """
-EmpregaAI v3 — Backend Completo
-- Vagas com links diretos funcionais (sem login)
-- Foto no currículo
-- IA de chance de contratação
-- Links corrigidos: Indeed BR, LinkedIn, Catho, InfoJobs, SINE
+EmpregaAI v3 — Backend
+- IA gera currículo rico, LinkedIn completo, email profissional
+- Fallback local também gera conteúdo rico sem IA
+- Vagas com links diretos por cidade/área
+- Foto processada só no navegador (não enviada para API)
 """
 
 import json
@@ -13,109 +13,34 @@ import urllib.parse
 from http.server import BaseHTTPRequestHandler
 
 
-def montar_links_vagas(cidade: str, area: str) -> list:
-    """
-    Gera links diretos 100% funcionais, filtrados pela cidade E área da pessoa.
-    Formato de URL testado e confirmado para cada portal.
-    """
-    area_limpa = area.split(",")[0]
+def limpar_area(area: str) -> str:
     for emoji in ["💼","💻","📊","🎨","🛒","🤝","📦","🏥","📣","🔧"]:
-        area_limpa = area_limpa.replace(emoji, "")
-    area_limpa   = area_limpa.strip()
+        area = area.replace(emoji, "")
+    return area.split(",")[0].strip()
+
+
+def montar_links_vagas(cidade: str, area: str) -> list:
+    area_limpa   = limpar_area(area)
     cidade_limpa = cidade.split(",")[0].strip()
     estado       = cidade.split(",")[1].strip() if "," in cidade else "AM"
 
-    # Variantes para diferentes formatos de URL
-    a_hifenado  = area_limpa.lower().replace(" ", "-")
-    c_hifenado  = cidade_limpa.lower().replace(" ", "-")
-    a_encoded   = urllib.parse.quote(area_limpa)
-    c_encoded   = urllib.parse.quote(cidade_limpa)
-    # Indeed: espaços viram hífens, acento mantido
-    a_indeed    = urllib.parse.quote(area_limpa.lower().replace(" ", "-"))
-    c_indeed    = urllib.parse.quote(f"{cidade_limpa}, {estado.strip()}")
+    ah = urllib.parse.quote(area_limpa.lower().replace(" ", "-"))
+    ch = urllib.parse.quote(cidade_limpa.lower().replace(" ", "-"))
+    a  = urllib.parse.quote(area_limpa)
+    c  = urllib.parse.quote(cidade_limpa)
+    e  = urllib.parse.quote(estado)
+    ai = urllib.parse.quote(area_limpa.lower().replace(" ", "-"))
+    ci = urllib.parse.quote(cidade_limpa + ", " + estado)
 
     return [
-        {
-            # Formato confirmado nos resultados de busca:
-            # br.indeed.com/q-CARGO-l-CIDADE,-UF-vagas.html
-            "cargo":     f"Vagas de {area_limpa} — Indeed Brasil",
-            "empresa":   "Múltiplas empresas",
-            "cidade":    cidade_limpa,
-            "salario":   "Vários",
-            "link":      f"https://br.indeed.com/q-{a_indeed}-l-{c_indeed}-vagas.html",
-            "fonte":     "Indeed Brasil",
-            "descricao": "Maior buscador de vagas do Brasil — já filtrado pela sua cidade"
-        },
-        {
-            # LinkedIn: keywords + location com cidade e UF
-            "cargo":     f"Vagas de {area_limpa} — LinkedIn",
-            "empresa":   "Múltiplas empresas",
-            "cidade":    cidade_limpa,
-            "salario":   "Vários",
-            "link":      f"https://www.linkedin.com/jobs/search/?keywords={a_encoded}&location={c_encoded}%2C%20{urllib.parse.quote(estado.strip())}%2C%20Brasil",
-            "fonte":     "LinkedIn Vagas",
-            "descricao": "Vagas exclusivas que não aparecem em outros portais"
-        },
-        {
-            # Catho: /vagas/CARGO/CIDADE
-            "cargo":     f"Vagas de {area_limpa} — Catho",
-            "empresa":   "Múltiplas empresas",
-            "cidade":    cidade_limpa,
-            "salario":   "Vários",
-            "link":      f"https://www.catho.com.br/vagas/{a_hifenado}/{c_hifenado}/",
-            "fonte":     "Catho",
-            "descricao": "Um dos maiores portais de emprego do Brasil"
-        },
-        {
-            # InfoJobs: /empregos-em-CIDADE/cargo_AREA.aspx
-            "cargo":     f"Vagas de {area_limpa} — InfoJobs",
-            "empresa":   "Múltiplas empresas",
-            "cidade":    cidade_limpa,
-            "salario":   "Vários",
-            "link":      f"https://www.infojobs.com.br/empregos-em-{c_hifenado}/cargo_{a_hifenado}.aspx",
-            "fonte":     "InfoJobs",
-            "descricao": "Ótimo para atendimento, vendas e administrativo"
-        },
-        {
-            # Gupy portal: busca por termo + cidade
-            "cargo":     f"Vagas de {area_limpa} — Gupy",
-            "empresa":   "Grandes empresas",
-            "cidade":    cidade_limpa,
-            "salario":   "Vários",
-            "link":      f"https://portal.gupy.io/job-search/term={a_encoded}%20{c_encoded}",
-            "fonte":     "Gupy",
-            "descricao": "Usado por grandes empresas — Ambev, iFood, Nubank e outras"
-        },
-        {
-            # Empregos.com.br: /vagas/CIDADE/AREA
-            "cargo":     f"Vagas de {area_limpa} — Empregos.com.br",
-            "empresa":   "Múltiplas empresas",
-            "cidade":    cidade_limpa,
-            "salario":   "Vários",
-            "link":      f"https://www.empregos.com.br/vagas/{c_hifenado}/{a_hifenado}",
-            "fonte":     "Empregos.com.br",
-            "descricao": "Forte em vagas locais e de pequenas empresas"
-        },
-        {
-            # Nube: busca por descrição + cidade + UF
-            "cargo":     f"Jovem Aprendiz / Estágio — Nube",
-            "empresa":   "Nube",
-            "cidade":    cidade_limpa,
-            "salario":   "Bolsa + benefícios",
-            "link":      f"https://www.nube.com.br/candidato/oportunidade/busca?descricao={a_encoded}&cidade={c_encoded}&uf={urllib.parse.quote(estado.strip())}",
-            "fonte":     "Nube",
-            "descricao": "Especializado em estágio e jovem aprendiz — primeiro emprego"
-        },
-        {
-            # Selpe: busca simples que funciona por cidade
-            "cargo":     f"Vagas de {area_limpa} — Selpe",
-            "empresa":   "Múltiplas empresas",
-            "cidade":    cidade_limpa,
-            "salario":   "Vários",
-            "link":      f"https://www.selpe.com.br/vagas/?s={a_encoded}+{c_encoded}",
-            "fonte":     "Selpe",
-            "descricao": "Portal focado no Norte e Nordeste do Brasil"
-        },
+        {"cargo": "Vagas de "+area_limpa+" — Indeed Brasil",   "empresa": "Múltiplas", "cidade": cidade_limpa, "salario": "Vários", "link": "https://br.indeed.com/q-"+ai+"-l-"+ci+"-vagas.html",                                                              "fonte": "Indeed Brasil",    "descricao": "Maior buscador do Brasil — filtrado pela sua cidade"},
+        {"cargo": "Vagas de "+area_limpa+" — LinkedIn",        "empresa": "Múltiplas", "cidade": cidade_limpa, "salario": "Vários", "link": "https://www.linkedin.com/jobs/search/?keywords="+a+"&location="+c+"%2C%20"+e+"%2C%20Brasil",                         "fonte": "LinkedIn Vagas",   "descricao": "Vagas exclusivas que não aparecem em outros portais"},
+        {"cargo": "Vagas de "+area_limpa+" — Catho",           "empresa": "Múltiplas", "cidade": cidade_limpa, "salario": "Vários", "link": "https://www.catho.com.br/vagas/"+ah+"/"+ch+"/",                                                                      "fonte": "Catho",            "descricao": "Um dos maiores portais de emprego do Brasil"},
+        {"cargo": "Vagas de "+area_limpa+" — InfoJobs",        "empresa": "Múltiplas", "cidade": cidade_limpa, "salario": "Vários", "link": "https://www.infojobs.com.br/empregos-em-"+ch+"/cargo_"+ah+".aspx",                                                    "fonte": "InfoJobs",         "descricao": "Ótimo para atendimento, vendas e administrativo"},
+        {"cargo": "Vagas de "+area_limpa+" — Gupy",            "empresa": "Grandes",   "cidade": cidade_limpa, "salario": "Vários", "link": "https://portal.gupy.io/job-search/term="+a+"%20"+c,                                                                   "fonte": "Gupy",             "descricao": "Ambev, iFood, Nubank e outras grandes empresas"},
+        {"cargo": "Vagas de "+area_limpa+" — Empregos.com.br", "empresa": "Múltiplas", "cidade": cidade_limpa, "salario": "Vários", "link": "https://www.empregos.com.br/vagas/"+ch+"/"+ah,                                                                        "fonte": "Empregos.com.br",  "descricao": "Forte em vagas locais e pequenas empresas"},
+        {"cargo": "Jovem Aprendiz / Estágio — Nube",           "empresa": "Nube",      "cidade": cidade_limpa, "salario": "Bolsa",  "link": "https://www.nube.com.br/candidato/oportunidade/busca?descricao="+a+"&cidade="+c+"&uf="+e,                              "fonte": "Nube",             "descricao": "Especializado em estágio e jovem aprendiz"},
+        {"cargo": "Vagas de "+area_limpa+" — Selpe",           "empresa": "Múltiplas", "cidade": cidade_limpa, "salario": "Vários", "link": "https://www.selpe.com.br/vagas/?s="+a+"+"+c,                                                                          "fonte": "Selpe",            "descricao": "Portal focado no Norte e Nordeste do Brasil"},
     ]
 
 
@@ -124,54 +49,44 @@ def gerar_com_ia(dados: dict) -> dict:
     if not api_key:
         return fallback_sem_ia(dados)
 
-    area   = dados.get("areas", "Administrativo").split(",")[0].strip()
-    cidade = dados.get("cidade", "Manaus, AM")
-    # foto_b64 removida — foto processada só no navegador, não enviada para API
-    escolaridade = dados.get("escolaridade", "")
+    area          = limpar_area(dados.get("areas", "Administrativo"))
+    cidade        = dados.get("cidade", "Manaus, AM")
+    escolaridade  = dados.get("escolaridade", "")
     ano_conclusao = dados.get("ano_conclusao", "")
-    formacao_completa = f"{escolaridade}" + (f" — {ano_conclusao}" if ano_conclusao else "")
+    formacao      = escolaridade + (" — " + ano_conclusao if ano_conclusao else "")
 
-    prompt = f"""Você é especialista em RH para primeiro emprego no Brasil.
-
-Gere um pacote completo para este candidato:
-Nome: {dados.get('nome')}
-Cidade: {cidade} (Brasil)
-Email: {dados.get('email')}
-Telefone: {dados.get('telefone')}
-Escolaridade: {formacao_completa}
-Área: {dados.get('areas')}
-Habilidades: {dados.get('habilidades')}
-Experiências (com períodos informados pelo usuário — use EXATAMENTE os períodos que ele informou, nunca invente datas): {dados.get('experiencias')}
-Sobre: {dados.get('sobre')}
-Objetivo: {dados.get('objetivo')}
-Tem foto: {'Sim' if foto_b64 else 'Não'}
-
-REGRAS IMPORTANTES:
-- Na seção Formação, use EXATAMENTE: "{formacao_completa}" — nunca coloque outro ano
-- Nas experiências, use EXATAMENTE os períodos que o usuário informou — nunca invente datas
-- Se o usuário não informou período de alguma experiência, deixe sem data
-
-Responda APENAS em JSON válido (sem markdown, sem texto antes ou depois):
-{{
-  "cv_html": "HTML completo do currículo usando classes: cv-name, cv-role, cv-contact, cv-sec, cv-text, cv-skills, cv-skill. Inclua seções: objetivo, formação (com o ano exato informado), habilidades, experiências (com os períodos exatos informados), sobre mim",
-  "linkedin": {{
-    "titulo": "título LinkedIn impactante (máx 120 chars)",
-    "sobre": "texto Sobre do LinkedIn (3 parágrafos, envolvente e profissional)"
-  }},
-  "email_candidatura": "email completo pronto para enviar ao RH (sem assunto)",
-  "dicas_entrevista": ["dica 1 personalizada para {area}", "dica 2", "dica 3", "dica 4", "dica 5"],
-  "analise_contratacao": {{
-    "porcentagem": 72,
-    "nivel": "Bom",
-    "pontos_fortes": ["ponto 1", "ponto 2", "ponto 3"],
-    "pontos_melhorar": ["melhoria 1", "melhoria 2"],
-    "resumo": "frase motivacional personalizada de 1 linha"
-  }}
-}}"""
+    prompt = (
+        "Você é especialista em RH e redação de currículos para primeiro emprego no Brasil.\n"
+        "Sua missão: transformar informações simples em um pacote profissional COMPLETO e RICO.\n\n"
+        "DADOS DO CANDIDATO:\n"
+        f"Nome: {dados.get('nome')}\n"
+        f"Cidade: {cidade}\n"
+        f"Email: {dados.get('email')}\n"
+        f"Telefone: {dados.get('telefone')}\n"
+        f"Escolaridade: {formacao}\n"
+        f"Área desejada: {dados.get('areas')}\n"
+        f"Habilidades: {dados.get('habilidades')}\n"
+        f"Experiências (use EXATAMENTE os períodos informados, nunca invente datas): {dados.get('experiencias')}\n"
+        f"Sobre si mesmo: {dados.get('sobre')}\n"
+        f"Objetivo: {dados.get('objetivo')}\n\n"
+        "INSTRUÇÕES:\n"
+        "1. cv_html: Currículo RICO usando classes cv-name, cv-role, cv-contact, cv-sec, cv-text, cv-skills, cv-skill.\n"
+        f"   - Formação: use EXATAMENTE '{formacao}'\n"
+        "   - Objetivo: 2-3 frases elaboradas\n"
+        "   - Experiências: expanda com bullet points descrevendo atividades profissionais\n"
+        "   - Sobre mim: 2-3 frases elaboradas\n"
+        "2. linkedin.sobre: 3 parágrafos completos e envolventes\n"
+        "3. email_candidatura: email profissional de 3-4 parágrafos completo\n"
+        f"4. dicas_entrevista: 5 dicas detalhadas e específicas para {area}\n\n"
+        "Responda APENAS em JSON válido sem markdown:\n"
+        '{"cv_html":"...","linkedin":{"titulo":"...","sobre":"..."},'
+        '"email_candidatura":"...","dicas_entrevista":["..."],'
+        '"analise_contratacao":{"porcentagem":72,"nivel":"Bom","pontos_fortes":["..."],"pontos_melhorar":["..."],"resumo":"..."}}'
+    )
 
     body = json.dumps({
         "model": "claude-sonnet-4-20250514",
-        "max_tokens": 3500,
+        "max_tokens": 4000,
         "messages": [{"role": "user", "content": prompt}]
     }).encode()
 
@@ -185,66 +100,93 @@ Responda APENAS em JSON válido (sem markdown, sem texto antes ou depois):
         }
     )
 
-    with urllib.request.urlopen(req, timeout=40) as resp:
+    with urllib.request.urlopen(req, timeout=45) as resp:
         result = json.loads(resp.read().decode())
 
     text    = result["content"][0]["text"]
-    cleaned = text.replace("```json","").replace("```","").strip()
-    ia_data = json.loads(cleaned)
-
-    # Injeta foto no cv_html se existir
-    if foto_b64 and "foto_placeholder" in ia_data.get("cv_html",""):
-        ia_data["cv_html"] = ia_data["cv_html"].replace(
-            "foto_placeholder",
-            f'<img src="data:image/jpeg;base64,{foto_b64}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;" />'
-        )
-
-    return ia_data
+    cleaned = text.replace("```json", "").replace("```", "").strip()
+    return json.loads(cleaned)
 
 
 def fallback_sem_ia(dados: dict) -> dict:
-    area = dados.get("areas","Administrativo").split(",")[0].replace("💼","").replace("💻","").strip()
-    nome = dados.get("nome","Candidato")
-    foto_tag = ""  # foto processada no navegador, não no servidor
+    area   = limpar_area(dados.get("areas", "Administrativo"))
+    nome   = dados.get("nome", "Candidato")
+    cidade = dados.get("cidade", "Manaus, AM")
+    habs   = dados.get("habilidades", "Comunicacao, Organizacao")
+    exp    = dados.get("experiencias", "")
+    sobre  = dados.get("sobre", "Pessoa dedicada e proativa")
+    obj    = dados.get("objetivo", "Iniciar carreira profissional")
+    esc    = dados.get("escolaridade", "Ensino medio completo")
+    ano    = dados.get("ano_conclusao", "")
+    tel    = dados.get("telefone", "")
+    email  = dados.get("email", "")
+    formacao = esc + (" — " + ano if ano else "")
+    hab1   = habs.split(",")[0].strip() if habs else "comunicacao"
+    chips  = "".join('<span class="cv-skill">'+h.strip()+'</span>' for h in habs.split(",") if h.strip())
+
+    # Expande experiencias em bullets
+    exp_html = ""
+    if exp and exp.strip() and exp.strip() not in ("Sem experiencia formal", "Sem experiência formal"):
+        for linha in [l.strip() for l in exp.replace(";", "\n").split("\n") if l.strip()]:
+            exp_html += "<p style='margin:0 0 8px 0'>• " + linha + "</p>"
+    else:
+        exp_html = "<p style='margin:0 0 8px 0'>• Estou iniciando minha trajetória profissional com disposição para aprender e contribuir.</p>"
+
+    cv_html = (
+        "<div style='overflow:hidden'>"
+        "<div class='cv-name'>" + nome + "</div>"
+        "<div class='cv-role'>💼 " + area + " · Primeiro emprego</div>"
+        "<div class='cv-contact'><span>📍 " + cidade + "</span><span>📧 " + email + "</span><span>📱 " + tel + "</span></div>"
+        "</div>"
+        "<div class='cv-sec'>Objetivo Profissional</div>"
+        "<div class='cv-text'>Busco minha primeira oportunidade na área de " + area + " para desenvolver minhas habilidades e contribuir com resultados positivos. " + obj + " Tenho grande disposição para aprender, crescer e superar desafios com dedicação e comprometimento.</div>"
+        "<div class='cv-sec'>Formação Acadêmica</div>"
+        "<div class='cv-text'><strong>" + formacao + "</strong></div>"
+        "<div class='cv-sec'>Habilidades</div>"
+        "<div class='cv-skills'>" + chips + "</div>"
+        "<div class='cv-sec'>Experiências e Atividades</div>"
+        "<div class='cv-text'>" + exp_html + "</div>"
+        "<div class='cv-sec'>Perfil Pessoal</div>"
+        "<div class='cv-text'>" + sobre + " Sou comprometido com meu desenvolvimento profissional e tenho facilidade para trabalhar em equipe, comunicação clara e boa capacidade de adaptação a novos ambientes e desafios.</div>"
+    )
+
+    linkedin_sobre = (
+        "Olá! Sou " + nome + ", de " + cidade + ", buscando minha primeira oportunidade em " + area + ".\n\n"
+        "Tenho " + formacao.lower() + " e habilidades em " + habs + ". "
+        "Sou uma pessoa " + sobre.lower().rstrip('.') + " e estou comprometido com meu crescimento profissional.\n\n"
+        "Estou disponível para estágio, jovem aprendiz ou primeiro emprego em " + area + ". "
+        "Se você tem uma oportunidade ou quer trocar experiências, vamos conversar!"
+    )
+
+    email_cand = (
+        "Prezado(a) Recrutador(a),\n\n"
+        "Venho manifestar meu interesse em integrar a equipe de vocês na área de " + area + ". "
+        "Sou " + nome + ", residente em " + cidade + ", e estou em busca da minha primeira oportunidade profissional.\n\n"
+        "Possuo " + formacao.lower() + " e desenvolvi habilidades em " + habs + ". "
+        + sobre + " Acredito que minha dedicação e vontade de aprender podem agregar valor à empresa desde o primeiro dia.\n\n"
+        "Estou disponível para entrevista no horário mais conveniente. Agradeço a atenção e aguardo retorno.\n\n"
+        "Atenciosamente,\n" + nome + "\n" + tel + "\n" + email
+    )
+
+    dicas = [
+        "Pesquise tudo sobre a empresa antes da entrevista: site, redes sociais, o que a empresa faz. Mencione algo que você viu — isso impressiona muito o recrutador de " + area + ".",
+        "Prepare sua resposta para 'Fale sobre você': diga seu nome, formação (" + esc + "), principais habilidades em " + area + " e por que quer trabalhar nessa empresa. Ensaie em voz alta.",
+        "Destaque sua habilidade em " + hab1 + " com um exemplo real — mesmo da escola, família ou voluntariado. Exemplos concretos valem mais do que teoria.",
+        "Chegue 15 minutos antes, com roupa adequada (social ou smart casual), sorriso e postura confiante. A primeira impressão começa antes de você abrir a boca.",
+        "Ao final pergunte: 'Quais são os próximos passos do processo seletivo?' Isso demonstra interesse, organização e maturidade profissional."
+    ]
 
     return {
-        "cv_html": f"""
-            <div style="overflow:hidden">{foto_tag}
-            <div class="cv-name">{nome}</div>
-            <div class="cv-role">{area} · Primeiro emprego</div>
-            <div class="cv-contact">
-                <span>📍 {dados.get('cidade')}</span>
-                <span>📧 {dados.get('email')}</span>
-                <span>📱 {dados.get('telefone')}</span>
-            </div></div>
-            <div class="cv-sec">Objetivo</div>
-            <div class="cv-text">{dados.get('objetivo')}</div>
-            <div class="cv-sec">Formação</div>
-            <div class="cv-text"><strong>{dados.get('escolaridade')}</strong></div>
-            <div class="cv-sec">Habilidades</div>
-            <div class="cv-skills">{''.join(f'<span class="cv-skill">{h.strip()}</span>' for h in dados.get('habilidades','').split(','))}</div>
-            <div class="cv-sec">Experiências</div>
-            <div class="cv-text">{dados.get('experiencias')}</div>
-            <div class="cv-sec">Sobre mim</div>
-            <div class="cv-text">{dados.get('sobre')}</div>""",
-        "linkedin": {
-            "titulo": f"{area} | Buscando primeiro emprego | {dados.get('cidade')}",
-            "sobre":  f"{dados.get('sobre')} Busco primeira oportunidade em {area}."
-        },
-        "email_candidatura": f"Prezado(a) recrutador(a),\n\nVenho me candidatar à vaga de {area}.\n{dados.get('sobre')}\n\nAtenciosamente,\n{nome}\n{dados.get('telefone')}",
-        "dicas_entrevista": [
-            f"Prepare exemplos de {dados.get('habilidades','').split(',')[0].strip()}",
-            "Chegue 10 minutos antes",
-            "Pesquise a empresa antes",
-            "Prepare resposta para 'fale sobre você'",
-            "Pergunte sobre os próximos passos"
-        ],
+        "cv_html":             cv_html,
+        "linkedin":            {"titulo": area + " | Buscando primeiro emprego | " + cidade, "sobre": linkedin_sobre},
+        "email_candidatura":   email_cand,
+        "dicas_entrevista":    dicas,
         "analise_contratacao": {
-            "porcentagem": 65,
-            "nivel": "Bom",
-            "pontos_fortes": ["Disposição para aprender", "Habilidades práticas", "Objetivo claro"],
-            "pontos_melhorar": ["Adicionar mais experiências", "Completar perfil LinkedIn"],
-            "resumo": f"Seu perfil tem boas chances em {area} — continue melhorando!"
+            "porcentagem":    68,
+            "nivel":          "Bom",
+            "pontos_fortes":  ["Disposição para aprender", "Habilidades em " + hab1, "Objetivo profissional claro"],
+            "pontos_melhorar":["Detalhar experiências com datas e resultados", "Criar e completar o LinkedIn"],
+            "resumo":         "Você está no caminho certo para conseguir sua primeira vaga em " + area + "!"
         }
     }
 
@@ -259,25 +201,19 @@ class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         length = int(self.headers.get("Content-Length", 0))
         body   = json.loads(self.rfile.read(length))
-
         try:
             ia    = gerar_com_ia(body)
-            vagas = montar_links_vagas(
-                cidade = body.get("cidade", "Manaus, AM"),
-                area   = body.get("areas",  "Administrativo")
-            )
-
+            vagas = montar_links_vagas(cidade=body.get("cidade","Manaus, AM"), area=body.get("areas","Administrativo"))
             self._json(200, {
-                "cv_html":           ia.get("cv_html", ""),
-                "linkedin":          ia.get("linkedin", {}),
-                "email_candidatura": ia.get("email_candidatura", ""),
-                "dicas_entrevista":  ia.get("dicas_entrevista", []),
+                "cv_html":             ia.get("cv_html", ""),
+                "linkedin":            ia.get("linkedin", {}),
+                "email_candidatura":   ia.get("email_candidatura", ""),
+                "dicas_entrevista":    ia.get("dicas_entrevista", []),
                 "analise_contratacao": ia.get("analise_contratacao", {}),
-                "vagas":             vagas
+                "vagas":               vagas
             })
-
-        except Exception as e:
-            self._json(500, {"erro": str(e)})
+        except Exception as ex:
+            self._json(500, {"erro": str(ex)})
 
     def _cors(self):
         self.send_header("Access-Control-Allow-Origin",  "*")
