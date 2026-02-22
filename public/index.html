@@ -899,16 +899,44 @@ async function gerarPrevia() {
   scrollToForm();
   animarLoader();
 
+  // DEBUG: mostra status da API no console
+  var apiStatus = 'nao_chamada';
   try {
     var resp = await fetch('/api/gerar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dados)
     });
-    dadosGerados = await resp.json();
-  } catch(e) {
+    apiStatus = 'http_' + resp.status;
+    var apiResult = await resp.json();
+    console.log('[EmpregaAI] API response:', JSON.stringify(apiResult).substring(0, 200));
+
+    if (apiResult.erro || !apiResult.cv_html) {
+      // API retornou erro — mostra no console e usa fallback
+      console.warn('[EmpregaAI] API erro:', apiResult.erro || 'sem cv_html');
+      var fb = fallbackLocal(dados);
+      dadosGerados = {
+        cv_html:             apiResult.cv_html            || fb.cv_html,
+        linkedin:            apiResult.linkedin            || fb.linkedin,
+        email_candidatura:   apiResult.email_candidatura  || fb.email_candidatura,
+        dicas_entrevista:    apiResult.dicas_entrevista    || fb.dicas_entrevista,
+        analise_contratacao: apiResult.analise_contratacao || fb.analise_contratacao,
+        vagas:               apiResult.vagas               || fb.vagas
+      };
+    } else {
+      console.log('[EmpregaAI] API OK! cv_html length:', (apiResult.cv_html||'').length);
+      var fb = fallbackLocal(dados);
+      dadosGerados = apiResult;
+      if (!dadosGerados.vagas || dadosGerados.vagas.length === 0) {
+        dadosGerados.vagas = fb.vagas;
+      }
+    }
+  } catch(ex) {
+    console.error('[EmpregaAI] Fetch exception:', ex.message);
+    apiStatus = 'exception: ' + ex.message;
     dadosGerados = fallbackLocal(dados);
   }
+  console.log('[EmpregaAI] apiStatus:', apiStatus);
 
   await new Promise(function(r) { setTimeout(r, 800); });
   mostrarPrevia(dados, dadosGerados);
@@ -1072,46 +1100,101 @@ function imprimirCV() {
 
 // --- FALLBACK LOCAL ---
 function fallbackLocal(d) {
-  var area   = d.areas.split(',')[0].replace(/[^\w\s]/g,'').trim();
+  var area   = d.areas.split(',')[0].replace(/[^\w\s\u00C0-\u00FF]/g,'').trim();
   var cidade = d.cidade.split(',')[0].trim();
   var estado = d.cidade.split(',')[1] ? d.cidade.split(',')[1].trim() : 'AM';
+  var habs   = d.habilidades || 'Comunicação, Organização';
+  var sobre  = d.sobre || 'Pessoa dedicada e proativa';
+  var obj    = d.objetivo || 'Iniciar carreira profissional';
+  var esc    = d.escolaridade || 'Ensino médio completo';
+  var ano    = d.ano_conclusao || '';
+  var formacao = esc + (ano ? ' — ' + ano : '');
+  var hab1   = habs.split(',')[0].trim();
+  var chips  = habs.split(',').map(function(h){ return '<span class="cv-skill">'+h.trim()+'</span>'; }).join('');
+
+  // Expande experiências em bullets
+  var expHtml = '';
+  var exp = d.experiencias || '';
+  if (exp && exp.trim() && exp.trim() !== 'Sem experiência formal') {
+    exp.replace(/;/g,'\n').split('\n').forEach(function(linha) {
+      if (linha.trim()) expHtml += "<p style='margin:0 0 8px 0'>• " + linha.trim() + "</p>";
+    });
+  } else {
+    expHtml = "<p style='margin:0 0 8px 0'>• Estou iniciando minha trajetória profissional com disposição para aprender e contribuir.</p>";
+  }
+
+  var cvHtml = (
+    "<div style='overflow:hidden'>" +
+    "<div class='cv-name'>" + d.nome + "</div>" +
+    "<div class='cv-role'>💼 " + area + " · Primeiro emprego</div>" +
+    "<div class='cv-contact'><span>📍 " + d.cidade + "</span><span>📧 " + d.email + "</span><span>📱 " + d.telefone + "</span></div>" +
+    "</div>" +
+    "<div class='cv-sec'>Objetivo Profissional</div>" +
+    "<div class='cv-text'>Busco minha primeira oportunidade na área de " + area + " para desenvolver minhas habilidades profissionais e contribuir com resultados positivos para a empresa. " + obj + " Tenho grande disposição para aprender, crescer e superar desafios com dedicação e comprometimento.</div>" +
+    "<div class='cv-sec'>Formação Acadêmica</div>" +
+    "<div class='cv-text'><strong>" + formacao + "</strong></div>" +
+    "<div class='cv-sec'>Habilidades</div>" +
+    "<div class='cv-skills'>" + chips + "</div>" +
+    "<div class='cv-sec'>Experiências e Atividades</div>" +
+    "<div class='cv-text'>" + expHtml + "</div>" +
+    "<div class='cv-sec'>Perfil Pessoal</div>" +
+    "<div class='cv-text'>" + sobre + " Sou comprometido com meu desenvolvimento profissional e tenho facilidade para trabalhar em equipe, comunicação clara e boa capacidade de adaptação a novos ambientes e desafios.</div>"
+  );
+
+  var linkedinSobre = (
+    "Olá! Sou " + d.nome + ", de " + d.cidade + ", buscando minha primeira oportunidade em " + area + ".\n\n" +
+    "Tenho " + formacao.toLowerCase() + " e habilidades em " + habs + ". " +
+    "Sou uma pessoa " + sobre.toLowerCase().replace(/\.$/,'') + " e estou comprometido com meu crescimento profissional.\n\n" +
+    "Estou disponível para estágio, jovem aprendiz ou primeiro emprego em " + area + ". " +
+    "Se você tem uma oportunidade ou quer trocar experiências, vamos conversar!"
+  );
+
+  var emailCand = (
+    "Prezado(a) Recrutador(a),\n\n" +
+    "Venho manifestar meu interesse em integrar a equipe de vocês na área de " + area + ". " +
+    "Sou " + d.nome + ", residente em " + d.cidade + ", e estou em busca da minha primeira oportunidade profissional.\n\n" +
+    "Possuo " + formacao.toLowerCase() + " e desenvolvi habilidades em " + habs + ". " +
+    sobre + " Acredito que minha dedicação e vontade de aprender podem agregar valor à empresa desde o primeiro dia.\n\n" +
+    "Estou disponível para entrevista no horário mais conveniente. Agradeço a atenção e aguardo retorno.\n\n" +
+    "Atenciosamente,\n" + d.nome + "\n" + d.telefone + "\n" + d.email
+  );
+
+  var dicas = [
+    "Pesquise tudo sobre a empresa antes da entrevista: site, redes sociais, o que ela faz. Mencione algo que viu — isso impressiona o recrutador de " + area + ".",
+    "Prepare sua resposta para 'Fale sobre você': diga seu nome, formação (" + esc + "), principais habilidades em " + area + " e por que quer trabalhar nessa empresa. Ensaie em voz alta.",
+    "Destaque sua habilidade em " + hab1 + " com um exemplo real — mesmo da escola ou família. Exemplos concretos valem mais do que teoria.",
+    "Chegue 15 minutos antes, com roupa adequada, sorriso e postura confiante. A primeira impressão começa antes de você abrir a boca.",
+    "Ao final pergunte: 'Quais são os próximos passos?' Isso demonstra interesse, organização e maturidade profissional."
+  ];
+
   var a  = encodeURIComponent(area);
   var c  = encodeURIComponent(cidade);
   var e  = encodeURIComponent(estado);
   var ah = encodeURIComponent(area.toLowerCase().replace(/ /g,'-'));
   var ch = encodeURIComponent(cidade.toLowerCase().replace(/ /g,'-'));
-  var ci = encodeURIComponent(cidade + ', ' + estado);
   var ai = encodeURIComponent(area.toLowerCase().replace(/ /g,'-'));
+  var ci = encodeURIComponent(cidade + ', ' + estado);
 
   return {
-    cv_html: '',
-    linkedin: {
-      titulo: area + ' | Buscando primeiro emprego | ' + d.cidade,
-      sobre:  d.sobre + ' Busco primeira oportunidade em ' + area + '.'
-    },
-    email_candidatura: 'Prezado(a) recrutador(a),\n\nVenho me candidatar à vaga de ' + area + '.\n' + d.sobre.substring(0,100) + '\n\nAtenciosamente,\n' + d.nome + '\n' + d.telefone,
-    dicas_entrevista: [
-      'Prepare exemplos de ' + d.habilidades.split(',')[0].trim(),
-      'Chegue 10 minutos antes',
-      'Pesquise a empresa antes da entrevista',
-      "Prepare sua resposta para 'fale sobre você'",
-      'Pergunte sobre os próximos passos ao final'
-    ],
+    cv_html:           cvHtml,
+    linkedin:          { titulo: area + ' | Buscando primeiro emprego | ' + d.cidade, sobre: linkedinSobre },
+    email_candidatura: emailCand,
+    dicas_entrevista:  dicas,
     analise_contratacao: {
       porcentagem: 68, nivel: 'Bom',
-      pontos_fortes: ['Disposição para aprender', 'Objetivo claro', 'Habilidades práticas'],
-      pontos_melhorar: ['Adicionar mais experiências', 'Completar perfil LinkedIn'],
-      resumo: 'Seu perfil tem boas chances em ' + area + ' — continue melhorando!'
+      pontos_fortes:   ['Disposição para aprender', 'Habilidades em ' + hab1, 'Objetivo profissional claro'],
+      pontos_melhorar: ['Detalhar experiências com datas e resultados', 'Criar e completar o LinkedIn'],
+      resumo: 'Você está no caminho certo para conseguir sua primeira vaga em ' + area + '!'
     },
     vagas: [
-      { cargo:'Vagas de '+area+' — Indeed Brasil', empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://br.indeed.com/q-'+ai+'-l-'+ci+'-vagas.html', fonte:'Indeed Brasil', descricao:'Maior buscador do Brasil — filtrado pela sua cidade' },
-      { cargo:'Vagas de '+area+' — LinkedIn',      empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://www.linkedin.com/jobs/search/?keywords='+a+'&location='+c+'%2C%20'+e+'%2C%20Brasil', fonte:'LinkedIn Vagas', descricao:'Vagas exclusivas que não aparecem em outros portais' },
-      { cargo:'Vagas de '+area+' — Catho',         empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://www.catho.com.br/vagas/'+ah+'/'+ch+'/', fonte:'Catho', descricao:'Um dos maiores portais do Brasil' },
-      { cargo:'Vagas de '+area+' — InfoJobs',      empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://www.infojobs.com.br/empregos-em-'+ch+'/cargo_'+ah+'.aspx', fonte:'InfoJobs', descricao:'Ótimo para atendimento, vendas e administrativo' },
-      { cargo:'Vagas de '+area+' — Gupy',          empresa:'Grandes empresas', cidade:cidade, salario:'Vários', link:'https://portal.gupy.io/job-search/term='+a+'%20'+c, fonte:'Gupy', descricao:'Ambev, iFood, Nubank e outras grandes empresas' },
-      { cargo:'Vagas de '+area+' — Empregos.com.br',empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://www.empregos.com.br/vagas/'+ch+'/'+ah, fonte:'Empregos.com.br', descricao:'Forte em vagas locais e de pequenas empresas' },
-      { cargo:'Jovem Aprendiz / Estágio — Nube',   empresa:'Nube', cidade:cidade, salario:'Bolsa + benefícios', link:'https://www.nube.com.br/candidato/oportunidade/busca?descricao='+a+'&cidade='+c+'&uf='+e, fonte:'Nube', descricao:'Especializado em estágio e jovem aprendiz' },
-      { cargo:'Vagas de '+area+' — Selpe',         empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://www.selpe.com.br/vagas/?s='+a+'+'+c, fonte:'Selpe', descricao:'Portal focado no Norte e Nordeste do Brasil' }
+      { cargo:'Vagas de '+area+' — Indeed Brasil',    empresa:'Múltiplas', cidade:cidade, salario:'Vários',          link:'https://br.indeed.com/q-'+ai+'-l-'+ci+'-vagas.html',                                                             fonte:'Indeed Brasil',    descricao:'Maior buscador do Brasil — filtrado pela sua cidade' },
+      { cargo:'Vagas de '+area+' — LinkedIn',         empresa:'Múltiplas', cidade:cidade, salario:'Vários',          link:'https://www.linkedin.com/jobs/search/?keywords='+a+'&location='+c+'%2C%20'+e+'%2C%20Brasil',                     fonte:'LinkedIn Vagas',   descricao:'Vagas exclusivas que não aparecem em outros portais' },
+      { cargo:'Vagas de '+area+' — Catho',            empresa:'Múltiplas', cidade:cidade, salario:'Vários',          link:'https://www.catho.com.br/vagas/'+ah+'/'+ch+'/',                                                                  fonte:'Catho',            descricao:'Um dos maiores portais de emprego do Brasil' },
+      { cargo:'Vagas de '+area+' — InfoJobs',         empresa:'Múltiplas', cidade:cidade, salario:'Vários',          link:'https://www.infojobs.com.br/empregos-em-'+ch+'/cargo_'+ah+'.aspx',                                               fonte:'InfoJobs',         descricao:'Ótimo para atendimento, vendas e administrativo' },
+      { cargo:'Vagas de '+area+' — Gupy',             empresa:'Grandes',   cidade:cidade, salario:'Vários',          link:'https://portal.gupy.io/job-search/term='+a+'%20'+c,                                                              fonte:'Gupy',             descricao:'Ambev, iFood, Nubank e outras grandes empresas' },
+      { cargo:'Vagas de '+area+' — Empregos.com.br',  empresa:'Múltiplas', cidade:cidade, salario:'Vários',          link:'https://www.empregos.com.br/vagas/'+ch+'/'+ah,                                                                   fonte:'Empregos.com.br',  descricao:'Forte em vagas locais e de pequenas empresas' },
+      { cargo:'Jovem Aprendiz / Estágio — Nube',      empresa:'Nube',      cidade:cidade, salario:'Bolsa+benefícios',link:'https://www.nube.com.br/candidato/oportunidade/busca?descricao='+a+'&cidade='+c+'&uf='+e,                        fonte:'Nube',             descricao:'Especializado em estágio e jovem aprendiz' },
+      { cargo:'Vagas de '+area+' — Selpe',            empresa:'Múltiplas', cidade:cidade, salario:'Vários',          link:'https://www.selpe.com.br/vagas/?s='+a+'+'+c,                                                                    fonte:'Selpe',            descricao:'Portal focado no Norte e Nordeste do Brasil' }
     ]
   };
 }
