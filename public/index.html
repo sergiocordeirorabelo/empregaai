@@ -472,15 +472,18 @@ footer span { color:var(--accent); }
       <!-- FOTO UPLOAD -->
       <div class="field">
         <label>📸 Sua foto (opcional mas recomendado — aumenta 40% as chances)</label>
-        <label for="foto-input" class="foto-upload-area" id="foto-area">
-          <input type="file" id="foto-input" accept="image/jpeg,image/png,image/webp" onchange="processarFoto(this)">
+        <div class="foto-upload-area" id="foto-area">
+          <input type="file" id="foto-input" accept="image/jpeg,image/png,image/webp" onchange="processarFoto(this)" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;">
           <img id="foto-preview" class="foto-preview" src="" alt="Preview">
           <div id="foto-placeholder">
             <div class="foto-icon">📷</div>
-            <div class="foto-texto">Clique para adicionar sua foto</div>
-            <div class="foto-subtexto">JPG ou PNG · Fundo neutro recomendado</div>
+            <div class="foto-texto">Clique no botão abaixo para adicionar sua foto</div>
+            <div class="foto-subtexto">JPG ou PNG · Opcional</div>
           </div>
-        </label>
+          <button type="button" onclick="document.getElementById('foto-input').click()" style="margin-top:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;padding:8px 20px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">
+            📷 Escolher foto
+          </button>
+        </div>
       </div>
 
       <div class="field-row">
