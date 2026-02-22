@@ -469,16 +469,13 @@ footer span { color:var(--accent); }
     <div class="form-step active" id="step-1">
       <div class="sh"><h2>Sobre você 👋</h2><p>Informações básicas para o currículo</p></div>
 
-      <!-- FOTO: input normal visível só via botão dedicado -->
       <div class="field">
-        <label>📸 Foto para o currículo <span style="color:rgba(255,255,255,.35);font-weight:400">(opcional)</span></label>
-        <div id="foto-area" style="border:2px dashed rgba(255,255,255,.2);border-radius:12px;padding:20px;text-align:center;">
-          <input type="file" id="foto-input" accept="image/*" style="display:none" onchange="processarFoto(event)">
-          <img id="foto-preview" style="display:none;width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;margin:0 auto 10px;display:none;" alt="Foto">
-          <p id="foto-nome" style="color:rgba(255,255,255,.5);font-size:13px;margin-bottom:10px">Nenhuma foto selecionada</p>
-          <button type="button" onclick="document.getElementById('foto-input').click()" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:white;padding:9px 22px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;">
-            📷 Escolher foto
-          </button>
+        <label>📸 Foto <span style="color:rgba(255,255,255,.35);font-weight:400">(opcional — aumenta 40% as chances)</span></label>
+        <div style="border:2px dashed rgba(255,255,255,.2);border-radius:12px;padding:20px;text-align:center;">
+          <img id="foto-preview" src="" alt="" style="display:none;width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;margin:0 auto 10px;">
+          <div id="foto-nome" style="color:rgba(255,255,255,.4);font-size:13px;margin-bottom:12px">Nenhuma foto selecionada</div>
+          <button type="button" id="btn-foto" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:white;padding:9px 22px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">📷 Escolher foto</button>
+          <input type="file" id="foto-input" accept="image/*" style="display:none">
         </div>
       </div>
 
@@ -508,7 +505,7 @@ footer span { color:var(--accent); }
           <input type="text" id="ano_conclusao" placeholder="Ex: 2024, 2025, cursando...">
         </div>
       </div>
-      <div class="form-nav"><div></div><button class="btn-next" onclick="goStep(2)">Próximo →</button></div>
+      <div class="form-nav"><div></div><button type="button" class="btn-next" id="btn-step1-next">Próximo →</button></div>
     </div>
 
     <!-- STEP 2 -->
@@ -516,29 +513,21 @@ footer span { color:var(--accent); }
       <div class="sh"><h2>Área de interesse 🎯</h2><p>Onde você quer trabalhar? Isso filtra as vagas para você.</p></div>
       <div class="field"><label>Área desejada</label>
         <div class="chips" id="areas">
-          <div class="chip" onclick="toggleChip(this)">💼 Administrativo</div>
-          <div class="chip" onclick="toggleChip(this)">💻 Tecnologia / TI</div>
-          <div class="chip" onclick="toggleChip(this)">📊 Finanças</div>
-          <div class="chip" onclick="toggleChip(this)">🎨 Design / Criativo</div>
-          <div class="chip" onclick="toggleChip(this)">🛒 Vendas / Comercial</div>
-          <div class="chip" onclick="toggleChip(this)">🤝 Atendimento</div>
-          <div class="chip" onclick="toggleChip(this)">📦 Logística</div>
-          <div class="chip" onclick="toggleChip(this)">🏥 Saúde</div>
-          <div class="chip" onclick="toggleChip(this)">📣 Marketing</div>
-          <div class="chip" onclick="toggleChip(this)">🔧 Técnico</div>
-        </div>
-      </div>
-      <div class="field" style="margin-top:20px"><label>Regime preferido</label>
-        <div class="chips">
-          <div class="chip" onclick="toggleSingle(this)">🏢 Presencial</div>
-          <div class="chip" onclick="toggleSingle(this)">🏠 Remoto</div>
-          <div class="chip" onclick="toggleSingle(this)">🔀 Híbrido</div>
-          <div class="chip" onclick="toggleSingle(this)">💡 Tanto faz</div>
+          <div class="chip">💼 Administrativo</div>
+          <div class="chip">💻 Tecnologia / TI</div>
+          <div class="chip">📊 Finanças</div>
+          <div class="chip">🎨 Design / Criativo</div>
+          <div class="chip">🛒 Vendas / Comercial</div>
+          <div class="chip">🤝 Atendimento</div>
+          <div class="chip">📦 Logística</div>
+          <div class="chip">🏥 Saúde</div>
+          <div class="chip">📣 Marketing</div>
+          <div class="chip">🔧 Técnico</div>
         </div>
       </div>
       <div class="form-nav">
-        <button class="btn-back" onclick="goStep(1)">← Voltar</button>
-        <button class="btn-next" onclick="goStep(3)">Próximo →</button>
+        <button type="button" class="btn-back" id="btn-step2-back">← Voltar</button>
+        <button type="button" class="btn-next" id="btn-step2-next">Próximo →</button>
       </div>
     </div>
 
@@ -547,18 +536,18 @@ footer span { color:var(--accent); }
       <div class="sh"><h2>Suas habilidades 💪</h2><p>Tudo que você sabe conta!</p></div>
       <div class="field"><label>Habilidades</label>
         <div class="chips" id="habilidades">
-          <div class="chip" onclick="toggleChip(this)">📝 Word / Excel</div>
-          <div class="chip" onclick="toggleChip(this)">📱 Redes sociais</div>
-          <div class="chip" onclick="toggleChip(this)">🖥️ Informática</div>
-          <div class="chip" onclick="toggleChip(this)">🗣️ Comunicação</div>
-          <div class="chip" onclick="toggleChip(this)">👥 Trabalho em equipe</div>
-          <div class="chip" onclick="toggleChip(this)">🎓 Cursos online</div>
-          <div class="chip" onclick="toggleChip(this)">🤝 Atendimento ao público</div>
-          <div class="chip" onclick="toggleChip(this)">🔧 Habilidade manual</div>
-          <div class="chip" onclick="toggleChip(this)">🌐 Inglês básico</div>
-          <div class="chip" onclick="toggleChip(this)">🚗 CNH</div>
-          <div class="chip" onclick="toggleChip(this)">🎨 Edição foto/vídeo</div>
-          <div class="chip" onclick="toggleChip(this)">📊 Organização</div>
+          <div class="chip">📝 Word / Excel</div>
+          <div class="chip">📱 Redes sociais</div>
+          <div class="chip">🖥️ Informática</div>
+          <div class="chip">🗣️ Comunicação</div>
+          <div class="chip">👥 Trabalho em equipe</div>
+          <div class="chip">🎓 Cursos online</div>
+          <div class="chip">🤝 Atendimento ao público</div>
+          <div class="chip">🔧 Habilidade manual</div>
+          <div class="chip">🌐 Inglês básico</div>
+          <div class="chip">🚗 CNH</div>
+          <div class="chip">🎨 Edição foto/vídeo</div>
+          <div class="chip">📊 Organização</div>
         </div>
       </div>
       <div class="field" style="margin-top:20px">
@@ -566,15 +555,15 @@ footer span { color:var(--accent); }
         <div style="background:rgba(244,169,53,.12);border:1px solid rgba(244,169,53,.3);border-radius:8px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:8px">
           <span style="font-size:16px;flex-shrink:0">⚠️</span>
           <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.6">
-            <strong style="color:var(--accent3)">Importante:</strong> sempre informe o <strong style="color:white">período</strong> de cada atividade.<br>
-            Ex: <em>"Auxiliei no comércio da família de Janeiro/2022 a Março/2024"</em> ou <em>"Fiz voluntariado em 2023"</em>
+            <strong style="color:var(--accent3)">Importante:</strong> informe o <strong style="color:white">período</strong> de cada atividade.<br>
+            Ex: <em>"Auxiliei no comércio da família de jan/2022 a mar/2024"</em>
           </div>
         </div>
-        <textarea id="experiencias" placeholder="Ex: De jan/2022 a mar/2024 — ajudei no comércio da família (atendimento e caixa)&#10;Em 2023 — voluntariado na igreja (organização de eventos)&#10;De ago/2024 até hoje — ajudo amigos com informática e redes sociais" style="min-height:120px"></textarea>
+        <textarea id="experiencias" placeholder="Ex: De jan/2022 a mar/2024 — ajudei no comércio da família&#10;Em 2023 — voluntariado na igreja" style="min-height:120px"></textarea>
       </div>
       <div class="form-nav">
-        <button class="btn-back" onclick="goStep(2)">← Voltar</button>
-        <button class="btn-next" onclick="goStep(4)">Próximo →</button>
+        <button type="button" class="btn-back" id="btn-step3-back">← Voltar</button>
+        <button type="button" class="btn-next" id="btn-step3-next">Próximo →</button>
       </div>
     </div>
 
@@ -590,38 +579,37 @@ footer span { color:var(--accent); }
         <textarea id="objetivo" placeholder="Ex: Quero trabalhar com atendimento para desenvolver minha comunicação..." style="min-height:80px"></textarea>
       </div>
       <div class="form-nav">
-        <button class="btn-back" onclick="goStep(3)">← Voltar</button>
-        <button class="btn-next" onclick="gerarPrevia()" id="btn-gerar">✨ Ver prévia grátis</button>
+        <button type="button" class="btn-back" id="btn-step4-back">← Voltar</button>
+        <button type="button" class="btn-next" id="btn-gerar">✨ Ver prévia grátis</button>
       </div>
     </div>
 
     <!-- LOADING -->
-    <div id="loading-screen">
+    <div id="loading-screen" style="display:none;text-align:center;padding:60px 0;">
       <div class="loader-ring"></div>
       <div class="loader-title">A IA está trabalhando...</div>
       <div class="loader-sub">Preparando sua prévia completa ☕</div>
       <div class="loader-items">
         <div class="li active" id="li-1"><div class="li-dot"></div>Analisando seu perfil</div>
-        <div class="li" id="li-2"><div class="li-dot"></div>Gerando currículo com foto</div>
+        <div class="li" id="li-2"><div class="li-dot"></div>Gerando currículo</div>
         <div class="li" id="li-3"><div class="li-dot"></div>Calculando sua chance de contratação</div>
         <div class="li" id="li-4"><div class="li-dot"></div>Buscando vagas em 8 portais</div>
-        <div class="li" id="li-5"><div class="li-dot"></div>Montando perfil LinkedIn e email</div>
+        <div class="li" id="li-5"><div class="li-dot"></div>Montando LinkedIn e email</div>
       </div>
     </div>
 
     <!-- PRÉVIA BLOQUEADA -->
-    <div id="preview-screen">
+    <div id="preview-screen" style="display:none;">
       <div class="preview-header">
         <div class="preview-badge">👀 Prévia gratuita</div>
         <div class="preview-title" id="prev-title">Olha como ficou!</div>
         <div style="color:rgba(255,255,255,.4);font-size:14px">Desbloqueie por R$20 para acessar tudo</div>
       </div>
 
-      <!-- METER DE CONTRATAÇÃO (visível na prévia!) -->
       <div class="meter-card" id="meter-card">
         <div class="meter-title">🎯 Sua chance de contratação — calculada pela IA</div>
         <div class="meter-row">
-          <div class="meter-circle" id="meter-circle">
+          <div class="meter-circle" id="meter-circle" style="--pct:0%">
             <div class="meter-num" id="meter-num">0%</div>
           </div>
           <div class="meter-info">
@@ -630,35 +618,27 @@ footer span { color:var(--accent); }
           </div>
         </div>
         <div class="meter-pontos">
-          <div class="mp-card">
-            <div class="mp-label forte">✅ Pontos fortes</div>
-            <div id="pontos-fortes"></div>
-          </div>
-          <div class="mp-card">
-            <div class="mp-label melhor">📈 Para melhorar</div>
-            <div id="pontos-melhorar"></div>
-          </div>
+          <div class="mp-card"><div class="mp-label forte">✅ Pontos fortes</div><div id="pontos-fortes"></div></div>
+          <div class="mp-card"><div class="mp-label melhor">📈 Para melhorar</div><div id="pontos-melhorar"></div></div>
         </div>
       </div>
 
-      <!-- CURRÍCULO PARCIAL -->
       <div class="prev-card">
         <div class="prev-label">📄 Seu currículo — prévia parcial</div>
         <div class="cv-real" id="cv-preview-parcial"></div>
         <div style="position:relative;margin-top:8px">
-          <div class="blur-overlay" style="border-radius:12px;overflow:hidden">
+          <div style="border-radius:12px;overflow:hidden">
             <div style="background:white;padding:16px;border-radius:12px;filter:blur(7px);user-select:none">
               <div class="cv-sec">Experiências</div>
-              <p style="font-size:12px;color:#4a3f2f;line-height:1.6">• Auxiliar no Comércio Familiar — atendimento ao cliente, controle de estoque e organização com foco em resultados positivos.<br><br>• Atividades Voluntárias — desenvolvimento de habilidades interpessoais e trabalho em equipe.</p>
+              <p style="font-size:12px;color:#4a3f2f;line-height:1.6">• Auxiliar no Comércio Familiar — atendimento ao cliente e organização.<br><br>• Atividades Voluntárias — desenvolvimento de habilidades interpessoais.</p>
               <div class="cv-sec">Perfil Pessoal</div>
-              <p style="font-size:12px;color:#4a3f2f">Pessoa comunicativa, dedicada e proativa. Com facilidade para aprender e grande disposição para novos desafios...</p>
+              <p style="font-size:12px;color:#4a3f2f">Pessoa comunicativa, dedicada e proativa...</p>
             </div>
           </div>
           <div class="lock-overlay"><div class="lock-icon">🔒</div><div class="lock-text">Desbloqueie para ver completo</div></div>
         </div>
       </div>
 
-      <!-- VAGAS + LINKEDIN PRÉVIA -->
       <div class="preview-grid">
         <div class="prev-card">
           <div class="prev-label">💼 Vagas encontradas — 8 portais</div>
@@ -670,17 +650,12 @@ footer span { color:var(--accent); }
             <div style="background:white;border-radius:10px;padding:14px;margin-bottom:10px">
               <div style="font-size:13px;font-weight:800;color:#1a1208">Seu nome aqui</div>
               <div style="font-size:11px;color:#9a8e7e">Área | Buscando primeiro emprego | Cidade</div>
-              <div style="font-size:11px;color:#4a3f2f;margin-top:8px;line-height:1.5">Sobre: Profissional dedicado buscando primeira oportunidade. Possui habilidades em comunicação...</div>
-            </div>
-            <div style="background:#010409;border-radius:10px;padding:12px;font-family:monospace;font-size:10px;color:#8ca8c5;line-height:1.8">
-              Prezado recrutador,<br>Venho me candidatar à vaga...<br>Minhas habilidades incluem...<br>Atenciosamente,
             </div>
           </div>
           <div class="lock-overlay"><div class="lock-icon">🔒</div><div class="lock-text">LinkedIn + email prontos para usar</div></div>
         </div>
       </div>
 
-      <!-- PAGAMENTO -->
       <div class="payment-box">
         <div class="pay-title">Desbloqueie tudo agora! 🚀</div>
         <div style="color:rgba(255,255,255,.45);font-size:14px;margin-bottom:8px">Acesso completo por apenas</div>
@@ -694,69 +669,58 @@ footer span { color:var(--accent); }
           <div class="pay-item"><div class="pay-item-icon">🎯</div><div class="pay-item-text">Dicas de entrevista</div></div>
           <div class="pay-item"><div class="pay-item-icon">📱</div><div class="pay-item-text">Tutorial LinkedIn</div></div>
         </div>
-        <button class="btn-pagar" onclick="processarPagamento()">🔓 Desbloquear por R$20 — Mercado Pago</button>
+        <button type="button" class="btn-pagar" id="btn-pagar">🔓 Desbloquear por R$20 — Mercado Pago</button>
         <div class="pay-seguro">🔒 Pagamento seguro · Mercado Pago · Acesso imediato</div>
       </div>
     </div>
 
     <!-- RESULTADO COMPLETO -->
-    <div id="result-screen">
+    <div id="result-screen" style="display:none;">
       <div class="result-header">
         <div class="result-badge">🎉 Acesso liberado!</div>
         <div class="result-title" id="result-title">Tudo pronto para você!</div>
         <div style="color:rgba(255,255,255,.4);font-size:14px">Seu pacote completo de emprego está aqui</div>
       </div>
-
-      <!-- CURRÍCULO COMPLETO -->
       <div class="result-card">
         <div class="rc-label">📄 Currículo profissional completo</div>
         <div class="cv-real" id="cv-completo"></div>
         <div class="cv-actions">
-          <button class="btn-cv primary" onclick="imprimirCV()">🖨️ Salvar PDF</button>
-          <button class="btn-cv secondary" onclick="copiarCV()">📋 Copiar texto</button>
+          <button type="button" class="btn-cv primary" id="btn-pdf">🖨️ Salvar PDF</button>
+          <button type="button" class="btn-cv secondary" id="btn-copiar-cv">📋 Copiar texto</button>
         </div>
       </div>
-
-      <!-- VAGAS COMPLETAS -->
       <div class="result-card">
         <div class="rc-label">💼 Vagas reais — 8 portais brasileiros</div>
-        <div style="background:rgba(45,106,79,.15);border:1px solid rgba(45,106,79,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px">
-          🎯 Links diretos — já filtrados pela sua cidade e área. Clique e aplique agora!
+        <div style="background:rgba(45,106,79,.15);border:1px solid rgba(45,106,79,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:16px;">
+          🎯 Links diretos — já filtrados pela sua cidade e área!
         </div>
         <div id="vagas-completo"></div>
       </div>
-
       <div class="result-grid">
-        <!-- LINKEDIN -->
         <div class="result-card">
           <div class="rc-label">🔗 Seu perfil LinkedIn</div>
           <div class="linkedin-block" id="linkedin-block"></div>
-          <button class="btn-copy" onclick="copiarLinkedin()">📋 Copiar para o LinkedIn</button>
+          <button type="button" class="btn-copy" id="btn-copiar-li">📋 Copiar para o LinkedIn</button>
         </div>
-        <!-- EMAIL -->
         <div class="result-card">
           <div class="rc-label">📧 Email de candidatura</div>
           <div class="email-block" id="email-block"></div>
-          <button class="btn-copy" onclick="copiarEmail()">📋 Copiar email</button>
+          <button type="button" class="btn-copy" id="btn-copiar-email">📋 Copiar email</button>
         </div>
       </div>
-
-      <!-- ENTREVISTA -->
       <div class="result-card">
         <div class="rc-label">🎯 Dicas personalizadas de entrevista</div>
         <div id="entrevista-block"></div>
       </div>
-
-      <!-- TUTORIAL LINKEDIN -->
       <div class="tutorial-section">
         <div class="tutorial-title">📱 Como criar seu LinkedIn do zero</div>
-        <div class="tutorial-sub">Simples! LinkedIn é só uma rede social profissional — qualquer pessoa pode usar!</div>
-        <div class="ts"><div class="ts-n">1</div><div><h4>Acesse linkedin.com e crie conta grátis</h4><p>Clique em "Cadastre-se", coloque email e senha. Leva 2 minutos.</p><div class="ts-tip">💡 Use o mesmo email do currículo para ficar organizado.</div></div></div>
-        <div class="ts"><div class="ts-n">2</div><div><h4>Adicione uma foto profissional</h4><p>Não precisa ser de fotógrafo. Boa luz + camisa arrumada + fundo neutro. Perfis com foto têm 14x mais views!</p><div class="ts-tip">💡 Perto de uma janela durante o dia — a luz natural é perfeita.</div></div></div>
-        <div class="ts"><div class="ts-n">3</div><div><h4>Cole o título profissional gerado</h4><p>É a frase embaixo do seu nome. Copie o texto que geramos para você acima.</p><div class="ts-tip">💡 Exemplo: "Administrativo | Buscando primeiro emprego | Manaus, AM"</div></div></div>
+        <div class="tutorial-sub">Simples! LinkedIn é só uma rede social profissional.</div>
+        <div class="ts"><div class="ts-n">1</div><div><h4>Acesse linkedin.com e crie conta grátis</h4><p>Clique em "Cadastre-se", coloque email e senha. Leva 2 minutos.</p><div class="ts-tip">💡 Use o mesmo email do currículo.</div></div></div>
+        <div class="ts"><div class="ts-n">2</div><div><h4>Adicione uma foto profissional</h4><p>Boa luz + camisa arrumada + fundo neutro. Perfis com foto têm 14x mais views!</p></div></div>
+        <div class="ts"><div class="ts-n">3</div><div><h4>Cole o título profissional gerado</h4><p>Copie o texto que geramos acima e cole embaixo do seu nome.</p></div></div>
         <div class="ts"><div class="ts-n">4</div><div><h4>Cole o texto "Sobre" gerado pela IA</h4><p>Na seção "Sobre", cole o texto que geramos. Foi feito para chamar atenção de recrutadores.</p></div></div>
-        <div class="ts"><div class="ts-n">5</div><div><h4>Adicione habilidades e experiências</h4><p>Copie do currículo e adicione nas seções do LinkedIn.</p><div class="ts-tip">💡 Coloque pelo menos 5 habilidades — isso aumenta muito sua visibilidade nas buscas.</div></div></div>
-        <div class="ts"><div class="ts-n">6</div><div><h4>Siga empresas da sua área em Manaus</h4><p>Pesquise empresas da sua área, siga e ative notificações de vagas. Muitas empresas postam vagas só no LinkedIn!</p><div class="ts-tip">💡 LinkedIn não é rede social de elite — é onde 9 de cada 10 recrutadores buscam candidatos hoje.</div></div></div>
+        <div class="ts"><div class="ts-n">5</div><div><h4>Adicione habilidades e experiências</h4><p>Copie do currículo e adicione nas seções do LinkedIn.</p><div class="ts-tip">💡 Coloque pelo menos 5 habilidades.</div></div></div>
+        <div class="ts"><div class="ts-n">6</div><div><h4>Siga empresas da sua área</h4><p>Pesquise empresas, siga e ative notificações de vagas.</p><div class="ts-tip">💡 Muitas empresas postam vagas só no LinkedIn!</div></div></div>
       </div>
     </div>
 
@@ -807,81 +771,128 @@ footer span { color:var(--accent); }
 
 <footer><p>Feito com ❤️ e <span>IA</span> para quem está começando · EmpregaAI © 2025</p></footer>
 
+
 <script>
-let dadosGerados = null;
-let currentStep  = 1;
-let fotoBase64   = '';
-let fotoObjectURL = null;
+// ============================================================
+// EMPREGAAI v3 — JavaScript limpo e sem conflitos
+// ============================================================
 
-function scrollToForm() { document.getElementById('form-section').scrollIntoView({ behavior:'smooth' }); }
+var dadosGerados = null;
+var fotoDataURL  = '';  // foto como dataURL, só no browser
 
-// FOTO
-function processarFoto(event) {
-  const file = event.target.files[0];
-  if (!file) return;
+// --- FOTO ---
+document.addEventListener('DOMContentLoaded', function() {
 
-  // Mostra nome do arquivo imediatamente
-  document.getElementById('foto-nome').textContent = '✅ ' + file.name;
+  // Botão de foto — evento direto, sem onclick no HTML
+  document.getElementById('btn-foto').addEventListener('click', function() {
+    document.getElementById('foto-input').click();
+  });
 
-  // Lê e mostra preview — simples e direto
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const preview = document.getElementById('foto-preview');
-    preview.src   = e.target.result;
-    preview.style.display = 'block';
-    fotoBase64 = e.target.result; // dataURL completo para usar no currículo
-  };
-  reader.readAsDataURL(file);
-}
+  document.getElementById('foto-input').addEventListener('change', function() {
+    var file = this.files[0];
+    if (!file) return;
 
-// STEPS
+    document.getElementById('foto-nome').textContent = '✅ ' + file.name;
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      fotoDataURL = e.target.result;
+      var prev = document.getElementById('foto-preview');
+      prev.src = fotoDataURL;
+      prev.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // --- NAVEGAÇÃO entre steps ---
+  document.getElementById('btn-step1-next').addEventListener('click', function() { goStep(2); });
+  document.getElementById('btn-step2-back').addEventListener('click', function() { goStep(1); });
+  document.getElementById('btn-step2-next').addEventListener('click', function() { goStep(3); });
+  document.getElementById('btn-step3-back').addEventListener('click', function() { goStep(2); });
+  document.getElementById('btn-step3-next').addEventListener('click', function() { goStep(4); });
+  document.getElementById('btn-step4-back').addEventListener('click', function() { goStep(3); });
+  document.getElementById('btn-gerar').addEventListener('click', gerarPrevia);
+
+  // Pagamento
+  document.getElementById('btn-pagar').addEventListener('click', processarPagamento);
+
+  // Ações do resultado
+  document.getElementById('btn-pdf').addEventListener('click', imprimirCV);
+  document.getElementById('btn-copiar-cv').addEventListener('click', function() {
+    navigator.clipboard.writeText(document.getElementById('cv-completo').innerText)
+      .then(function() { alert('✅ Currículo copiado!'); });
+  });
+  document.getElementById('btn-copiar-li').addEventListener('click', function() {
+    navigator.clipboard.writeText(document.getElementById('linkedin-block').innerText)
+      .then(function() { alert('✅ LinkedIn copiado!'); });
+  });
+  document.getElementById('btn-copiar-email').addEventListener('click', function() {
+    navigator.clipboard.writeText(document.getElementById('email-block').innerText)
+      .then(function() { alert('✅ Email copiado!'); });
+  });
+
+  // Chips
+  document.querySelectorAll('.chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      this.classList.toggle('selected');
+    });
+  });
+
+});
+
+// --- STEPS ---
+var currentStep = 1;
+
 function goStep(step) {
   document.getElementById('step-' + currentStep).classList.remove('active');
   document.getElementById('step-' + step).classList.add('active');
-  for (let i = 1; i <= 4; i++) {
-    const ps = document.getElementById('ps-' + i);
-    ps.className = 'ps' + (i < step ? ' done' : i === step ? ' active' : '');
+  for (var i = 1; i <= 4; i++) {
+    var ps = document.getElementById('ps-' + i);
+    if (i < step)      ps.className = 'ps done';
+    else if (i === step) ps.className = 'ps active';
+    else               ps.className = 'ps';
   }
   currentStep = step;
-  scrollToForm();
+  document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
 }
 
-function toggleChip(el)   { el.classList.toggle('selected'); }
-function toggleSingle(el) {
-  el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
+function scrollToForm() {
+  document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
 }
 
+// --- DADOS DO FORMULÁRIO ---
 function getDados() {
   return {
-    nome:         document.getElementById('nome').value        || 'Candidato',
-    cidade:       document.getElementById('cidade').value      || 'Manaus, AM',
-    email:        document.getElementById('email').value       || 'email@email.com',
-    telefone:     document.getElementById('telefone').value    || '(92) 99999-9999',
-    escolaridade: document.getElementById('escolaridade').value|| 'Ensino médio completo',
-    ano_conclusao: document.getElementById('ano_conclusao').value || '',
-    areas:        [...document.querySelectorAll('#areas .chip.selected')].map(c=>c.textContent.trim()).join(', ') || 'Administrativo',
-    habilidades:  [...document.querySelectorAll('#habilidades .chip.selected')].map(c=>c.textContent.trim()).join(', ') || 'Comunicação',
-    experiencias: document.getElementById('experiencias').value|| 'Sem experiência formal',
-    sobre:        document.getElementById('sobre').value       || 'Pessoa dedicada',
-    objetivo:     document.getElementById('objetivo').value    || 'Iniciar carreira profissional',
-    // foto NÃO enviada para API — processada só no navegador
+    nome:         document.getElementById('nome').value         || 'Candidato',
+    cidade:       document.getElementById('cidade').value       || 'Manaus, AM',
+    email:        document.getElementById('email').value        || 'email@email.com',
+    telefone:     document.getElementById('telefone').value     || '(92) 99999-9999',
+    escolaridade: document.getElementById('escolaridade').value || 'Ensino médio completo',
+    ano_conclusao:document.getElementById('ano_conclusao').value|| '',
+    areas:        Array.from(document.querySelectorAll('#areas .chip.selected')).map(function(c){return c.textContent.trim();}).join(', ') || 'Administrativo',
+    habilidades:  Array.from(document.querySelectorAll('#habilidades .chip.selected')).map(function(c){return c.textContent.trim();}).join(', ') || 'Comunicação',
+    experiencias: document.getElementById('experiencias').value || 'Sem experiência formal',
+    sobre:        document.getElementById('sobre').value        || 'Pessoa dedicada',
+    objetivo:     document.getElementById('objetivo').value     || 'Iniciar carreira profissional'
   };
 }
 
+// --- LOADER ---
 function animarLoader() {
-  const ids = ['li-1','li-2','li-3','li-4','li-5'];
-  let i = 0;
-  const iv = setInterval(() => {
+  var ids = ['li-1','li-2','li-3','li-4','li-5'];
+  var i = 0;
+  var iv = setInterval(function() {
     if (i > 0) document.getElementById(ids[i-1]).className = 'li done';
     if (i < ids.length) { document.getElementById(ids[i]).className = 'li active'; i++; }
     else clearInterval(iv);
   }, 1400);
 }
 
+// --- GERAR PRÉVIA ---
 async function gerarPrevia() {
-  const dados = getDados();
-  document.getElementById('btn-gerar').disabled = true;
+  var dados = getDados();
+
+  // Esconde steps, mostra loading
   document.getElementById('step-4').classList.remove('active');
   document.getElementById('progress-bar').style.display = 'none';
   document.getElementById('loading-screen').style.display = 'block';
@@ -889,7 +900,7 @@ async function gerarPrevia() {
   animarLoader();
 
   try {
-    const resp = await fetch('/api/gerar', {
+    var resp = await fetch('/api/gerar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dados)
@@ -899,39 +910,33 @@ async function gerarPrevia() {
     dadosGerados = fallbackLocal(dados);
   }
 
-  await new Promise(r => setTimeout(r, 800));
+  await new Promise(function(r) { setTimeout(r, 800); });
   mostrarPrevia(dados, dadosGerados);
 }
 
+// --- MOSTRAR PRÉVIA ---
 function mostrarPrevia(dados, resultado) {
   document.getElementById('loading-screen').style.display = 'none';
   document.getElementById('preview-screen').style.display = 'block';
 
-  const nome = dados.nome.split(' ')[0];
-  document.getElementById('prev-title').textContent = `Olha como ficou, ${nome}! 👀`;
+  var nome = dados.nome.split(' ')[0];
+  document.getElementById('prev-title').textContent = 'Olha como ficou, ' + nome + '! 👀';
 
-  // Meter de contratação
-  const analise = resultado.analise_contratacao || {};
-  const pct = analise.porcentagem || 65;
-  animarMeter(pct, analise);
+  var analise = resultado.analise_contratacao || {};
+  animarMeter(analise.porcentagem || 65, analise);
 
-  // CV parcial
-  const fotoTag = fotoBase64
-    ? `<img src="${fotoBase64}" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:16px;" />`
-    : '';
-  document.getElementById('cv-preview-parcial').innerHTML = `
-    <div style="overflow:hidden">${fotoTag}
-      <div class="cv-name">${dados.nome}</div>
-      <div class="cv-role">${dados.areas.split(',')[0].trim()} · Primeiro emprego</div>
-      <div class="cv-contact"><span>📍 ${dados.cidade}</span><span>📧 ${dados.email}</span><span>📱 ${dados.telefone}</span></div>
-    </div>
-    <div class="cv-sec">Objetivo</div>
-    <div class="cv-text">${dados.objetivo}</div>
-    <div class="cv-sec">Habilidades</div>
-    <div class="cv-skills">${dados.habilidades.split(',').slice(0,4).map(h=>`<span class="cv-skill">${h.trim()}</span>`).join('')}</div>`;
+  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:16px;">' : '';
+  document.getElementById('cv-preview-parcial').innerHTML =
+    '<div style="overflow:hidden">' + fotoTag +
+    '<div class="cv-name">' + dados.nome + '</div>' +
+    '<div class="cv-role">' + dados.areas.split(',')[0].trim() + ' · Primeiro emprego</div>' +
+    '<div class="cv-contact"><span>📍 ' + dados.cidade + '</span> <span>📧 ' + dados.email + '</span></div></div>' +
+    '<div class="cv-sec">Objetivo</div><div class="cv-text">' + dados.objetivo + '</div>' +
+    '<div class="cv-sec">Habilidades</div><div class="cv-skills">' +
+    dados.habilidades.split(',').slice(0,4).map(function(h){ return '<span class="cv-skill">' + h.trim() + '</span>'; }).join('') +
+    '</div>';
 
-  // Vagas preview (3 portais sem link)
-  const fonteConfig = {
+  var fonteConfig = {
     'Indeed Brasil':   { classe:'fonte-indeed',   sigla:'in' },
     'LinkedIn Vagas':  { classe:'fonte-linkedin',  sigla:'li' },
     'Catho':           { classe:'fonte-catho',     sigla:'Ca' },
@@ -939,82 +944,77 @@ function mostrarPrevia(dados, resultado) {
     'Gupy':            { classe:'fonte-ciee',      sigla:'Gu' },
     'Empregos.com.br': { classe:'fonte-sine',      sigla:'Em' },
     'Nube':            { classe:'fonte-trabalha',  sigla:'Nu' },
-    'Sólides Vagas':   { classe:'fonte-vagas',     sigla:'Só' },
+    'Selpe':           { classe:'fonte-vagas',     sigla:'Se' }
   };
 
-  const vagasEl = document.getElementById('vagas-preview');
-  vagasEl.innerHTML = (resultado.vagas || []).slice(0,4).map(v => {
-    const cfg = fonteConfig[v.fonte] || { classe:'fonte-indeed', sigla:'??' };
-    return `<div class="vaga-prev">
-      <div class="vaga-fonte-icon ${cfg.classe}">${cfg.sigla}</div>
-      <div class="vaga-prev-info"><h5>${v.cargo}</h5><p>${v.fonte} · ${v.cidade} 🔒</p></div>
-    </div>`;
-  }).join('') + `<div style="text-align:center;padding:10px 0;font-size:12px;color:rgba(255,255,255,.35)">+ ${(resultado.vagas||[]).length - 4} portais a mais desbloqueados...</div>`;
+  document.getElementById('vagas-preview').innerHTML =
+    (resultado.vagas || []).slice(0,4).map(function(v) {
+      var cfg = fonteConfig[v.fonte] || { classe:'fonte-indeed', sigla:'??' };
+      return '<div class="vaga-prev"><div class="vaga-fonte-icon ' + cfg.classe + '">' + cfg.sigla + '</div>' +
+        '<div class="vaga-prev-info"><h5>' + v.cargo + '</h5><p>' + v.fonte + ' · ' + v.cidade + ' 🔒</p></div></div>';
+    }).join('') + '<div style="text-align:center;padding:10px 0;font-size:12px;color:rgba(255,255,255,.35)">+ ' + ((resultado.vagas||[]).length - 4) + ' portais desbloqueados...</div>';
 
   scrollToForm();
 }
 
+// --- METER ---
 function animarMeter(pct, analise) {
-  const circle = document.getElementById('meter-circle');
-  const numEl  = document.getElementById('meter-num');
-  const nivel  = document.getElementById('meter-nivel');
-  const resumo = document.getElementById('meter-resumo');
-
-  let atual = 0;
-  const iv = setInterval(() => {
+  var circle = document.getElementById('meter-circle');
+  var numEl  = document.getElementById('meter-num');
+  var atual  = 0;
+  var iv = setInterval(function() {
     atual = Math.min(atual + 2, pct);
     numEl.textContent = atual + '%';
     circle.style.setProperty('--pct', atual + '%');
     if (atual >= pct) clearInterval(iv);
   }, 30);
 
-  nivel.textContent  = analise.nivel   || (pct >= 75 ? 'Ótimo!' : pct >= 55 ? 'Bom' : 'Regular');
-  resumo.textContent = analise.resumo  || 'Continue melhorando seu perfil!';
-
-  const fortes = document.getElementById('pontos-fortes');
-  const melhor = document.getElementById('pontos-melhorar');
-  fortes.innerHTML = (analise.pontos_fortes   || ['Disposição para aprender','Objetivo claro']).map(p=>`<div class="mp-item">✅ ${p}</div>`).join('');
-  melhor.innerHTML = (analise.pontos_melhorar || ['Adicionar mais experiências','Completar LinkedIn']).map(p=>`<div class="mp-item">📈 ${p}</div>`).join('');
+  document.getElementById('meter-nivel').textContent  = analise.nivel   || (pct >= 75 ? 'Ótimo!' : pct >= 55 ? 'Bom' : 'Regular');
+  document.getElementById('meter-resumo').textContent = analise.resumo  || 'Continue melhorando seu perfil!';
+  document.getElementById('pontos-fortes').innerHTML  = (analise.pontos_fortes   || ['Disposição para aprender','Objetivo claro']).map(function(p){ return '<div class="mp-item">✅ ' + p + '</div>'; }).join('');
+  document.getElementById('pontos-melhorar').innerHTML= (analise.pontos_melhorar || ['Adicionar mais experiências','Completar LinkedIn']).map(function(p){ return '<div class="mp-item">📈 ' + p + '</div>'; }).join('');
 }
 
+// --- PAGAMENTO ---
 function processarPagamento() {
-  // SUBSTITUA PELA SUA URL DO MERCADO PAGO
-  const urlMP = 'https://mpago.la/SEU-LINK-AQUI';
-  // window.open(urlMP, '_blank'); // descomente em produção
-
-  const ok = confirm('🔓 Você será redirecionado para o Mercado Pago.\n\nApós pagar R$20, clique OK para liberar seu acesso completo.');
+  var ok = confirm('🔓 Você será redirecionado para o Mercado Pago.\n\nApós pagar R$20, clique OK para liberar seu acesso.');
   if (ok) liberarAcesso();
 }
 
+// --- LIBERAR ACESSO ---
 function liberarAcesso() {
-  const dados    = getDados();
-  const resultado = dadosGerados || fallbackLocal(dados);
+  var dados    = getDados();
+  var resultado = dadosGerados || fallbackLocal(dados);
 
-  document.getElementById('preview-screen').style.display = 'none';
-  document.getElementById('result-screen').style.display  = 'block';
+  document.getElementById('preview-screen').style.display  = 'none';
+  document.getElementById('result-screen').style.display   = 'block';
 
-  const nome = dados.nome.split(' ')[0];
-  document.getElementById('result-title').textContent = `Tudo liberado, ${nome}! 🎉`;
+  var nome = dados.nome.split(' ')[0];
+  document.getElementById('result-title').textContent = 'Tudo liberado, ' + nome + '! 🎉';
 
-  // CV completo
-  const fotoTag = fotoBase64
-    ? `<img src="${fotoBase64}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:20px;" />`
-    : '';
-  const cvHtml = (resultado.cv_html || '').replace('foto_placeholder', fotoTag);
-  document.getElementById('cv-completo').innerHTML = cvHtml || `
-    <div style="overflow:hidden">${fotoTag}
-    <div class="cv-name">${dados.nome}</div>
-    <div class="cv-role">${dados.areas.split(',')[0].trim()} · Primeiro emprego</div>
-    <div class="cv-contact"><span>📍 ${dados.cidade}</span><span>📧 ${dados.email}</span><span>📱 ${dados.telefone}</span></div></div>
-    <div class="cv-sec">Objetivo</div><div class="cv-text">${dados.objetivo}</div>
-    <div class="cv-sec">Formação</div><div class="cv-text"><strong>${dados.escolaridade}</strong></div>
-    <div class="cv-sec">Habilidades</div>
-    <div class="cv-skills">${dados.habilidades.split(',').map(h=>`<span class="cv-skill">${h.trim()}</span>`).join('')}</div>
-    <div class="cv-sec">Experiências</div><div class="cv-text">${dados.experiencias}</div>
-    <div class="cv-sec">Sobre mim</div><div class="cv-text">${dados.sobre}</div>`;
+  // Currículo completo com foto
+  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:20px;">' : '';
+  var cvHtml = resultado.cv_html || '';
+  if (!cvHtml) {
+    cvHtml = '<div style="overflow:hidden">' + fotoTag +
+      '<div class="cv-name">' + dados.nome + '</div>' +
+      '<div class="cv-role">' + dados.areas.split(',')[0].trim() + ' · Primeiro emprego</div>' +
+      '<div class="cv-contact"><span>📍 ' + dados.cidade + '</span><span>📧 ' + dados.email + '</span><span>📱 ' + dados.telefone + '</span></div></div>' +
+      '<div class="cv-sec">Objetivo</div><div class="cv-text">' + dados.objetivo + '</div>' +
+      '<div class="cv-sec">Formação</div><div class="cv-text"><strong>' + dados.escolaridade + (dados.ano_conclusao ? ' — ' + dados.ano_conclusao : '') + '</strong></div>' +
+      '<div class="cv-sec">Habilidades</div><div class="cv-skills">' + dados.habilidades.split(',').map(function(h){ return '<span class="cv-skill">' + h.trim() + '</span>'; }).join('') + '</div>' +
+      '<div class="cv-sec">Experiências</div><div class="cv-text">' + dados.experiencias + '</div>' +
+      '<div class="cv-sec">Sobre mim</div><div class="cv-text">' + dados.sobre + '</div>';
+  } else {
+    // Injeta foto no html da IA se vier sem foto
+    if (fotoTag && !cvHtml.includes('<img')) {
+      cvHtml = '<div style="overflow:hidden">' + fotoTag + '</div>' + cvHtml;
+    }
+  }
+  document.getElementById('cv-completo').innerHTML = cvHtml;
 
-  // Vagas completas com links
-  const fonteConfig = {
+  // Vagas
+  var fonteConfig = {
     'Indeed Brasil':   { classe:'fonte-indeed',   sigla:'in' },
     'LinkedIn Vagas':  { classe:'fonte-linkedin',  sigla:'li' },
     'Catho':           { classe:'fonte-catho',     sigla:'Ca' },
@@ -1022,160 +1022,98 @@ function liberarAcesso() {
     'Gupy':            { classe:'fonte-ciee',      sigla:'Gu' },
     'Empregos.com.br': { classe:'fonte-sine',      sigla:'Em' },
     'Nube':            { classe:'fonte-trabalha',  sigla:'Nu' },
-    'Sólides Vagas':   { classe:'fonte-vagas',     sigla:'Só' },
+    'Selpe':           { classe:'fonte-vagas',     sigla:'Se' }
   };
-
-  document.getElementById('vagas-completo').innerHTML = (resultado.vagas || []).map(v => {
-    const cfg = fonteConfig[v.fonte] || { classe:'fonte-indeed', sigla:'??' };
-    return `<div class="vaga-full">
-      <div class="vf-logo ${cfg.classe}">${cfg.sigla}</div>
-      <div class="vf-info">
-        <h5>${v.cargo}</h5>
-        <p>${v.empresa} · ${v.cidade}</p>
-        <div class="vf-desc">${v.descricao || ''}</div>
-        <div class="vf-fonte">📌 ${v.fonte}</div>
-      </div>
-      <a href="${v.link}" target="_blank" rel="noopener" class="vf-btn">Buscar vagas →</a>
-    </div>`;
+  document.getElementById('vagas-completo').innerHTML = (resultado.vagas || []).map(function(v) {
+    var cfg = fonteConfig[v.fonte] || { classe:'fonte-indeed', sigla:'??' };
+    return '<div class="vaga-full"><div class="vf-logo ' + cfg.classe + '">' + cfg.sigla + '</div>' +
+      '<div class="vf-info"><h5>' + v.cargo + '</h5><p>' + v.empresa + ' · ' + v.cidade + '</p>' +
+      '<div class="vf-desc">' + (v.descricao||'') + '</div><div class="vf-fonte">📌 ' + v.fonte + '</div></div>' +
+      '<a href="' + v.link + '" target="_blank" rel="noopener" class="vf-btn">Buscar vagas →</a></div>';
   }).join('');
 
   // LinkedIn
-  const li = resultado.linkedin || {};
-  document.getElementById('linkedin-block').innerHTML = `
-    <div class="linkedin-name">${dados.nome}</div>
-    <div class="linkedin-title">${li.titulo || dados.areas.split(',')[0].trim() + ' | Buscando primeiro emprego | ' + dados.cidade}</div>
-    <div class="linkedin-about">${li.sobre || dados.sobre}</div>
-    <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:10px;border-top:1px solid #e8e0d5;padding-top:10px">
-      ${dados.habilidades.split(',').map(h=>`<span class="ls">${h.trim()}</span>`).join('')}
-    </div>`;
+  var li = resultado.linkedin || {};
+  document.getElementById('linkedin-block').innerHTML =
+    '<div class="linkedin-name">' + dados.nome + '</div>' +
+    '<div class="linkedin-title">' + (li.titulo || dados.areas.split(',')[0].trim() + ' | Buscando primeiro emprego | ' + dados.cidade) + '</div>' +
+    '<div class="linkedin-about">' + (li.sobre || dados.sobre) + '</div>';
 
   // Email
-  const area = dados.areas.split(',')[0].replace(/[^\w\s]/g,'').trim();
-  document.getElementById('email-block').innerHTML =
-    `<span class="email-label">Assunto:</span> Candidatura — ${area} — ${dados.nome}\n\n` +
-    (resultado.email_candidatura ||
-     `Prezado(a) recrutador(a),\n\nVenho me candidatar à vaga de ${area}.\n${dados.sobre?.substring(0,100)}\n\nMinhas principais habilidades: ${dados.habilidades.split(',').slice(0,3).join(', ')}.\n\nAgradeço a atenção.\n\nAtenciosamente,\n${dados.nome}\n${dados.telefone}`);
+  var area = dados.areas.split(',')[0].replace(/[^\w\s]/g,'').trim();
+  document.getElementById('email-block').textContent =
+    'Assunto: Candidatura — ' + area + ' — ' + dados.nome + '\n\n' +
+    (resultado.email_candidatura || 'Prezado(a) recrutador(a),\n\nVenho me candidatar à vaga de ' + area + '.\n' + dados.sobre.substring(0,100) + '\n\nAtenciosamente,\n' + dados.nome + '\n' + dados.telefone);
 
   // Entrevista
-  const dicas = resultado.dicas_entrevista || [
-    `Prepare exemplos de quando demonstrou ${dados.habilidades.split(',')[0]?.trim() || 'organização'}`,
-    'Chegue 10 minutos antes — pontualidade impressiona recrutadores',
-    'Pesquise a empresa antes: site, redes sociais, o que fazem',
-    "Prepare resposta para 'fale sobre você' — conte quem você é e o que busca",
-    'No final, pergunte sobre os próximos passos do processo'
+  var dicas = resultado.dicas_entrevista || [
+    'Prepare exemplos de ' + dados.habilidades.split(',')[0].trim(),
+    'Chegue 10 minutos antes',
+    'Pesquise a empresa antes',
+    "Prepare resposta para 'fale sobre você'",
+    'Pergunte sobre os próximos passos'
   ];
-  document.getElementById('entrevista-block').innerHTML = dicas.map((d,i)=>
-    `<div class="ei"><div class="ei-num">${i+1}</div><div class="ei-text">${d}</div></div>`).join('');
+  document.getElementById('entrevista-block').innerHTML = dicas.map(function(d, i) {
+    return '<div class="ei"><div class="ei-num">' + (i+1) + '</div><div class="ei-text">' + d + '</div></div>';
+  }).join('');
 
   scrollToForm();
 }
 
+// --- IMPRIMIR PDF ---
+function imprimirCV() {
+  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:20px;">' : '';
+  var conteudo = document.getElementById('cv-completo').innerHTML;
+  var win = window.open('', '_blank');
+  win.document.write('<html><head><title>Currículo — EmpregaAI</title><style>body{font-family:Arial,sans-serif;padding:40px;color:#1a1208;max-width:800px;margin:0 auto}.cv-name{font-size:26px;font-weight:900;margin-bottom:4px}.cv-role{color:#9a8e7e;font-size:13px;margin-bottom:10px}.cv-contact{font-size:11px;color:#9a8e7e;display:flex;gap:16px;flex-wrap:wrap}.cv-sec{font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e8521a;border-bottom:1px solid #e0d9d0;padding-bottom:4px;margin:14px 0 8px}.cv-text{font-size:13px;color:#4a3f2f;line-height:1.6}.cv-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.cv-skill{background:#f0ece4;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700}@media print{body{padding:20px}}</style></head><body>' + conteudo + '</body></html>');
+  win.document.close();
+  setTimeout(function(){ win.print(); }, 500);
+}
+
+// --- FALLBACK LOCAL ---
 function fallbackLocal(d) {
-  const area = d.areas.split(',')[0].replace(/[^\w\s]/g,'').trim();
-  const cidade = d.cidade.split(',')[0].trim();
-  const estado = d.cidade.split(',')[1]?.trim() || 'AM';
-  const a = encodeURIComponent(area);
-  const c = encodeURIComponent(cidade);
-  const e = encodeURIComponent(estado);
+  var area   = d.areas.split(',')[0].replace(/[^\w\s]/g,'').trim();
+  var cidade = d.cidade.split(',')[0].trim();
+  var estado = d.cidade.split(',')[1] ? d.cidade.split(',')[1].trim() : 'AM';
+  var a  = encodeURIComponent(area);
+  var c  = encodeURIComponent(cidade);
+  var e  = encodeURIComponent(estado);
+  var ah = encodeURIComponent(area.toLowerCase().replace(/ /g,'-'));
+  var ch = encodeURIComponent(cidade.toLowerCase().replace(/ /g,'-'));
+  var ci = encodeURIComponent(cidade + ', ' + estado);
+  var ai = encodeURIComponent(area.toLowerCase().replace(/ /g,'-'));
 
   return {
     cv_html: '',
     linkedin: {
-      titulo: `${area} | Buscando primeiro emprego | ${d.cidade}`,
-      sobre:  `${d.sobre} Busco primeira oportunidade em ${area}.`
+      titulo: area + ' | Buscando primeiro emprego | ' + d.cidade,
+      sobre:  d.sobre + ' Busco primeira oportunidade em ' + area + '.'
     },
-    email_candidatura: `Prezado(a) recrutador(a),\n\nVenho me candidatar à vaga de ${area}.\n${d.sobre?.substring(0,100)}\n\nAtenciosamente,\n${d.nome}\n${d.telefone}`,
+    email_candidatura: 'Prezado(a) recrutador(a),\n\nVenho me candidatar à vaga de ' + area + '.\n' + d.sobre.substring(0,100) + '\n\nAtenciosamente,\n' + d.nome + '\n' + d.telefone,
     dicas_entrevista: [
-      `Prepare exemplos de ${d.habilidades.split(',')[0]?.trim() || 'organização'}`,
-      'Chegue 10 minutos antes', 'Pesquise a empresa antes',
-      "Prepare resposta para 'fale sobre você'", 'Pergunte sobre os próximos passos'
+      'Prepare exemplos de ' + d.habilidades.split(',')[0].trim(),
+      'Chegue 10 minutos antes',
+      'Pesquise a empresa antes da entrevista',
+      "Prepare sua resposta para 'fale sobre você'",
+      'Pergunte sobre os próximos passos ao final'
     ],
     analise_contratacao: {
       porcentagem: 68, nivel: 'Bom',
       pontos_fortes: ['Disposição para aprender', 'Objetivo claro', 'Habilidades práticas'],
       pontos_melhorar: ['Adicionar mais experiências', 'Completar perfil LinkedIn'],
-      resumo: `Seu perfil tem boas chances em ${area} — continue melhorando!`
+      resumo: 'Seu perfil tem boas chances em ' + area + ' — continue melhorando!'
     },
-    const a = encodeURIComponent(area);
-    const c = encodeURIComponent(cidade);
-    const estado = d.cidade.split(',')[1]?.trim() || 'AM';
-    const e = encodeURIComponent(estado);
-
-    // Formatos de URL testados e confirmados para cada portal
-    const ah = encodeURIComponent(area.toLowerCase().replace(/ /g,'-'));
-    const ch = encodeURIComponent(cidade.toLowerCase().replace(/ /g,'-'));
-    const ai = encodeURIComponent(area.toLowerCase().replace(/ /g,'-'));
-    const ci = encodeURIComponent(`${cidade}, ${estado}`);
-
     vagas: [
-      {
-        cargo:`Vagas de ${area} — Indeed Brasil`, empresa:'Múltiplas', cidade, salario:'Vários',
-        // Formato confirmado: br.indeed.com/q-CARGO-l-CIDADE,-UF-vagas.html
-        link:`https://br.indeed.com/q-${ai}-l-${ci}-vagas.html`,
-        fonte:'Indeed Brasil', descricao:'Maior buscador do Brasil — já filtrado pela sua cidade'
-      },
-      {
-        cargo:`Vagas de ${area} — LinkedIn`, empresa:'Múltiplas', cidade, salario:'Vários',
-        link:`https://www.linkedin.com/jobs/search/?keywords=${a}&location=${c}%2C%20${e}%2C%20Brasil`,
-        fonte:'LinkedIn Vagas', descricao:'Vagas exclusivas que não aparecem em outros portais'
-      },
-      {
-        cargo:`Vagas de ${area} — Catho`, empresa:'Múltiplas', cidade, salario:'Vários',
-        // Formato: /vagas/area/cidade
-        link:`https://www.catho.com.br/vagas/${ah}/${ch}/`,
-        fonte:'Catho', descricao:'Um dos maiores portais de emprego do Brasil'
-      },
-      {
-        cargo:`Vagas de ${area} — InfoJobs`, empresa:'Múltiplas', cidade, salario:'Vários',
-        // Formato: /empregos-em-CIDADE/cargo_AREA.aspx
-        link:`https://www.infojobs.com.br/empregos-em-${ch}/cargo_${ah}.aspx`,
-        fonte:'InfoJobs', descricao:'Ótimo para atendimento, vendas e administrativo'
-      },
-      {
-        cargo:`Vagas de ${area} — Gupy`, empresa:'Grandes empresas', cidade, salario:'Vários',
-        link:`https://portal.gupy.io/job-search/term=${a}%20${c}`,
-        fonte:'Gupy', descricao:'Usado por grandes empresas — Ambev, iFood, Nubank e outras'
-      },
-      {
-        cargo:`Vagas de ${area} — Empregos.com.br`, empresa:'Múltiplas', cidade, salario:'Vários',
-        link:`https://www.empregos.com.br/vagas/${ch}/${ah}`,
-        fonte:'Empregos.com.br', descricao:'Forte em vagas locais e de pequenas empresas'
-      },
-      {
-        cargo:`Jovem Aprendiz / Estágio — Nube`, empresa:'Nube', cidade, salario:'Bolsa + benefícios',
-        link:`https://www.nube.com.br/candidato/oportunidade/busca?descricao=${a}&cidade=${c}&uf=${e}`,
-        fonte:'Nube', descricao:'Especializado em estágio e jovem aprendiz — primeiro emprego'
-      },
-      {
-        cargo:`Vagas de ${area} — Selpe`, empresa:'Múltiplas', cidade, salario:'Vários',
-        link:`https://www.selpe.com.br/vagas/?s=${a}+${c}`,
-        fonte:'Selpe', descricao:'Portal focado no Norte e Nordeste do Brasil'
-      },
+      { cargo:'Vagas de '+area+' — Indeed Brasil', empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://br.indeed.com/q-'+ai+'-l-'+ci+'-vagas.html', fonte:'Indeed Brasil', descricao:'Maior buscador do Brasil — filtrado pela sua cidade' },
+      { cargo:'Vagas de '+area+' — LinkedIn',      empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://www.linkedin.com/jobs/search/?keywords='+a+'&location='+c+'%2C%20'+e+'%2C%20Brasil', fonte:'LinkedIn Vagas', descricao:'Vagas exclusivas que não aparecem em outros portais' },
+      { cargo:'Vagas de '+area+' — Catho',         empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://www.catho.com.br/vagas/'+ah+'/'+ch+'/', fonte:'Catho', descricao:'Um dos maiores portais do Brasil' },
+      { cargo:'Vagas de '+area+' — InfoJobs',      empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://www.infojobs.com.br/empregos-em-'+ch+'/cargo_'+ah+'.aspx', fonte:'InfoJobs', descricao:'Ótimo para atendimento, vendas e administrativo' },
+      { cargo:'Vagas de '+area+' — Gupy',          empresa:'Grandes empresas', cidade:cidade, salario:'Vários', link:'https://portal.gupy.io/job-search/term='+a+'%20'+c, fonte:'Gupy', descricao:'Ambev, iFood, Nubank e outras grandes empresas' },
+      { cargo:'Vagas de '+area+' — Empregos.com.br',empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://www.empregos.com.br/vagas/'+ch+'/'+ah, fonte:'Empregos.com.br', descricao:'Forte em vagas locais e de pequenas empresas' },
+      { cargo:'Jovem Aprendiz / Estágio — Nube',   empresa:'Nube', cidade:cidade, salario:'Bolsa + benefícios', link:'https://www.nube.com.br/candidato/oportunidade/busca?descricao='+a+'&cidade='+c+'&uf='+e, fonte:'Nube', descricao:'Especializado em estágio e jovem aprendiz' },
+      { cargo:'Vagas de '+area+' — Selpe',         empresa:'Múltiplas', cidade:cidade, salario:'Vários', link:'https://www.selpe.com.br/vagas/?s='+a+'+'+c, fonte:'Selpe', descricao:'Portal focado no Norte e Nordeste do Brasil' }
     ]
   };
 }
 
-function imprimirCV() {
-  const fotoTag = fotoBase64 ? `<img src="${fotoBase64}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:20px;" />` : '';
-  let conteudo = document.getElementById('cv-completo').innerHTML.replace('foto_placeholder', fotoTag);
-  const win = window.open('','_blank');
-  win.document.write(`<html><head><title>Currículo — EmpregaAI</title>
-  <style>body{font-family:Arial,sans-serif;padding:40px;color:#1a1208;max-width:800px;margin:0 auto}
-  .cv-name{font-size:26px;font-weight:900;margin-bottom:4px}.cv-role{color:#9a8e7e;font-size:13px;margin-bottom:10px}
-  .cv-contact{font-size:11px;color:#9a8e7e;display:flex;gap:16px;flex-wrap:wrap;margin-bottom:4px}
-  .cv-sec{font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e8521a;border-bottom:1px solid #e0d9d0;padding-bottom:4px;margin:14px 0 8px}
-  .cv-text{font-size:13px;color:#4a3f2f;line-height:1.6}
-  .cv-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-  .cv-skill{background:#f0ece4;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700}
-  @media print{body{padding:20px}}</style>
-  </head><body>${conteudo}</body></html>`);
-  win.document.close();
-  setTimeout(()=>win.print(), 500);
-}
-
-function copiarCV()      { navigator.clipboard.writeText(document.getElementById('cv-completo').innerText).then(()=>alert('✅ Currículo copiado! Cole no Word ou Google Docs.')); }
-function copiarLinkedin(){ navigator.clipboard.writeText(document.getElementById('linkedin-block').innerText).then(()=>alert('✅ Texto do LinkedIn copiado! Cole no seu perfil.')); }
-function copiarEmail()   { navigator.clipboard.writeText(document.getElementById('email-block').innerText).then(()=>alert('✅ Email copiado! Cole no seu email e envie para a empresa.')); }
 </script>
-</body>
-</html>
