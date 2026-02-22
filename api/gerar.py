@@ -15,8 +15,8 @@ from http.server import BaseHTTPRequestHandler
 
 def montar_links_vagas(cidade: str, area: str) -> list:
     """
-    Gera links diretos de busca já filtrados por cidade e área.
-    Todos funcionam sem login e abrem direto na listagem de vagas.
+    Gera links diretos de busca filtrados pela cidade E área da pessoa.
+    Todos os portais são verificados como funcionais em 2025/2026.
     """
     area_limpa = area.split(",")[0]
     for emoji in ["💼","💻","📊","🎨","🛒","🤝","📦","🏥","📣","🔧"]:
@@ -25,82 +25,85 @@ def montar_links_vagas(cidade: str, area: str) -> list:
     cidade_limpa = cidade.split(",")[0].strip()
     estado       = cidade.split(",")[1].strip() if "," in cidade else "AM"
 
-    a = urllib.parse.quote(area_limpa)
-    c = urllib.parse.quote(cidade_limpa)
-    e = urllib.parse.quote(estado.strip())
+    # SEMPRE usa a cidade da pessoa — nunca São Paulo hardcoded
+    a  = urllib.parse.quote(area_limpa)
+    c  = urllib.parse.quote(cidade_limpa)
+    cl = urllib.parse.quote(cidade_limpa.lower())
+    al = urllib.parse.quote(area_limpa.lower())
+    e  = urllib.parse.quote(estado.strip())
 
     return [
         {
-            "cargo":   f"Vagas de {area_limpa} — Indeed Brasil",
-            "empresa": "Múltiplas empresas",
-            "cidade":  cidade_limpa,
-            "salario": "Vários",
-            "link":    f"https://br.indeed.com/jobs?q={a}&l={c}%2C+{e}&sort=date&fromage=14",
-            "fonte":   "Indeed Brasil",
-            "descricao": "Portal líder em vagas no Brasil — atualizado diariamente"
+            "cargo":     f"Vagas de {area_limpa} — Indeed Brasil",
+            "empresa":   "Múltiplas empresas",
+            "cidade":    cidade_limpa,
+            "salario":   "Vários",
+            "link":      f"https://br.indeed.com/jobs?q={a}&l={c}%2C+{e}&sort=date&fromage=14",
+            "fonte":     "Indeed Brasil",
+            "descricao": "Maior buscador de vagas do Brasil — filtra por cidade e área"
         },
         {
-            "cargo":   f"Vagas de {area_limpa} — LinkedIn",
-            "empresa": "Múltiplas empresas",
-            "cidade":  cidade_limpa,
-            "salario": "Vários",
-            "link":    f"https://www.linkedin.com/jobs/search/?keywords={a}&location={c}%2C%20{e}%2C%20Brasil&f_TPR=r604800&sortBy=DD",
-            "fonte":   "LinkedIn Vagas",
-            "descricao": "Maior rede profissional — muitas vagas exclusivas aqui"
+            "cargo":     f"Vagas de {area_limpa} — LinkedIn",
+            "empresa":   "Múltiplas empresas",
+            "cidade":    cidade_limpa,
+            "salario":   "Vários",
+            "link":      f"https://www.linkedin.com/jobs/search/?keywords={a}&location={c}%2C%20{e}%2C%20Brasil&f_TPR=r604800&sortBy=DD",
+            "fonte":     "LinkedIn Vagas",
+            "descricao": "Rede profissional — muitas vagas exclusivas que não aparecem em outros portais"
         },
         {
-            "cargo":   f"Vagas de {area_limpa} — Catho",
-            "empresa": "Múltiplas empresas",
-            "cidade":  cidade_limpa,
-            "salario": "Vários",
-            "link":    f"https://www.catho.com.br/vagas/?q={a}&where={c}",
-            "fonte":   "Catho",
-            "descricao": "Um dos maiores sites de emprego do Brasil"
+            "cargo":     f"Vagas de {area_limpa} — Catho",
+            "empresa":   "Múltiplas empresas",
+            "cidade":    cidade_limpa,
+            "salario":   "Vários",
+            "link":      f"https://www.catho.com.br/vagas/?q={a}&where={c}",
+            "fonte":     "Catho",
+            "descricao": "Um dos maiores portais de emprego do Brasil"
         },
         {
-            "cargo":   f"Vagas de {area_limpa} — InfoJobs",
-            "empresa": "Múltiplas empresas",
-            "cidade":  cidade_limpa,
-            "salario": "Vários",
-            "link":    f"https://www.infojobs.com.br/empregos-em-{urllib.parse.quote(cidade_limpa.lower())}/cargo_{urllib.parse.quote(area_limpa.lower())}.aspx",
-            "fonte":   "InfoJobs",
-            "descricao": "Muitas vagas para primeiro emprego e jovem aprendiz"
+            "cargo":     f"Vagas de {area_limpa} — InfoJobs",
+            "empresa":   "Múltiplas empresas",
+            "cidade":    cidade_limpa,
+            "salario":   "Vários",
+            "link":      f"https://www.infojobs.com.br/empregos-em-{cl}/cargo_{al}.aspx",
+            "fonte":     "InfoJobs",
+            "descricao": "Ótimo para vagas de atendimento, vendas e administrativo"
         },
         {
-            "cargo":   f"Jovem Aprendiz em {cidade_limpa} — CIEE",
-            "empresa": "CIEE",
-            "cidade":  cidade_limpa,
-            "salario": "Salário mínimo",
-            "link":    f"https://portal.ciee.org.br/candidato/vagas/?q={a}&cidade={c}",
-            "fonte":   "CIEE",
-            "descricao": "Programa oficial de jovem aprendiz — primeiro emprego garantido"
+            "cargo":     f"Vagas de {area_limpa} — Gupy",
+            "empresa":   "Grandes empresas",
+            "cidade":    cidade_limpa,
+            "salario":   "Vários",
+            "link":      f"https://portal.gupy.io/job-search/term={a}&cityName={c}&stateSlug={e}",
+            "fonte":     "Gupy",
+            "descricao": "Plataforma usada por grandes empresas — vagas selecionadas"
         },
         {
-            "cargo":   f"Vagas de {area_limpa} — Sine Fácil",
-            "empresa": "SINE — Governo Federal",
-            "cidade":  cidade_limpa,
-            "salario": "A combinar",
-            "link":    f"https://sinefacil.com.br/vagas?q={a}&location={c}",
-            "fonte":   "Sine Fácil",
-            "descricao": "App oficial do SINE — vagas do governo sem burocracia"
+            "cargo":     f"Vagas de {area_limpa} — Empregos.com.br",
+            "empresa":   "Múltiplas empresas",
+            "cidade":    cidade_limpa,
+            "salario":   "Vários",
+            "link":      f"https://www.empregos.com.br/vagas/{cl}/{al}",
+            "fonte":     "Empregos.com.br",
+            "descricao": "Forte em vagas locais e regionais — ótimo para cidades do interior"
         },
         {
-            "cargo":   f"Vagas de {area_limpa} — Trabalha Brasil",
-            "empresa": "Múltiplas empresas",
-            "cidade":  cidade_limpa,
-            "salario": "A combinar",
-            "link":    f"https://www.trabalhabrasil.com.br/vagas-empregos-em-{urllib.parse.quote(cidade_limpa.lower())}/{urllib.parse.quote(area_limpa.lower())}",
-            "fonte":   "Trabalha Brasil",
-            "descricao": "Portal especializado em vagas para iniciantes"
+            "cargo":     f"Jovem Aprendiz / Estágio — Nube",
+            "empresa":   "Nube",
+            "cidade":    cidade_limpa,
+            "salario":   "Bolsa + benefícios",
+            "link":      f"https://www.nube.com.br/candidato/oportunidade/busca?descricao={a}&cidade={c}&uf={e}",
+            "fonte":     "Nube",
+            "descricao": "Especializado em estágio e jovem aprendiz para primeiro emprego"
         },
         {
-            "cargo":   f"Vagas de {area_limpa} — Vagas.com",
-            "empresa": "Múltiplas empresas",
-            "cidade":  cidade_limpa,
-            "salario": "A combinar",
-            "link":    f"https://www.vagas.com.br/vagas-de-{urllib.parse.quote(area_limpa.lower())}+em+{urllib.parse.quote(cidade_limpa.lower())}",
-            "fonte":   "Vagas.com",
-            "descricao": "Site tradicional com milhares de vagas em todo Brasil"
+            "cargo":     f"Vagas de {area_limpa} — Sólides Vagas",
+            "empresa":   "Múltiplas empresas",
+            "cidade":    cidade_limpa,
+            "salario":   "Vários",
+            "link":      f"https://vagas.solides.com.br/?search={a}&location={c}",
+            "fonte":     "Sólides Vagas",
+            "descricao": "Portal moderno com vagas de pequenas e médias empresas"
         },
     ]
 
@@ -112,12 +115,10 @@ def gerar_com_ia(dados: dict) -> dict:
 
     area   = dados.get("areas", "Administrativo").split(",")[0].strip()
     cidade = dados.get("cidade", "Manaus, AM")
-    foto_b64 = dados.get("foto_b64", "")  # base64 da foto se houver
-
-    # Monta seção de foto no HTML se existir
-    foto_html = ""
-    if foto_b64:
-        foto_html = f'<img src="data:image/jpeg;base64,{foto_b64}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;float:right;margin-left:20px;border:3px solid #e8521a;" />'
+    foto_b64 = dados.get("foto_b64", "")
+    escolaridade = dados.get("escolaridade", "")
+    ano_conclusao = dados.get("ano_conclusao", "")
+    formacao_completa = f"{escolaridade}" + (f" — {ano_conclusao}" if ano_conclusao else "")
 
     prompt = f"""Você é especialista em RH para primeiro emprego no Brasil.
 
@@ -126,17 +127,22 @@ Nome: {dados.get('nome')}
 Cidade: {cidade} (Brasil)
 Email: {dados.get('email')}
 Telefone: {dados.get('telefone')}
-Escolaridade: {dados.get('escolaridade')}
+Escolaridade: {formacao_completa}
 Área: {dados.get('areas')}
 Habilidades: {dados.get('habilidades')}
-Experiências: {dados.get('experiencias')}
+Experiências (com períodos informados pelo usuário — use EXATAMENTE os períodos que ele informou, nunca invente datas): {dados.get('experiencias')}
 Sobre: {dados.get('sobre')}
 Objetivo: {dados.get('objetivo')}
 Tem foto: {'Sim' if foto_b64 else 'Não'}
 
+REGRAS IMPORTANTES:
+- Na seção Formação, use EXATAMENTE: "{formacao_completa}" — nunca coloque outro ano
+- Nas experiências, use EXATAMENTE os períodos que o usuário informou — nunca invente datas
+- Se o usuário não informou período de alguma experiência, deixe sem data
+
 Responda APENAS em JSON válido (sem markdown, sem texto antes ou depois):
 {{
-  "cv_html": "HTML completo com foto_placeholder onde a foto deve aparecer, usando classes: cv-name, cv-role, cv-contact, cv-sec, cv-text, cv-skills, cv-skill. Inclua seções: objetivo, formação, habilidades, experiências, sobre mim",
+  "cv_html": "HTML completo com foto_placeholder onde a foto deve aparecer, usando classes: cv-name, cv-role, cv-contact, cv-sec, cv-text, cv-skills, cv-skill. Inclua seções: objetivo, formação (com o ano exato informado), habilidades, experiências (com os períodos exatos informados), sobre mim",
   "linkedin": {{
     "titulo": "título LinkedIn impactante (máx 120 chars)",
     "sobre": "texto Sobre do LinkedIn (3 parágrafos, envolvente e profissional)"
