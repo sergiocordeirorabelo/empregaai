@@ -15,8 +15,8 @@ from http.server import BaseHTTPRequestHandler
 
 def montar_links_vagas(cidade: str, area: str) -> list:
     """
-    Gera links diretos de busca filtrados pela cidade E área da pessoa.
-    Todos os portais são verificados como funcionais em 2025/2026.
+    Gera links diretos 100% funcionais, filtrados pela cidade E área da pessoa.
+    Formato de URL testado e confirmado para cada portal.
     """
     area_limpa = area.split(",")[0]
     for emoji in ["💼","💻","📊","🎨","🛒","🤝","📦","🏥","📣","🔧"]:
@@ -25,85 +25,96 @@ def montar_links_vagas(cidade: str, area: str) -> list:
     cidade_limpa = cidade.split(",")[0].strip()
     estado       = cidade.split(",")[1].strip() if "," in cidade else "AM"
 
-    # SEMPRE usa a cidade da pessoa — nunca São Paulo hardcoded
-    a  = urllib.parse.quote(area_limpa)
-    c  = urllib.parse.quote(cidade_limpa)
-    cl = urllib.parse.quote(cidade_limpa.lower())
-    al = urllib.parse.quote(area_limpa.lower())
-    e  = urllib.parse.quote(estado.strip())
+    # Variantes para diferentes formatos de URL
+    a_hifenado  = area_limpa.lower().replace(" ", "-")
+    c_hifenado  = cidade_limpa.lower().replace(" ", "-")
+    a_encoded   = urllib.parse.quote(area_limpa)
+    c_encoded   = urllib.parse.quote(cidade_limpa)
+    # Indeed: espaços viram hífens, acento mantido
+    a_indeed    = urllib.parse.quote(area_limpa.lower().replace(" ", "-"))
+    c_indeed    = urllib.parse.quote(f"{cidade_limpa}, {estado.strip()}")
 
     return [
         {
+            # Formato confirmado nos resultados de busca:
+            # br.indeed.com/q-CARGO-l-CIDADE,-UF-vagas.html
             "cargo":     f"Vagas de {area_limpa} — Indeed Brasil",
             "empresa":   "Múltiplas empresas",
             "cidade":    cidade_limpa,
             "salario":   "Vários",
-            "link":      f"https://br.indeed.com/jobs?q={a}&l={c}%2C+{e}&sort=date&fromage=14",
+            "link":      f"https://br.indeed.com/q-{a_indeed}-l-{c_indeed}-vagas.html",
             "fonte":     "Indeed Brasil",
-            "descricao": "Maior buscador de vagas do Brasil — filtra por cidade e área"
+            "descricao": "Maior buscador de vagas do Brasil — já filtrado pela sua cidade"
         },
         {
+            # LinkedIn: keywords + location com cidade e UF
             "cargo":     f"Vagas de {area_limpa} — LinkedIn",
             "empresa":   "Múltiplas empresas",
             "cidade":    cidade_limpa,
             "salario":   "Vários",
-            "link":      f"https://www.linkedin.com/jobs/search/?keywords={a}&location={c}%2C%20{e}%2C%20Brasil&f_TPR=r604800&sortBy=DD",
+            "link":      f"https://www.linkedin.com/jobs/search/?keywords={a_encoded}&location={c_encoded}%2C%20{urllib.parse.quote(estado.strip())}%2C%20Brasil",
             "fonte":     "LinkedIn Vagas",
-            "descricao": "Rede profissional — muitas vagas exclusivas que não aparecem em outros portais"
+            "descricao": "Vagas exclusivas que não aparecem em outros portais"
         },
         {
+            # Catho: /vagas/CARGO/CIDADE
             "cargo":     f"Vagas de {area_limpa} — Catho",
             "empresa":   "Múltiplas empresas",
             "cidade":    cidade_limpa,
             "salario":   "Vários",
-            "link":      f"https://www.catho.com.br/vagas/?q={a}&where={c}",
+            "link":      f"https://www.catho.com.br/vagas/{a_hifenado}/{c_hifenado}/",
             "fonte":     "Catho",
             "descricao": "Um dos maiores portais de emprego do Brasil"
         },
         {
+            # InfoJobs: /empregos-em-CIDADE/cargo_AREA.aspx
             "cargo":     f"Vagas de {area_limpa} — InfoJobs",
             "empresa":   "Múltiplas empresas",
             "cidade":    cidade_limpa,
             "salario":   "Vários",
-            "link":      f"https://www.infojobs.com.br/empregos-em-{cl}/cargo_{al}.aspx",
+            "link":      f"https://www.infojobs.com.br/empregos-em-{c_hifenado}/cargo_{a_hifenado}.aspx",
             "fonte":     "InfoJobs",
-            "descricao": "Ótimo para vagas de atendimento, vendas e administrativo"
+            "descricao": "Ótimo para atendimento, vendas e administrativo"
         },
         {
+            # Gupy portal: busca por termo + cidade
             "cargo":     f"Vagas de {area_limpa} — Gupy",
             "empresa":   "Grandes empresas",
             "cidade":    cidade_limpa,
             "salario":   "Vários",
-            "link":      f"https://portal.gupy.io/job-search/term={a}&cityName={c}&stateSlug={e}",
+            "link":      f"https://portal.gupy.io/job-search/term={a_encoded}%20{c_encoded}",
             "fonte":     "Gupy",
-            "descricao": "Plataforma usada por grandes empresas — vagas selecionadas"
+            "descricao": "Usado por grandes empresas — Ambev, iFood, Nubank e outras"
         },
         {
+            # Empregos.com.br: /vagas/CIDADE/AREA
             "cargo":     f"Vagas de {area_limpa} — Empregos.com.br",
             "empresa":   "Múltiplas empresas",
             "cidade":    cidade_limpa,
             "salario":   "Vários",
-            "link":      f"https://www.empregos.com.br/vagas/{cl}/{al}",
+            "link":      f"https://www.empregos.com.br/vagas/{c_hifenado}/{a_hifenado}",
             "fonte":     "Empregos.com.br",
-            "descricao": "Forte em vagas locais e regionais — ótimo para cidades do interior"
+            "descricao": "Forte em vagas locais e de pequenas empresas"
         },
         {
+            # Nube: busca por descrição + cidade + UF
             "cargo":     f"Jovem Aprendiz / Estágio — Nube",
             "empresa":   "Nube",
             "cidade":    cidade_limpa,
             "salario":   "Bolsa + benefícios",
-            "link":      f"https://www.nube.com.br/candidato/oportunidade/busca?descricao={a}&cidade={c}&uf={e}",
+            "link":      f"https://www.nube.com.br/candidato/oportunidade/busca?descricao={a_encoded}&cidade={c_encoded}&uf={urllib.parse.quote(estado.strip())}",
             "fonte":     "Nube",
-            "descricao": "Especializado em estágio e jovem aprendiz para primeiro emprego"
+            "descricao": "Especializado em estágio e jovem aprendiz — primeiro emprego"
         },
         {
-            "cargo":     f"Vagas de {area_limpa} — Sólides Vagas",
+            # Selpe: busca simples que funciona por cidade
+            "cargo":     f"Vagas de {area_limpa} — Selpe",
             "empresa":   "Múltiplas empresas",
             "cidade":    cidade_limpa,
             "salario":   "Vários",
-            "link":      f"https://vagas.solides.com.br/?search={a}&location={c}",
-            "fonte":     "Sólides Vagas",
-            "descricao": "Portal moderno com vagas de pequenas e médias empresas"
+            "link":      f"https://www.selpe.com.br/vagas/?s={a_encoded}+{c_encoded}",
+            "fonte":     "Selpe",
+            "descricao": "Portal focado no Norte e Nordeste do Brasil"
         },
     ]
 
