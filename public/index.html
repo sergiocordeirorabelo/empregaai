@@ -129,10 +129,13 @@ textarea { resize:none; min-height:100px; }
 .foto-upload-area {
   border:2px dashed rgba(255,255,255,.2); border-radius:12px;
   padding:24px; text-align:center; cursor:pointer; transition:all .2s;
-  position:relative; overflow:hidden;
+  display:block; position:relative;
 }
 .foto-upload-area:hover { border-color:var(--accent3); background:rgba(255,255,255,.03); }
-.foto-upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; }
+.foto-upload-area input[type="file"] {
+  position:absolute; width:1px; height:1px;
+  opacity:0; overflow:hidden; clip:rect(0,0,0,0);
+}
 .foto-preview { width:80px; height:80px; border-radius:50%; object-fit:cover; border:3px solid var(--accent); margin:0 auto 8px; display:none; }
 .foto-icon { font-size:36px; margin-bottom:8px; }
 .foto-texto { font-size:13px; color:rgba(255,255,255,.5); font-weight:600; }
@@ -469,15 +472,15 @@ footer span { color:var(--accent); }
       <!-- FOTO UPLOAD -->
       <div class="field">
         <label>📸 Sua foto (opcional mas recomendado — aumenta 40% as chances)</label>
-        <div class="foto-upload-area" id="foto-area" onclick="document.getElementById('foto-input').click()">
-          <input type="file" id="foto-input" accept="image/*" onchange="processarFoto(this)" style="display:none">
+        <label for="foto-input" class="foto-upload-area" id="foto-area">
+          <input type="file" id="foto-input" accept="image/jpeg,image/png,image/webp" onchange="processarFoto(this)">
           <img id="foto-preview" class="foto-preview" src="" alt="Preview">
           <div id="foto-placeholder">
             <div class="foto-icon">📷</div>
             <div class="foto-texto">Clique para adicionar sua foto</div>
             <div class="foto-subtexto">JPG ou PNG · Fundo neutro recomendado</div>
           </div>
-        </div>
+        </label>
       </div>
 
       <div class="field-row">
@@ -816,13 +819,30 @@ function scrollToForm() { document.getElementById('form-section').scrollIntoView
 function processarFoto(input) {
   const file = input.files[0];
   if (!file) return;
+
   const reader = new FileReader();
   reader.onload = (e) => {
-    fotoBase64 = e.target.result.split(',')[1];
-    const preview = document.getElementById('foto-preview');
-    preview.src = e.target.result;
-    preview.style.display = 'block';
-    document.getElementById('foto-placeholder').style.display = 'none';
+    const img = new Image();
+    img.onload = () => {
+      // Redimensiona para max 400px — evita travamento com fotos de celular grandes
+      const MAX = 400;
+      let w = img.width, h = img.height;
+      if (w > h) { if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; } }
+      else        { if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; } }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+
+      const dataURL = canvas.toDataURL('image/jpeg', 0.85);
+      fotoBase64 = dataURL.split(',')[1];
+
+      const preview = document.getElementById('foto-preview');
+      preview.src = dataURL;
+      preview.style.display = 'block';
+      document.getElementById('foto-placeholder').style.display = 'none';
+    };
+    img.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
