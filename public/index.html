@@ -469,18 +469,14 @@ footer span { color:var(--accent); }
     <div class="form-step active" id="step-1">
       <div class="sh"><h2>Sobre você 👋</h2><p>Informações básicas para o currículo</p></div>
 
-      <!-- FOTO UPLOAD -->
+      <!-- FOTO: input normal visível só via botão dedicado -->
       <div class="field">
-        <label>📸 Sua foto (opcional mas recomendado — aumenta 40% as chances)</label>
-        <div class="foto-upload-area" id="foto-area">
-          <input type="file" id="foto-input" accept="image/jpeg,image/png,image/webp" onchange="processarFoto(this)" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;">
-          <img id="foto-preview" class="foto-preview" src="" alt="Preview">
-          <div id="foto-placeholder">
-            <div class="foto-icon">📷</div>
-            <div class="foto-texto">Clique no botão abaixo para adicionar sua foto</div>
-            <div class="foto-subtexto">JPG ou PNG · Opcional</div>
-          </div>
-          <button type="button" onclick="document.getElementById('foto-input').click()" style="margin-top:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;padding:8px 20px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">
+        <label>📸 Foto para o currículo <span style="color:rgba(255,255,255,.35);font-weight:400">(opcional)</span></label>
+        <div id="foto-area" style="border:2px dashed rgba(255,255,255,.2);border-radius:12px;padding:20px;text-align:center;">
+          <input type="file" id="foto-input" accept="image/*" style="display:none" onchange="processarFoto(event)">
+          <img id="foto-preview" style="display:none;width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;margin:0 auto 10px;display:none;" alt="Foto">
+          <p id="foto-nome" style="color:rgba(255,255,255,.5);font-size:13px;margin-bottom:10px">Nenhuma foto selecionada</p>
+          <button type="button" onclick="document.getElementById('foto-input').click()" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:white;padding:9px 22px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;">
             📷 Escolher foto
           </button>
         </div>
@@ -820,20 +816,22 @@ let fotoObjectURL = null;
 function scrollToForm() { document.getElementById('form-section').scrollIntoView({ behavior:'smooth' }); }
 
 // FOTO
-function processarFoto(input) {
-  const file = input.files[0];
+function processarFoto(event) {
+  const file = event.target.files[0];
   if (!file) return;
 
-  // URL.createObjectURL: INSTANTÂNEO — sem FileReader, sem canvas, sem base64
-  // Não lê o arquivo, só cria um ponteiro temporário. Nunca trava.
-  if (fotoObjectURL) URL.revokeObjectURL(fotoObjectURL); // libera memória anterior
-  fotoObjectURL = URL.createObjectURL(file);
-  fotoBase64 = fotoObjectURL; // usado para exibir no currículo
+  // Mostra nome do arquivo imediatamente
+  document.getElementById('foto-nome').textContent = '✅ ' + file.name;
 
-  const preview = document.getElementById('foto-preview');
-  preview.src = fotoObjectURL;
-  preview.style.display = 'block';
-  document.getElementById('foto-placeholder').style.display = 'none';
+  // Lê e mostra preview — simples e direto
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const preview = document.getElementById('foto-preview');
+    preview.src   = e.target.result;
+    preview.style.display = 'block';
+    fotoBase64 = e.target.result; // dataURL completo para usar no currículo
+  };
+  reader.readAsDataURL(file);
 }
 
 // STEPS
