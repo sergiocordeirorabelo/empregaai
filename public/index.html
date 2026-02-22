@@ -367,955 +367,24 @@ footer span { color:var(--accent); }
   .field-row { grid-template-columns:1fr; }
   nav { padding:16px 24px; }
 }
-</style>
-</head>
-<body>
 
-<nav>
-  <div class="logo">Emprega<span>AI</span> ✦</div>
-  <button class="nav-cta" onclick="scrollToForm()">Criar meu currículo →</button>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <div class="hero-tag">✦ IA para primeiro emprego</div>
-    <h1>Seu <em>primeiro</em><br>emprego começa<br>aqui.</h1>
-    <p class="hero-sub">Currículo profissional com foto, vagas reais em 8 portais, LinkedIn gerado e sua chance de contratação — tudo por R$20.</p>
-    <button class="btn-hero" onclick="scrollToForm()">✨ Ver prévia grátis</button>
-    <p class="hero-note">✓ Prévia grátis &nbsp;·&nbsp; ✓ Sem cadastro &nbsp;·&nbsp; ✓ 3 minutos</p>
-    <div class="hero-stats">
-      <div class="stat"><h3>8</h3><p>portais de vagas</p></div>
-      <div class="stat"><h3>R$20</h3><p>acesso completo</p></div>
-      <div class="stat"><h3>2.4k</h3><p>empregos conquistados</p></div>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="float-chip fc1">📸 Currículo com foto</div>
-    <div class="float-chip fc2">🎯 73% chance de contratação</div>
-    <div class="hero-vagas-card">
-      <div class="hvc-title">💼 Vagas encontradas para você</div>
-      <div class="hvc-vaga">
-        <div class="hvc-vaga-logo fonte-indeed">in</div>
-        <div class="hvc-vaga-info"><h5>Assistente Administrativo</h5><p>Indeed · Manaus, AM</p></div>
-        <div class="hvc-badge">NOVO</div>
-      </div>
-      <div class="hvc-vaga">
-        <div class="hvc-vaga-logo fonte-linkedin">li</div>
-        <div class="hvc-vaga-info"><h5>Jovem Aprendiz</h5><p>LinkedIn · Manaus, AM</p></div>
-        <div class="hvc-badge">NOVO</div>
-      </div>
-      <div class="hvc-vaga">
-        <div class="hvc-vaga-logo fonte-ciee">CI</div>
-        <div class="hvc-vaga-info"><h5>Estagiário Administrativo</h5><p>CIEE · Manaus, AM</p></div>
-        <div class="hvc-badge">NOVO</div>
-      </div>
-      <div class="hvc-vaga">
-        <div class="hvc-vaga-logo fonte-catho">Ca</div>
-        <div class="hvc-vaga-info"><h5>Auxiliar de Escritório</h5><p>Catho · Manaus, AM</p></div>
-        <div class="hvc-badge">+5</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COMO FUNCIONA -->
-<section class="section">
-  <div class="sec-label">Como funciona</div>
-  <div class="sec-title">4 passos para o<br>seu primeiro emprego</div>
-  <div class="steps">
-    <div class="step-box">
-      <div class="step-num">01</div>
-      <span class="step-icon">💬</span>
-      <h3>Preencha + adicione sua foto</h3>
-      <p>Responda perguntas simples e adicione sua foto. Currículo com foto tem 40% mais chances de ser visto.</p>
-    </div>
-    <div class="step-box">
-      <div class="step-num">02</div>
-      <span class="step-icon">👀</span>
-      <h3>Veja a prévia grátis</h3>
-      <p>Veja como ficou seu currículo e descubra sua chance de contratação calculada pela IA — de graça.</p>
-    </div>
-    <div class="step-box">
-      <div class="step-num">03</div>
-      <span class="step-icon">🔓</span>
-      <h3>Desbloqueie tudo por R$20</h3>
-      <p>Acesso completo: currículo PDF, 8 portais de vagas, LinkedIn, email e dicas de entrevista.</p>
-      <div class="step-price">R$20</div>
-    </div>
-    <div class="step-box">
-      <div class="step-num">04</div>
-      <span class="step-icon">🚀</span>
-      <h3>Candidate-se agora!</h3>
-      <p>Links diretos para vagas já filtradas pela sua cidade e área. Clique e aplique em segundos.</p>
-    </div>
-  </div>
-</section>
-
-<!-- FORMULÁRIO -->
-<section class="form-section" id="form-section">
-  <div class="form-wrapper">
-    <div class="sec-label">Comece grátis</div>
-    <div class="sec-title">Vamos montar<br>seu currículo?</div>
-
-    <div class="progress-bar" id="progress-bar">
-      <div class="ps active" id="ps-1"></div>
-      <div class="ps" id="ps-2"></div>
-      <div class="ps" id="ps-3"></div>
-      <div class="ps" id="ps-4"></div>
-    </div>
-
-    <!-- STEP 1 -->
-    <div class="form-step active" id="step-1">
-      <div class="sh"><h2>Sobre você 👋</h2><p>Informações básicas para o currículo</p></div>
-
-      <div class="field">
-        <label>📸 Foto <span style="color:rgba(255,255,255,.35);font-weight:400">(opcional — aumenta 40% as chances)</span></label>
-        <div style="border:2px dashed rgba(255,255,255,.2);border-radius:12px;padding:20px;text-align:center;">
-          <img id="foto-preview" src="" alt="" style="display:none;width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;margin:0 auto 10px;">
-          <div id="foto-nome" style="color:rgba(255,255,255,.4);font-size:13px;margin-bottom:12px">Nenhuma foto selecionada</div>
-          <button type="button" id="btn-foto" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:white;padding:9px 22px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">📷 Escolher foto</button>
-          <input type="file" id="foto-input" accept="image/*" style="display:none">
-        </div>
-      </div>
-
-      <div class="field-row">
-        <div class="field"><label>Nome completo</label><input type="text" id="nome" placeholder="Ex: Ana Clara Silva"></div>
-        <div class="field"><label>Cidade e estado</label><input type="text" id="cidade" placeholder="Ex: Manaus, AM"></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label>Email</label><input type="email" id="email" placeholder="seuemail@gmail.com"></div>
-        <div class="field"><label>WhatsApp</label><input type="text" id="telefone" placeholder="(92) 99999-9999"></div>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label>Escolaridade</label>
-          <select id="escolaridade">
-            <option value="">Selecione...</option>
-            <option>Ensino médio cursando</option>
-            <option>Ensino médio completo</option>
-            <option>Técnico cursando</option>
-            <option>Técnico completo</option>
-            <option>Superior cursando</option>
-            <option>Superior completo</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Ano de conclusão (ou previsão)</label>
-          <input type="text" id="ano_conclusao" placeholder="Ex: 2024, 2025, cursando...">
-        </div>
-      </div>
-      <div class="form-nav"><div></div><button type="button" class="btn-next" id="btn-step1-next">Próximo →</button></div>
-    </div>
-
-    <!-- STEP 2 -->
-    <div class="form-step" id="step-2">
-      <div class="sh"><h2>Área de interesse 🎯</h2><p>Onde você quer trabalhar? Isso filtra as vagas para você.</p></div>
-      <div class="field"><label>Área desejada</label>
-        <div class="chips" id="areas">
-          <div class="chip">💼 Administrativo</div>
-          <div class="chip">💻 Tecnologia / TI</div>
-          <div class="chip">📊 Finanças</div>
-          <div class="chip">🎨 Design / Criativo</div>
-          <div class="chip">🛒 Vendas / Comercial</div>
-          <div class="chip">🤝 Atendimento</div>
-          <div class="chip">📦 Logística</div>
-          <div class="chip">🏥 Saúde</div>
-          <div class="chip">📣 Marketing</div>
-          <div class="chip">🔧 Técnico</div>
-        </div>
-      </div>
-      <div class="form-nav">
-        <button type="button" class="btn-back" id="btn-step2-back">← Voltar</button>
-        <button type="button" class="btn-next" id="btn-step2-next">Próximo →</button>
-      </div>
-    </div>
-
-    <!-- STEP 3 -->
-    <div class="form-step" id="step-3">
-      <div class="sh"><h2>Suas habilidades 💪</h2><p>Tudo que você sabe conta!</p></div>
-      <div class="field"><label>Habilidades</label>
-        <div class="chips" id="habilidades">
-          <div class="chip">📝 Word / Excel</div>
-          <div class="chip">📱 Redes sociais</div>
-          <div class="chip">🖥️ Informática</div>
-          <div class="chip">🗣️ Comunicação</div>
-          <div class="chip">👥 Trabalho em equipe</div>
-          <div class="chip">🎓 Cursos online</div>
-          <div class="chip">🤝 Atendimento ao público</div>
-          <div class="chip">🔧 Habilidade manual</div>
-          <div class="chip">🌐 Inglês básico</div>
-          <div class="chip">🚗 CNH</div>
-          <div class="chip">🎨 Edição foto/vídeo</div>
-          <div class="chip">📊 Organização</div>
-        </div>
-      </div>
-      <div class="field" style="margin-top:20px">
-        <label>Experiências e atividades que já fez</label>
-        <div style="background:rgba(244,169,53,.12);border:1px solid rgba(244,169,53,.3);border-radius:8px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:8px">
-          <span style="font-size:16px;flex-shrink:0">⚠️</span>
-          <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.6">
-            <strong style="color:var(--accent3)">Importante:</strong> informe o <strong style="color:white">período</strong> de cada atividade.<br>
-            Ex: <em>"Auxiliei no comércio da família de jan/2022 a mar/2024"</em>
-          </div>
-        </div>
-        <textarea id="experiencias" placeholder="Ex: De jan/2022 a mar/2024 — ajudei no comércio da família&#10;Em 2023 — voluntariado na igreja" style="min-height:120px"></textarea>
-      </div>
-      <div class="form-nav">
-        <button type="button" class="btn-back" id="btn-step3-back">← Voltar</button>
-        <button type="button" class="btn-next" id="btn-step3-next">Próximo →</button>
-      </div>
-    </div>
-
-    <!-- STEP 4 -->
-    <div class="form-step" id="step-4">
-      <div class="sh"><h2>Último passo! 🎉</h2><p>Isso personaliza seu currículo e calcula sua chance de contratação</p></div>
-      <div class="field">
-        <label>Conte sobre você como pessoa</label>
-        <textarea id="sobre" placeholder="Ex: Sou comunicativa, gosto de aprender e sou muito dedicada..."></textarea>
-      </div>
-      <div class="field">
-        <label>Qual é seu objetivo profissional?</label>
-        <textarea id="objetivo" placeholder="Ex: Quero trabalhar com atendimento para desenvolver minha comunicação..." style="min-height:80px"></textarea>
-      </div>
-      <div class="form-nav">
-        <button type="button" class="btn-back" id="btn-step4-back">← Voltar</button>
-        <button type="button" class="btn-next" id="btn-gerar">✨ Ver prévia grátis</button>
-      </div>
-    </div>
-
-    <!-- LOADING -->
-    <div id="loading-screen" style="display:none;text-align:center;padding:60px 0;">
-      <div class="loader-ring"></div>
-      <div class="loader-title">A IA está trabalhando...</div>
-      <div class="loader-sub">Preparando sua prévia completa ☕</div>
-      <div class="loader-items">
-        <div class="li active" id="li-1"><div class="li-dot"></div>Analisando seu perfil</div>
-        <div class="li" id="li-2"><div class="li-dot"></div>Gerando currículo</div>
-        <div class="li" id="li-3"><div class="li-dot"></div>Calculando sua chance de contratação</div>
-        <div class="li" id="li-4"><div class="li-dot"></div>Buscando vagas em 8 portais</div>
-        <div class="li" id="li-5"><div class="li-dot"></div>Montando LinkedIn e email</div>
-      </div>
-    </div>
-
-    <!-- PRÉVIA BLOQUEADA -->
-    <div id="preview-screen" style="display:none;">
-      <div class="preview-header">
-        <div class="preview-badge">👀 Prévia gratuita</div>
-        <div class="preview-title" id="prev-title">Olha como ficou!</div>
-        <div style="color:rgba(255,255,255,.4);font-size:14px">Desbloqueie por R$20 para acessar tudo</div>
-      </div>
-
-      <div class="meter-card" id="meter-card">
-        <div class="meter-title">🎯 Sua chance de contratação — calculada pela IA</div>
-        <div class="meter-row">
-          <div class="meter-circle" id="meter-circle" style="--pct:0%">
-            <div class="meter-num" id="meter-num">0%</div>
-          </div>
-          <div class="meter-info">
-            <h3 id="meter-nivel">Calculando...</h3>
-            <p id="meter-resumo">A IA está analisando seu perfil...</p>
-          </div>
-        </div>
-        <div class="meter-pontos">
-          <div class="mp-card"><div class="mp-label forte">✅ Pontos fortes</div><div id="pontos-fortes"></div></div>
-          <div class="mp-card"><div class="mp-label melhor">📈 Para melhorar</div><div id="pontos-melhorar"></div></div>
-        </div>
-      </div>
-
-      <div class="prev-card">
-        <div class="prev-label">📄 Seu currículo — prévia parcial</div>
-        <div class="cv-real" id="cv-preview-parcial"></div>
-        <div style="position:relative;margin-top:8px">
-          <div style="border-radius:12px;overflow:hidden">
-            <div style="background:white;padding:16px;border-radius:12px;filter:blur(7px);user-select:none">
-              <div class="cv-sec">Experiências</div>
-              <p style="font-size:12px;color:#4a3f2f;line-height:1.6">• Auxiliar no Comércio Familiar — atendimento ao cliente e organização.<br><br>• Atividades Voluntárias — desenvolvimento de habilidades interpessoais.</p>
-              <div class="cv-sec">Perfil Pessoal</div>
-              <p style="font-size:12px;color:#4a3f2f">Pessoa comunicativa, dedicada e proativa...</p>
-            </div>
-          </div>
-          <div class="lock-overlay"><div class="lock-icon">🔒</div><div class="lock-text">Desbloqueie para ver completo</div></div>
-        </div>
-      </div>
-
-      <div class="preview-grid">
-        <div class="prev-card">
-          <div class="prev-label">💼 Vagas encontradas — 8 portais</div>
-          <div id="vagas-preview"></div>
-        </div>
-        <div class="prev-card" style="position:relative">
-          <div class="prev-label">🔗 LinkedIn + 📧 Email gerados</div>
-          <div style="filter:blur(6px);user-select:none;pointer-events:none">
-            <div style="background:white;border-radius:10px;padding:14px;margin-bottom:10px">
-              <div style="font-size:13px;font-weight:800;color:#1a1208">Seu nome aqui</div>
-              <div style="font-size:11px;color:#9a8e7e">Área | Buscando primeiro emprego | Cidade</div>
-            </div>
-          </div>
-          <div class="lock-overlay"><div class="lock-icon">🔒</div><div class="lock-text">LinkedIn + email prontos para usar</div></div>
-        </div>
-      </div>
-
-      <div class="payment-box">
-        <div class="pay-title">Desbloqueie tudo agora! 🚀</div>
-        <div style="color:rgba(255,255,255,.45);font-size:14px;margin-bottom:8px">Acesso completo por apenas</div>
-        <div style="font-family:'Fraunces',serif;font-size:56px;font-weight:900;color:var(--accent3);line-height:1;margin:8px 0">R$20</div>
-        <div style="color:rgba(255,255,255,.35);font-size:13px;margin-bottom:24px">pagamento único · acesso imediato</div>
-        <div class="pay-items">
-          <div class="pay-item"><div class="pay-item-icon">📄</div><div class="pay-item-text">Currículo com foto em PDF</div></div>
-          <div class="pay-item"><div class="pay-item-icon">💼</div><div class="pay-item-text">Vagas em 8 portais</div></div>
-          <div class="pay-item"><div class="pay-item-icon">🔗</div><div class="pay-item-text">Perfil LinkedIn completo</div></div>
-          <div class="pay-item"><div class="pay-item-icon">📧</div><div class="pay-item-text">Email de candidatura</div></div>
-          <div class="pay-item"><div class="pay-item-icon">🎯</div><div class="pay-item-text">Dicas de entrevista</div></div>
-          <div class="pay-item"><div class="pay-item-icon">📱</div><div class="pay-item-text">Tutorial LinkedIn</div></div>
-        </div>
-        <button type="button" class="btn-pagar" id="btn-pagar">🔓 Desbloquear por R$20 — Mercado Pago</button>
-        <div class="pay-seguro">🔒 Pagamento seguro · Mercado Pago · Acesso imediato</div>
-      </div>
-    </div>
-
-    <!-- RESULTADO COMPLETO -->
-    <div id="result-screen" style="display:none;">
-      <div class="result-header">
-        <div class="result-badge">🎉 Acesso liberado!</div>
-        <div class="result-title" id="result-title">Tudo pronto para você!</div>
-        <div style="color:rgba(255,255,255,.4);font-size:14px">Seu pacote completo de emprego está aqui</div>
-      </div>
-      <div class="result-card">
-        <div class="rc-label">📄 Currículo profissional completo</div>
-        <div class="cv-real" id="cv-completo"></div>
-        <div class="cv-actions">
-          <button type="button" class="btn-cv primary" id="btn-pdf">🖨️ Salvar PDF</button>
-          <button type="button" class="btn-cv secondary" id="btn-copiar-cv">📋 Copiar texto</button>
-        </div>
-      </div>
-      <div class="result-card">
-        <div class="rc-label">💼 Vagas reais — 8 portais brasileiros</div>
-        <div style="background:rgba(45,106,79,.15);border:1px solid rgba(45,106,79,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:16px;">
-          🎯 Links diretos — já filtrados pela sua cidade e área!
-        </div>
-        <div id="vagas-completo"></div>
-      </div>
-      <div class="result-grid">
-        <div class="result-card">
-          <div class="rc-label">🔗 Seu perfil LinkedIn</div>
-          <div class="linkedin-block" id="linkedin-block"></div>
-          <button type="button" class="btn-copy" id="btn-copiar-li">📋 Copiar para o LinkedIn</button>
-        </div>
-        <div class="result-card">
-          <div class="rc-label">📧 Email de candidatura</div>
-          <div class="email-block" id="email-block"></div>
-          <button type="button" class="btn-copy" id="btn-copiar-email">📋 Copiar email</button>
-        </div>
-      </div>
-      <div class="result-card">
-        <div class="rc-label">🎯 Dicas personalizadas de entrevista</div>
-        <div id="entrevista-block"></div>
-      </div>
-      <div class="tutorial-section">
-        <div class="tutorial-title">📱 Como criar seu LinkedIn do zero</div>
-        <div class="tutorial-sub">Simples! LinkedIn é só uma rede social profissional.</div>
-        <div class="ts"><div class="ts-n">1</div><div><h4>Acesse linkedin.com e crie conta grátis</h4><p>Clique em "Cadastre-se", coloque email e senha. Leva 2 minutos.</p><div class="ts-tip">💡 Use o mesmo email do currículo.</div></div></div>
-        <div class="ts"><div class="ts-n">2</div><div><h4>Adicione uma foto profissional</h4><p>Boa luz + camisa arrumada + fundo neutro. Perfis com foto têm 14x mais views!</p></div></div>
-        <div class="ts"><div class="ts-n">3</div><div><h4>Cole o título profissional gerado</h4><p>Copie o texto que geramos acima e cole embaixo do seu nome.</p></div></div>
-        <div class="ts"><div class="ts-n">4</div><div><h4>Cole o texto "Sobre" gerado pela IA</h4><p>Na seção "Sobre", cole o texto que geramos. Foi feito para chamar atenção de recrutadores.</p></div></div>
-        <div class="ts"><div class="ts-n">5</div><div><h4>Adicione habilidades e experiências</h4><p>Copie do currículo e adicione nas seções do LinkedIn.</p><div class="ts-tip">💡 Coloque pelo menos 5 habilidades.</div></div></div>
-        <div class="ts"><div class="ts-n">6</div><div><h4>Siga empresas da sua área</h4><p>Pesquise empresas, siga e ative notificações de vagas.</p><div class="ts-tip">💡 Muitas empresas postam vagas só no LinkedIn!</div></div></div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- ==================== PLUS SECTION ==================== -->
-<section class="plus-section" id="plus-section">
-  <div class="plus-hero">
-    <div class="plus-badge">✨ EmpregaAI Plus</div>
-    <h2 class="plus-title">Seu coach de carreira<br><em>pessoal com IA</em></h2>
-    <p class="plus-sub">Enquanto outros enviam currículos e esperam, você treina, evolui e chega preparado.</p>
-    <div class="plus-price-row">
-      <span class="plus-price">R$39,90</span>
-      <span class="plus-price-label">/mês · cancele quando quiser</span>
-    </div>
-    <button class="btn-plus-cta" id="btn-abrir-plus">🚀 Começar agora — 7 dias grátis</button>
-  </div>
-
-  <div class="plus-features">
-    <div class="plus-feat">
-      <div class="plus-feat-icon">🎭</div>
-      <h4>Simulador de entrevista</h4>
-      <p>IA vira recrutador real. Perguntas difíceis, feedback honesto, nota ao final. Treine até ficar craque.</p>
-    </div>
-    <div class="plus-feat">
-      <div class="plus-feat-icon">📊</div>
-      <h4>Ranking de chance</h4>
-      <p>Cole a descrição de qualquer vaga. A IA diz sua chance real (0–100%) e o que falta para aumentar.</p>
-    </div>
-    <div class="plus-feat">
-      <div class="plus-feat-icon">📋</div>
-      <h4>Tarefas diárias</h4>
-      <p>Todo dia uma missão: "aplique em 3 vagas", "atualize o LinkedIn", "estude essa pergunta". Simples e eficaz.</p>
-    </div>
-    <div class="plus-feat">
-      <div class="plus-feat-icon">📈</div>
-      <h4>Evolução visível</h4>
-      <p>Veja seu progresso semana a semana. Quantas simulações fez, como suas notas melhoraram, o que ainda falta.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== MODAL PLUS ==================== -->
-<div class="plus-overlay" id="plus-overlay" style="display:none">
-  <div class="plus-modal" id="plus-modal">
-
-    <!-- TELA: LOGIN/CADASTRO -->
-    <div id="tela-auth" class="plus-tela active">
-      <button class="plus-close" id="btn-fechar-modal">✕</button>
-      <div class="pm-logo">✨ EmpregaAI <span>Plus</span></div>
-      <div class="pm-tabs">
-        <button class="pm-tab active" id="tab-login" onclick="plusTab('login')">Entrar</button>
-        <button class="pm-tab" id="tab-cadastro" onclick="plusTab('cadastro')">Criar conta</button>
-      </div>
-
-      <div id="form-login">
-        <div class="pm-field"><label>Email</label><input type="email" id="plus-email-login" placeholder="seu@email.com"></div>
-        <div class="pm-field"><label>Senha</label><input type="password" id="plus-senha-login" placeholder="••••••••"></div>
-        <div class="pm-error" id="login-erro"></div>
-        <button class="btn-pm-primary" id="btn-entrar">Entrar na conta →</button>
-        <div class="pm-hint">Não tem conta? <a onclick="plusTab('cadastro')" href="#">Crie grátis</a></div>
-      </div>
-
-      <div id="form-cadastro" style="display:none">
-        <div class="pm-field"><label>Nome</label><input type="text" id="plus-nome-cad" placeholder="Seu nome completo"></div>
-        <div class="pm-field"><label>Email</label><input type="email" id="plus-email-cad" placeholder="seu@email.com"></div>
-        <div class="pm-field"><label>Senha</label><input type="password" id="plus-senha-cad" placeholder="Mínimo 6 caracteres"></div>
-        <div class="pm-field"><label>Área de interesse</label>
-          <select id="plus-area-cad">
-            <option value="Administrativo">Administrativo</option>
-            <option value="Tecnologia">Tecnologia / TI</option>
-            <option value="Vendas">Vendas / Comercial</option>
-            <option value="Atendimento">Atendimento ao Cliente</option>
-            <option value="Logística">Logística</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Saúde">Saúde</option>
-            <option value="Finanças">Finanças</option>
-          </select>
-        </div>
-        <div class="pm-error" id="cad-erro"></div>
-        <button class="btn-pm-primary" id="btn-cadastrar">Criar conta grátis →</button>
-        <div class="pm-hint">7 dias grátis. Depois R$39,90/mês.</div>
-      </div>
-    </div>
-
-    <!-- TELA: DASHBOARD -->
-    <div id="tela-dashboard" class="plus-tela" style="display:none">
-      <div class="dash-header">
-        <div>
-          <div class="dash-hello" id="dash-hello">Olá! 👋</div>
-          <div class="dash-sub">Seu painel de evolução profissional</div>
-        </div>
-        <button class="btn-sair" id="btn-sair">Sair</button>
-      </div>
-
-      <div class="dash-stats">
-        <div class="dash-stat">
-          <div class="ds-num" id="stat-simulacoes">0</div>
-          <div class="ds-label">Simulações</div>
-        </div>
-        <div class="dash-stat">
-          <div class="ds-num" id="stat-media">—</div>
-          <div class="ds-label">Nota média</div>
-        </div>
-        <div class="dash-stat">
-          <div class="ds-num" id="stat-streak">0🔥</div>
-          <div class="ds-label">Dias seguidos</div>
-        </div>
-      </div>
-
-      <div class="dash-tarefa" id="dash-tarefa">
-        <div class="dt-label">📋 Sua tarefa de hoje</div>
-        <div class="dt-text" id="tarefa-texto">Carregando sua missão do dia...</div>
-      </div>
-
-      <div class="dash-actions">
-        <button class="btn-dash-action primary" id="btn-iniciar-sim">
-          🎭 Iniciar simulação de entrevista
-        </button>
-        <button class="btn-dash-action secondary" id="btn-ver-historico">
-          📊 Ver histórico de simulações
-        </button>
-      </div>
-
-      <div id="historico-lista" style="display:none">
-        <div class="hist-title">Suas simulações anteriores</div>
-        <div id="hist-items"></div>
-      </div>
-    </div>
-
-    <!-- TELA: SIMULADOR -->
-    <div id="tela-simulador" class="plus-tela" style="display:none">
-      <div class="sim-header">
-        <button class="btn-voltar-dash" id="btn-voltar-dash">← Dashboard</button>
-        <div class="sim-title">🎭 Simulação de Entrevista</div>
-      </div>
-
-      <!-- Config da simulação -->
-      <div id="sim-config">
-        <div class="sc-label">Escolha o tipo de entrevista:</div>
-        <div class="sc-tipos">
-          <div class="sc-tipo selected" data-tipo="geral" onclick="selecionarTipo(this)">
-            <div class="sct-icon">📚</div>
-            <div class="sct-nome">Treino geral</div>
-            <div class="sct-desc">Perguntas clássicas da sua área</div>
-          </div>
-          <div class="sc-tipo" data-tipo="vaga" onclick="selecionarTipo(this)">
-            <div class="sct-icon">🎯</div>
-            <div class="sct-nome">Por vaga específica</div>
-            <div class="sct-desc">Cole a descrição da vaga</div>
-          </div>
-          <div class="sc-tipo" data-tipo="dificil" onclick="selecionarTipo(this)">
-            <div class="sct-icon">😤</div>
-            <div class="sct-nome">Modo difícil</div>
-            <div class="sct-desc">Recrutador exigente que pressiona</div>
-          </div>
-        </div>
-
-        <div id="campo-vaga" style="display:none">
-          <div class="pm-field">
-            <label>Cole aqui a descrição da vaga</label>
-            <textarea id="desc-vaga" placeholder="Ex: Empresa XYZ busca assistente administrativo com experiência em Excel, atendimento ao cliente..." style="min-height:100px"></textarea>
-          </div>
-        </div>
-
-        <button class="btn-pm-primary" id="btn-comecar-sim">🎬 Começar entrevista</button>
-      </div>
-
-      <!-- Chat da entrevista -->
-      <div id="sim-chat" style="display:none">
-        <div class="chat-info" id="chat-info">
-          <span id="chat-progresso">Pergunta 1 de 5</span>
-          <span id="chat-tipo-label">Treino geral</span>
-        </div>
-        <div class="chat-msgs" id="chat-msgs"></div>
-        <div class="chat-input-area" id="chat-input-area">
-          <textarea id="chat-resposta" placeholder="Digite sua resposta aqui... Seja natural, como numa entrevista real." rows="3"></textarea>
-          <button class="btn-enviar" id="btn-enviar-resp">Enviar →</button>
-        </div>
-        <div class="chat-loading" id="chat-loading" style="display:none">
-          <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
-        </div>
-      </div>
-
-      <!-- Feedback final -->
-      <div id="sim-feedback" style="display:none">
-        <div class="fb-header">
-          <div class="fb-title">🏁 Entrevista concluída!</div>
-          <div class="fb-sub">Veja como você se saiu</div>
-        </div>
-        <div class="fb-nota-wrapper">
-          <div class="fb-nota-circle" id="fb-nota-circle">
-            <span id="fb-nota-num">—</span>
-            <span class="fb-nota-label">/10</span>
-          </div>
-          <div class="fb-nivel" id="fb-nivel">Calculando...</div>
-        </div>
-        <div class="fb-resumo" id="fb-resumo"></div>
-        <div class="fb-pontos">
-          <div class="fb-col">
-            <div class="fb-col-title verde">✅ Você foi bem em</div>
-            <div id="fb-fortes"></div>
-          </div>
-          <div class="fb-col">
-            <div class="fb-col-title laranja">📈 Para melhorar</div>
-            <div id="fb-melhorar"></div>
-          </div>
-        </div>
-        <div class="fb-dica-box" id="fb-dica-box"></div>
-        <div class="fb-acoes">
-          <button class="btn-pm-primary" id="btn-nova-sim">🔄 Nova simulação</button>
-          <button class="btn-pm-secondary" id="btn-voltar-dash2">← Voltar ao painel</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-<!-- DEPOIMENTOS -->
-<section class="proof">
-  <div class="sec-label">Histórias reais</div>
-  <div class="sec-title">Quem usou o EmpregaAI</div>
-  <div class="testimonials">
-    <div class="testi">
-      <p>Os R$20 foram o melhor investimento que fiz. Recebi currículo com minha foto, apareceram vagas de 8 sites diferentes e minha chance de contratação estava em 78%! Fui chamada em 3 empresas!</p>
-      <div class="ta"><div class="ta-av" style="background:#fde8d8">👩</div><div><div class="ta-name">Letícia F., 20 anos</div><div class="ta-role">Atendente · Manaus, AM</div></div></div>
-    </div>
-    <div class="testi">
-      <p>Nunca sabia onde procurar emprego. O EmpregaAI me mostrou vagas no Indeed, LinkedIn, Catho tudo ao mesmo tempo já filtrado pra Manaus. Em 1 semana consegui entrevista no CIEE!</p>
-      <div class="ta"><div class="ta-av" style="background:#e8f5e9">👦</div><div><div class="ta-name">Lucas M., 18 anos</div><div class="ta-role">Jovem aprendiz · Manaus, AM</div></div></div>
-    </div>
-    <div class="testi">
-      <p>A IA disse que minha chance era 65% e o que faltava. Segui as dicas, atualizei o perfil e subi para 82%. O LinkedIn gerado foi incrível — recebi mensagem de recrutador em 2 dias!</p>
-      <div class="ta"><div class="ta-av" style="background:#e8f0fe">👦</div><div><div class="ta-name">Gabriel R., 17 anos</div><div class="ta-role">Auxiliar administrativo · Manaus, AM</div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing" id="pricing-section">
-  <div class="sec-label">Investimento</div>
-  <div class="sec-title" style="margin:0 auto;text-align:center">Um preço justo<br>para mudar sua vida</div>
-  <div class="price-box">
-    <div class="price-hot">🔥 PACOTE COMPLETO</div>
-    <div class="price-name">Acesso único</div>
-    <div class="price-val">R$20</div>
-    <div class="price-per">pagamento único · sem mensalidade</div>
-    <ul class="price-list">
-      <li class="price-item"><span class="check">✓</span> Currículo com foto em PDF</li>
-      <li class="price-item"><span class="check">✓</span> Vagas em 8 portais brasileiros</li>
-      <li class="price-item"><span class="check">✓</span> Chance de contratação calculada</li>
-      <li class="price-item"><span class="check">✓</span> Perfil LinkedIn completo gerado</li>
-      <li class="price-item"><span class="check">✓</span> Email de candidatura pronto</li>
-      <li class="price-item"><span class="check">✓</span> Dicas personalizadas de entrevista</li>
-      <li class="price-item"><span class="check">✓</span> Tutorial LinkedIn do zero</li>
-    </ul>
-    <button class="btn-price" onclick="scrollToForm()">Começar agora →</button>
-  </div>
-</section>
-
-<footer><p>Feito com ❤️ e <span>IA</span> para quem está começando · EmpregaAI © 2025</p></footer>
-
-
-<script>
-// ============================================================
-// EMPREGAAI v3 — JavaScript limpo e sem conflitos
-// ============================================================
-
-var dadosGerados = null;
-var fotoDataURL  = '';  // foto como dataURL, só no browser
-
-// --- FOTO ---
-document.addEventListener('DOMContentLoaded', function() {
-
-  // Botão de foto — evento direto, sem onclick no HTML
-  document.getElementById('btn-foto').addEventListener('click', function() {
-    document.getElementById('foto-input').click();
-  });
-
-  document.getElementById('foto-input').addEventListener('change', function() {
-    var file = this.files[0];
-    if (!file) return;
-
-    document.getElementById('foto-nome').textContent = '✅ ' + file.name;
-
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      fotoDataURL = e.target.result;
-      var prev = document.getElementById('foto-preview');
-      prev.src = fotoDataURL;
-      prev.style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-  });
-
-  // --- NAVEGAÇÃO entre steps ---
-  document.getElementById('btn-step1-next').addEventListener('click', function() { goStep(2); });
-  document.getElementById('btn-step2-back').addEventListener('click', function() { goStep(1); });
-  document.getElementById('btn-step2-next').addEventListener('click', function() { goStep(3); });
-  document.getElementById('btn-step3-back').addEventListener('click', function() { goStep(2); });
-  document.getElementById('btn-step3-next').addEventListener('click', function() { goStep(4); });
-  document.getElementById('btn-step4-back').addEventListener('click', function() { goStep(3); });
-  document.getElementById('btn-gerar').addEventListener('click', gerarPrevia);
-
-  // Pagamento
-  document.getElementById('btn-pagar').addEventListener('click', processarPagamento);
-
-  // Ações do resultado
-  document.getElementById('btn-pdf').addEventListener('click', imprimirCV);
-  document.getElementById('btn-copiar-cv').addEventListener('click', function() {
-    navigator.clipboard.writeText(document.getElementById('cv-completo').innerText)
-      .then(function() { alert('✅ Currículo copiado!'); });
-  });
-  document.getElementById('btn-copiar-li').addEventListener('click', function() {
-    navigator.clipboard.writeText(document.getElementById('linkedin-block').innerText)
-      .then(function() { alert('✅ LinkedIn copiado!'); });
-  });
-  document.getElementById('btn-copiar-email').addEventListener('click', function() {
-    navigator.clipboard.writeText(document.getElementById('email-block').innerText)
-      .then(function() { alert('✅ Email copiado!'); });
-  });
-
-  // Chips
-  document.querySelectorAll('.chip').forEach(function(chip) {
-    chip.addEventListener('click', function() {
-      this.classList.toggle('selected');
-    });
-  });
-
-});
-
-// --- STEPS ---
-var currentStep = 1;
-
-function goStep(step) {
-  document.getElementById('step-' + currentStep).classList.remove('active');
-  document.getElementById('step-' + step).classList.add('active');
-  for (var i = 1; i <= 4; i++) {
-    var ps = document.getElementById('ps-' + i);
-    if (i < step)      ps.className = 'ps done';
-    else if (i === step) ps.className = 'ps active';
-    else               ps.className = 'ps';
-  }
-  currentStep = step;
-  document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
-}
-
-function scrollToForm() {
-  document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
-}
-
-// --- DADOS DO FORMULÁRIO ---
-function getDados() {
-  return {
-    nome:         document.getElementById('nome').value         || 'Candidato',
-    cidade:       document.getElementById('cidade').value       || 'Manaus, AM',
-    email:        document.getElementById('email').value        || 'email@email.com',
-    telefone:     document.getElementById('telefone').value     || '(92) 99999-9999',
-    escolaridade: document.getElementById('escolaridade').value || 'Ensino médio completo',
-    ano_conclusao:document.getElementById('ano_conclusao').value|| '',
-    areas:        Array.from(document.querySelectorAll('#areas .chip.selected')).map(function(c){return c.textContent.trim();}).join(', ') || 'Administrativo',
-    habilidades:  Array.from(document.querySelectorAll('#habilidades .chip.selected')).map(function(c){return c.textContent.trim();}).join(', ') || 'Comunicação',
-    experiencias: document.getElementById('experiencias').value || 'Sem experiência formal',
-    sobre:        document.getElementById('sobre').value        || 'Pessoa dedicada',
-    objetivo:     document.getElementById('objetivo').value     || 'Iniciar carreira profissional'
-  };
-}
-
-// --- LOADER ---
-function animarLoader() {
-  var ids = ['li-1','li-2','li-3','li-4','li-5'];
-  var i = 0;
-  var iv = setInterval(function() {
-    if (i > 0) document.getElementById(ids[i-1]).className = 'li done';
-    if (i < ids.length) { document.getElementById(ids[i]).className = 'li active'; i++; }
-    else clearInterval(iv);
-  }, 1400);
-}
-
-// --- GERAR PRÉVIA ---
-async function gerarPrevia() {
-  var dados = getDados();
-
-  // Esconde steps, mostra loading
-  document.getElementById('step-4').classList.remove('active');
-  document.getElementById('progress-bar').style.display = 'none';
-  document.getElementById('loading-screen').style.display = 'block';
-  scrollToForm();
-  animarLoader();
-
-  // DEBUG: mostra status da API no console
-  var apiStatus = 'nao_chamada';
-  try {
-    var resp = await fetch('/api/gerar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(dados)
-    });
-    apiStatus = 'http_' + resp.status;
-    var apiResult = await resp.json();
-    console.log('[EmpregaAI] API response:', JSON.stringify(apiResult).substring(0, 200));
-
-    if (apiResult.erro || !apiResult.cv_html) {
-      // API retornou erro — mostra no console e usa fallback
-      console.warn('[EmpregaAI] API erro:', apiResult.erro || 'sem cv_html');
-      var fb = fallbackLocal(dados);
-      dadosGerados = {
-        cv_html:             apiResult.cv_html            || fb.cv_html,
-        linkedin:            apiResult.linkedin            || fb.linkedin,
-        email_candidatura:   apiResult.email_candidatura  || fb.email_candidatura,
-        dicas_entrevista:    apiResult.dicas_entrevista    || fb.dicas_entrevista,
-        analise_contratacao: apiResult.analise_contratacao || fb.analise_contratacao,
-        vagas:               apiResult.vagas               || fb.vagas
-      };
-    } else {
-      console.log('[EmpregaAI] API OK! cv_html length:', (apiResult.cv_html||'').length);
-      var fb = fallbackLocal(dados);
-      dadosGerados = apiResult;
-      if (!dadosGerados.vagas || dadosGerados.vagas.length === 0) {
-        dadosGerados.vagas = fb.vagas;
-      }
-    }
-  } catch(ex) {
-    console.error('[EmpregaAI] Fetch exception:', ex.message);
-    apiStatus = 'exception: ' + ex.message;
-    dadosGerados = fallbackLocal(dados);
-  }
-  console.log('[EmpregaAI] apiStatus:', apiStatus);
-
-  await new Promise(function(r) { setTimeout(r, 800); });
-  mostrarPrevia(dados, dadosGerados);
-}
-
-// --- MOSTRAR PRÉVIA ---
-function mostrarPrevia(dados, resultado) {
-  document.getElementById('loading-screen').style.display = 'none';
-  document.getElementById('preview-screen').style.display = 'block';
-
-  var nome = dados.nome.split(' ')[0];
-  document.getElementById('prev-title').textContent = 'Olha como ficou, ' + nome + '! 👀';
-
-  var analise = resultado.analise_contratacao || {};
-  animarMeter(analise.porcentagem || 65, analise);
-
-  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:16px;">' : '';
-  document.getElementById('cv-preview-parcial').innerHTML =
-    '<div style="overflow:hidden">' + fotoTag +
-    '<div class="cv-name">' + dados.nome + '</div>' +
-    '<div class="cv-role">' + dados.areas.split(',')[0].trim() + ' · Primeiro emprego</div>' +
-    '<div class="cv-contact"><span>📍 ' + dados.cidade + '</span> <span>📧 ' + dados.email + '</span></div></div>' +
-    '<div class="cv-sec">Objetivo</div><div class="cv-text">' + dados.objetivo + '</div>' +
-    '<div class="cv-sec">Habilidades</div><div class="cv-skills">' +
-    dados.habilidades.split(',').slice(0,4).map(function(h){ return '<span class="cv-skill">' + h.trim() + '</span>'; }).join('') +
-    '</div>';
-
-  var fonteConfig = {
-    'Indeed Brasil':   { classe:'fonte-indeed',   sigla:'in' },
-    'LinkedIn Vagas':  { classe:'fonte-linkedin',  sigla:'li' },
-    'Catho':           { classe:'fonte-catho',     sigla:'Ca' },
-    'InfoJobs':        { classe:'fonte-infojobs',  sigla:'IJ' },
-    'Gupy':            { classe:'fonte-ciee',      sigla:'Gu' },
-    'Empregos.com.br': { classe:'fonte-sine',      sigla:'Em' },
-    'Nube':            { classe:'fonte-trabalha',  sigla:'Nu' },
-    'Selpe':           { classe:'fonte-vagas',     sigla:'Se' }
-  };
-
-  document.getElementById('vagas-preview').innerHTML =
-    (resultado.vagas || []).slice(0,4).map(function(v) {
-      var cfg = fonteConfig[v.fonte] || { classe:'fonte-indeed', sigla:'??' };
-      return '<div class="vaga-prev"><div class="vaga-fonte-icon ' + cfg.classe + '">' + cfg.sigla + '</div>' +
-        '<div class="vaga-prev-info"><h5>' + v.cargo + '</h5><p>' + v.fonte + ' · ' + v.cidade + ' 🔒</p></div></div>';
-    }).join('') + '<div style="text-align:center;padding:10px 0;font-size:12px;color:rgba(255,255,255,.35)">+ ' + ((resultado.vagas||[]).length - 4) + ' portais desbloqueados...</div>';
-
-  scrollToForm();
-}
-
-// --- METER ---
-function animarMeter(pct, analise) {
-  var circle = document.getElementById('meter-circle');
-  var numEl  = document.getElementById('meter-num');
-  var atual  = 0;
-  var iv = setInterval(function() {
-    atual = Math.min(atual + 2, pct);
-    numEl.textContent = atual + '%';
-    circle.style.setProperty('--pct', atual + '%');
-    if (atual >= pct) clearInterval(iv);
-  }, 30);
-
-  document.getElementById('meter-nivel').textContent  = analise.nivel   || (pct >= 75 ? 'Ótimo!' : pct >= 55 ? 'Bom' : 'Regular');
-  document.getElementById('meter-resumo').textContent = analise.resumo  || 'Continue melhorando seu perfil!';
-  document.getElementById('pontos-fortes').innerHTML  = (analise.pontos_fortes   || ['Disposição para aprender','Objetivo claro']).map(function(p){ return '<div class="mp-item">✅ ' + p + '</div>'; }).join('');
-  document.getElementById('pontos-melhorar').innerHTML= (analise.pontos_melhorar || ['Adicionar mais experiências','Completar LinkedIn']).map(function(p){ return '<div class="mp-item">📈 ' + p + '</div>'; }).join('');
-}
-
-// --- PAGAMENTO ---
-function processarPagamento() {
-  var ok = confirm('🔓 Você será redirecionado para o Mercado Pago.\n\nApós pagar R$20, clique OK para liberar seu acesso.');
-  if (ok) liberarAcesso();
-}
-
-// --- LIBERAR ACESSO ---
-function liberarAcesso() {
-  var dados    = getDados();
-  var resultado = dadosGerados || fallbackLocal(dados);
-
-  document.getElementById('preview-screen').style.display  = 'none';
-  document.getElementById('result-screen').style.display   = 'block';
-
-  var nome = dados.nome.split(' ')[0];
-  document.getElementById('result-title').textContent = 'Tudo liberado, ' + nome + '! 🎉';
-
-  // Currículo completo com foto
-  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:20px;">' : '';
-  var cvHtml = resultado.cv_html || '';
-  if (!cvHtml) {
-    cvHtml = '<div style="overflow:hidden">' + fotoTag +
-      '<div class="cv-name">' + dados.nome + '</div>' +
-      '<div class="cv-role">' + dados.areas.split(',')[0].trim() + ' · Primeiro emprego</div>' +
-      '<div class="cv-contact"><span>📍 ' + dados.cidade + '</span><span>📧 ' + dados.email + '</span><span>📱 ' + dados.telefone + '</span></div></div>' +
-      '<div class="cv-sec">Objetivo</div><div class="cv-text">' + dados.objetivo + '</div>' +
-      '<div class="cv-sec">Formação</div><div class="cv-text"><strong>' + dados.escolaridade + (dados.ano_conclusao ? ' — ' + dados.ano_conclusao : '') + '</strong></div>' +
-      '<div class="cv-sec">Habilidades</div><div class="cv-skills">' + dados.habilidades.split(',').map(function(h){ return '<span class="cv-skill">' + h.trim() + '</span>'; }).join('') + '</div>' +
-      '<div class="cv-sec">Experiências</div><div class="cv-text">' + dados.experiencias + '</div>' +
-      '<div class="cv-sec">Sobre mim</div><div class="cv-text">' + dados.sobre + '</div>';
-  } else {
-    // Injeta foto no html da IA se vier sem foto
-    if (fotoTag && !cvHtml.includes('<img')) {
-      cvHtml = '<div style="overflow:hidden">' + fotoTag + '</div>' + cvHtml;
-    }
-  }
-  document.getElementById('cv-completo').innerHTML = cvHtml;
-
-  // Vagas
-  var fonteConfig = {
-    'Indeed Brasil':   { classe:'fonte-indeed',   sigla:'in' },
-    'LinkedIn Vagas':  { classe:'fonte-linkedin',  sigla:'li' },
-    'Catho':           { classe:'fonte-catho',     sigla:'Ca' },
-    'InfoJobs':        { classe:'fonte-infojobs',  sigla:'IJ' },
-    'Gupy':            { classe:'fonte-ciee',      sigla:'Gu' },
-    'Empregos.com.br': { classe:'fonte-sine',      sigla:'Em' },
-    'Nube':            { classe:'fonte-trabalha',  sigla:'Nu' },
-    'Selpe':           { classe:'fonte-vagas',     sigla:'Se' }
-  };
-  document.getElementById('vagas-completo').innerHTML = (resultado.vagas || []).map(function(v) {
-    var cfg = fonteConfig[v.fonte] || { classe:'fonte-indeed', sigla:'??' };
-    return '<div class="vaga-full"><div class="vf-logo ' + cfg.classe + '">' + cfg.sigla + '</div>' +
-      '<div class="vf-info"><h5>' + v.cargo + '</h5><p>' + v.empresa + ' · ' + v.cidade + '</p>' +
-      '<div class="vf-desc">' + (v.descricao||'') + '</div><div class="vf-fonte">📌 ' + v.fonte + '</div></div>' +
-      '<a href="' + v.link + '" target="_blank" rel="noopener" class="vf-btn">Buscar vagas →</a></div>';
-  }).join('');
-
-  // LinkedIn
-  var li = resultado.linkedin || {};
-  document.getElementById('linkedin-block').innerHTML =
-    '<div class="linkedin-name">' + dados.nome + '</div>' +
-    '<div class="linkedin-title">' + (li.titulo || dados.areas.split(',')[0].trim() + ' | Buscando primeiro emprego | ' + dados.cidade) + '</div>' +
-    '<div class="linkedin-about">' + (li.sobre || dados.sobre) + '</div>';
-
-  // Email
-  var area = dados.areas.split(',')[0].replace(/[^\w\s]/g,'').trim();
-  document.getElementById('email-block').textContent =
-    'Assunto: Candidatura — ' + area + ' — ' + dados.nome + '\n\n' +
-    (resultado.email_candidatura || 'Prezado(a) recrutador(a),\n\nVenho me candidatar à vaga de ' + area + '.\n' + dados.sobre.substring(0,100) + '\n\nAtenciosamente,\n' + dados.nome + '\n' + dados.telefone);
-
-  // Entrevista
-  var dicas = resultado.dicas_entrevista || [
-    'Prepare exemplos de ' + dados.habilidades.split(',')[0].trim(),
-    'Chegue 10 minutos antes',
-    'Pesquise a empresa antes',
-    "Prepare resposta para 'fale sobre você'",
-    'Pergunte sobre os próximos passos'
-  ];
-  document.getElementById('entrevista-block').innerHTML = dicas.map(function(d, i) {
-    return '<div class="ei"><div class="ei-num">' + (i+1) + '</div><div class="ei-text">' + d + '</div></div>';
-  }).join('');
-
-  scrollToForm();
-}
-
-// --- IMPRIMIR PDF ---
-function imprimirCV() {
-  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:20px;">' : '';
-  var conteudo = document.getElementById('cv-completo').innerHTML;
-  var win = window.open('', '_blank');
-  win.document.write('<html><head><title>Currículo — EmpregaAI</title><style>body{font-family:Arial,sans-serif;padding:40px;color:#1a1208;max-width:800px;margin:0 auto}.cv-name{font-size:26px;font-weight:900;margin-bottom:4px}.cv-role{color:#9a8e7e;font-size:13px;margin-bottom:10px}.cv-contact{font-size:11px;color:#9a8e7e;display:flex;gap:16px;flex-wrap:wrap}.cv-sec{font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e8521a;border-bottom:1px solid #e0d9d0;padding-bottom:4px;margin:14px 0 8px}.cv-text{font-size:13px;color:#4a3f2f;line-height:1.6}.cv-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.cv-skill{background:#f0ece4;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700}@media print{body{padding:20px}}
 /* ==================== PLUS CSS ==================== */
 .plus-section {
   padding: 100px 48px;
-  background: var(--ink);
+  background: linear-gradient(160deg, #0f0a05 0%, #1a0f06 50%, #0d1a10 100%);
   color: var(--white);
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.plus-section::before {
+  content: '';
+  position: absolute;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(244,169,53,.12) 0%, transparent 70%);
+  pointer-events: none;
 }
 .plus-badge {
   display: inline-block;
@@ -1327,24 +396,26 @@ function imprimirCV() {
 }
 .plus-title {
   font-family: 'Fraunces', serif;
-  font-size: clamp(36px, 6vw, 64px);
-  font-weight: 900; line-height: 1.1;
-  margin-bottom: 16px; color: var(--white);
+  font-size: clamp(42px, 7vw, 72px);
+  font-weight: 900; line-height: 1.05;
+  margin-bottom: 20px; color: var(--white);
+  text-shadow: 0 4px 40px rgba(244,169,53,.15);
 }
 .plus-title em { color: var(--accent3); font-style: italic; }
 .plus-sub { font-size: 18px; color: rgba(255,255,255,.5); max-width: 520px; margin: 0 auto 32px; }
 .plus-price-row { margin-bottom: 32px; }
-.plus-price { font-family: 'Fraunces', serif; font-size: 52px; font-weight: 900; color: var(--accent3); }
+.plus-price { font-family: 'Fraunces', serif; font-size: 64px; font-weight: 900; color: var(--accent3); text-shadow: 0 4px 24px rgba(244,169,53,.3); }
 .plus-price-label { font-size: 14px; color: rgba(255,255,255,.4); margin-left: 8px; }
 .btn-plus-cta {
   background: linear-gradient(135deg, #f4a935, #e8521a);
-  color: white; border: none; padding: 18px 40px;
-  border-radius: 100px; font-size: 16px; font-weight: 800;
+  color: white; border: none; padding: 20px 48px;
+  border-radius: 100px; font-size: 18px; font-weight: 800;
   cursor: pointer; font-family: 'DM Sans', sans-serif;
-  box-shadow: 0 8px 32px rgba(232,82,26,.4);
-  transition: all .2s; letter-spacing: .3px;
+  box-shadow: 0 8px 48px rgba(232,82,26,.5), 0 0 80px rgba(244,169,53,.15);
+  transition: all .25s; letter-spacing: .3px;
+  display: inline-block;
 }
-.btn-plus-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(232,82,26,.5); }
+.btn-plus-cta:hover { transform: translateY(-3px); box-shadow: 0 16px 60px rgba(232,82,26,.6), 0 0 100px rgba(244,169,53,.2); }
 .plus-features {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 24px; max-width: 900px; margin: 64px auto 0; text-align: left;
@@ -2041,6 +1112,1263 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('plus-senha-cad').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') cadastrarUsuario();
   });
-});
+
+
+  // Botão de foto — evento direto, sem onclick no HTML
+  document.getElementById('btn-foto').addEventListener('click', function() {
+    document.getElementById('foto-input').click();
+  });
+
+  document.getElementById('foto-input').addEventListener('change', function() {
+    var file = this.files[0];
+    if (!file) return;
+
+    document.getElementById('foto-nome').textContent = '✅ ' + file.name;
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      fotoDataURL = e.target.result;
+      var prev = document.getElementById('foto-preview');
+      prev.src = fotoDataURL;
+      prev.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // --- NAVEGAÇÃO entre steps ---
+  document.getElementById('btn-step1-next').addEventListener('click', function() { goStep(2); });
+  document.getElementById('btn-step2-back').addEventListener('click', function() { goStep(1); });
+  document.getElementById('btn-step2-next').addEventListener('click', function() { goStep(3); });
+  document.getElementById('btn-step3-back').addEventListener('click', function() { goStep(2); });
+  document.getElementById('btn-step3-next').addEventListener('click', function() { goStep(4); });
+  document.getElementById('btn-step4-back').addEventListener('click', function() { goStep(3); });
+  document.getElementById('btn-gerar').addEventListener('click', gerarPrevia);
+
+  // Pagamento
+  document.getElementById('btn-pagar').addEventListener('click', processarPagamento);
+
+  // Ações do resultado
+  document.getElementById('btn-pdf').addEventListener('click', imprimirCV);
+  document.getElementById('btn-copiar-cv').addEventListener('click', function() {
+    navigator.clipboard.writeText(document.getElementById('cv-completo').innerText)
+      .then(function() { alert('✅ Currículo copiado!'); });
+  });
+  document.getElementById('btn-copiar-li').addEventListener('click', function() {
+    navigator.clipboard.writeText(document.getElementById('linkedin-block').innerText)
+      .then(function() { alert('✅ LinkedIn copiado!'); });
+  });
+  document.getElementById('btn-copiar-email').addEventListener('click', function() {
+    navigator.clipboard.writeText(document.getElementById('email-block').innerText)
+      .then(function() { alert('✅ Email copiado!'); });
+  });
+
+  // Chips
+  document.querySelectorAll('.chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      this.classList.toggle('selected');
+    });
+  });
+
+
+};
+);
 
 </script>
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Emprega<span>AI</span> ✦</div>
+  <button class="nav-cta" onclick="scrollToForm()">Criar meu currículo →</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">✦ IA para primeiro emprego</div>
+    <h1>Seu <em>primeiro</em><br>emprego começa<br>aqui.</h1>
+    <p class="hero-sub">Currículo profissional com foto, vagas reais em 8 portais, LinkedIn gerado e sua chance de contratação — tudo por R$20.</p>
+    <button class="btn-hero" onclick="scrollToForm()">✨ Ver prévia grátis</button>
+    <p class="hero-note">✓ Prévia grátis &nbsp;·&nbsp; ✓ Sem cadastro &nbsp;·&nbsp; ✓ 3 minutos</p>
+    <div class="hero-stats">
+      <div class="stat"><h3>8</h3><p>portais de vagas</p></div>
+      <div class="stat"><h3>R$20</h3><p>acesso completo</p></div>
+      <div class="stat"><h3>2.4k</h3><p>empregos conquistados</p></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="float-chip fc1">📸 Currículo com foto</div>
+    <div class="float-chip fc2">🎯 73% chance de contratação</div>
+    <div class="hero-vagas-card">
+      <div class="hvc-title">💼 Vagas encontradas para você</div>
+      <div class="hvc-vaga">
+        <div class="hvc-vaga-logo fonte-indeed">in</div>
+        <div class="hvc-vaga-info"><h5>Assistente Administrativo</h5><p>Indeed · Manaus, AM</p></div>
+        <div class="hvc-badge">NOVO</div>
+      </div>
+      <div class="hvc-vaga">
+        <div class="hvc-vaga-logo fonte-linkedin">li</div>
+        <div class="hvc-vaga-info"><h5>Jovem Aprendiz</h5><p>LinkedIn · Manaus, AM</p></div>
+        <div class="hvc-badge">NOVO</div>
+      </div>
+      <div class="hvc-vaga">
+        <div class="hvc-vaga-logo fonte-ciee">CI</div>
+        <div class="hvc-vaga-info"><h5>Estagiário Administrativo</h5><p>CIEE · Manaus, AM</p></div>
+        <div class="hvc-badge">NOVO</div>
+      </div>
+      <div class="hvc-vaga">
+        <div class="hvc-vaga-logo fonte-catho">Ca</div>
+        <div class="hvc-vaga-info"><h5>Auxiliar de Escritório</h5><p>Catho · Manaus, AM</p></div>
+        <div class="hvc-badge">+5</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section">
+  <div class="sec-label">Como funciona</div>
+  <div class="sec-title">4 passos para o<br>seu primeiro emprego</div>
+  <div class="steps">
+    <div class="step-box">
+      <div class="step-num">01</div>
+      <span class="step-icon">💬</span>
+      <h3>Preencha + adicione sua foto</h3>
+      <p>Responda perguntas simples e adicione sua foto. Currículo com foto tem 40% mais chances de ser visto.</p>
+    </div>
+    <div class="step-box">
+      <div class="step-num">02</div>
+      <span class="step-icon">👀</span>
+      <h3>Veja a prévia grátis</h3>
+      <p>Veja como ficou seu currículo e descubra sua chance de contratação calculada pela IA — de graça.</p>
+    </div>
+    <div class="step-box">
+      <div class="step-num">03</div>
+      <span class="step-icon">🔓</span>
+      <h3>Desbloqueie tudo por R$20</h3>
+      <p>Acesso completo: currículo PDF, 8 portais de vagas, LinkedIn, email e dicas de entrevista.</p>
+      <div class="step-price">R$20</div>
+    </div>
+    <div class="step-box">
+      <div class="step-num">04</div>
+      <span class="step-icon">🚀</span>
+      <h3>Candidate-se agora!</h3>
+      <p>Links diretos para vagas já filtradas pela sua cidade e área. Clique e aplique em segundos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULÁRIO -->
+<section class="form-section" id="form-section">
+  <div class="form-wrapper">
+    <div class="sec-label">Comece grátis</div>
+    <div class="sec-title">Vamos montar<br>seu currículo?</div>
+
+    <div class="progress-bar" id="progress-bar">
+      <div class="ps active" id="ps-1"></div>
+      <div class="ps" id="ps-2"></div>
+      <div class="ps" id="ps-3"></div>
+      <div class="ps" id="ps-4"></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="form-step active" id="step-1">
+      <div class="sh"><h2>Sobre você 👋</h2><p>Informações básicas para o currículo</p></div>
+
+      <div class="field">
+        <label>📸 Foto <span style="color:rgba(255,255,255,.35);font-weight:400">(opcional — aumenta 40% as chances)</span></label>
+        <div style="border:2px dashed rgba(255,255,255,.2);border-radius:12px;padding:20px;text-align:center;">
+          <img id="foto-preview" src="" alt="" style="display:none;width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;margin:0 auto 10px;">
+          <div id="foto-nome" style="color:rgba(255,255,255,.4);font-size:13px;margin-bottom:12px">Nenhuma foto selecionada</div>
+          <button type="button" id="btn-foto" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:white;padding:9px 22px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">📷 Escolher foto</button>
+          <input type="file" id="foto-input" accept="image/*" style="display:none">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field"><label>Nome completo</label><input type="text" id="nome" placeholder="Ex: Ana Clara Silva"></div>
+        <div class="field"><label>Cidade e estado</label><input type="text" id="cidade" placeholder="Ex: Manaus, AM"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Email</label><input type="email" id="email" placeholder="seuemail@gmail.com"></div>
+        <div class="field"><label>WhatsApp</label><input type="text" id="telefone" placeholder="(92) 99999-9999"></div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Escolaridade</label>
+          <select id="escolaridade">
+            <option value="">Selecione...</option>
+            <option>Ensino médio cursando</option>
+            <option>Ensino médio completo</option>
+            <option>Técnico cursando</option>
+            <option>Técnico completo</option>
+            <option>Superior cursando</option>
+            <option>Superior completo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Ano de conclusão (ou previsão)</label>
+          <input type="text" id="ano_conclusao" placeholder="Ex: 2024, 2025, cursando...">
+        </div>
+      </div>
+      <div class="form-nav"><div></div><button type="button" class="btn-next" id="btn-step1-next">Próximo →</button></div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="form-step" id="step-2">
+      <div class="sh"><h2>Área de interesse 🎯</h2><p>Onde você quer trabalhar? Isso filtra as vagas para você.</p></div>
+      <div class="field"><label>Área desejada</label>
+        <div class="chips" id="areas">
+          <div class="chip">💼 Administrativo</div>
+          <div class="chip">💻 Tecnologia / TI</div>
+          <div class="chip">📊 Finanças</div>
+          <div class="chip">🎨 Design / Criativo</div>
+          <div class="chip">🛒 Vendas / Comercial</div>
+          <div class="chip">🤝 Atendimento</div>
+          <div class="chip">📦 Logística</div>
+          <div class="chip">🏥 Saúde</div>
+          <div class="chip">📣 Marketing</div>
+          <div class="chip">🔧 Técnico</div>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn-back" id="btn-step2-back">← Voltar</button>
+        <button type="button" class="btn-next" id="btn-step2-next">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="form-step" id="step-3">
+      <div class="sh"><h2>Suas habilidades 💪</h2><p>Tudo que você sabe conta!</p></div>
+      <div class="field"><label>Habilidades</label>
+        <div class="chips" id="habilidades">
+          <div class="chip">📝 Word / Excel</div>
+          <div class="chip">📱 Redes sociais</div>
+          <div class="chip">🖥️ Informática</div>
+          <div class="chip">🗣️ Comunicação</div>
+          <div class="chip">👥 Trabalho em equipe</div>
+          <div class="chip">🎓 Cursos online</div>
+          <div class="chip">🤝 Atendimento ao público</div>
+          <div class="chip">🔧 Habilidade manual</div>
+          <div class="chip">🌐 Inglês básico</div>
+          <div class="chip">🚗 CNH</div>
+          <div class="chip">🎨 Edição foto/vídeo</div>
+          <div class="chip">📊 Organização</div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:20px">
+        <label>Experiências e atividades que já fez</label>
+        <div style="background:rgba(244,169,53,.12);border:1px solid rgba(244,169,53,.3);border-radius:8px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:8px">
+          <span style="font-size:16px;flex-shrink:0">⚠️</span>
+          <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.6">
+            <strong style="color:var(--accent3)">Importante:</strong> informe o <strong style="color:white">período</strong> de cada atividade.<br>
+            Ex: <em>"Auxiliei no comércio da família de jan/2022 a mar/2024"</em>
+          </div>
+        </div>
+        <textarea id="experiencias" placeholder="Ex: De jan/2022 a mar/2024 — ajudei no comércio da família&#10;Em 2023 — voluntariado na igreja" style="min-height:120px"></textarea>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn-back" id="btn-step3-back">← Voltar</button>
+        <button type="button" class="btn-next" id="btn-step3-next">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="form-step" id="step-4">
+      <div class="sh"><h2>Último passo! 🎉</h2><p>Isso personaliza seu currículo e calcula sua chance de contratação</p></div>
+      <div class="field">
+        <label>Conte sobre você como pessoa</label>
+        <textarea id="sobre" placeholder="Ex: Sou comunicativa, gosto de aprender e sou muito dedicada..."></textarea>
+      </div>
+      <div class="field">
+        <label>Qual é seu objetivo profissional?</label>
+        <textarea id="objetivo" placeholder="Ex: Quero trabalhar com atendimento para desenvolver minha comunicação..." style="min-height:80px"></textarea>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn-back" id="btn-step4-back">← Voltar</button>
+        <button type="button" class="btn-next" id="btn-gerar">✨ Ver prévia grátis</button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div id="loading-screen" style="display:none;text-align:center;padding:60px 0;">
+      <div class="loader-ring"></div>
+      <div class="loader-title">A IA está trabalhando...</div>
+      <div class="loader-sub">Preparando sua prévia completa ☕</div>
+      <div class="loader-items">
+        <div class="li active" id="li-1"><div class="li-dot"></div>Analisando seu perfil</div>
+        <div class="li" id="li-2"><div class="li-dot"></div>Gerando currículo</div>
+        <div class="li" id="li-3"><div class="li-dot"></div>Calculando sua chance de contratação</div>
+        <div class="li" id="li-4"><div class="li-dot"></div>Buscando vagas em 8 portais</div>
+        <div class="li" id="li-5"><div class="li-dot"></div>Montando LinkedIn e email</div>
+      </div>
+    </div>
+
+    <!-- PRÉVIA BLOQUEADA -->
+    <div id="preview-screen" style="display:none;">
+      <div class="preview-header">
+        <div class="preview-badge">👀 Prévia gratuita</div>
+        <div class="preview-title" id="prev-title">Olha como ficou!</div>
+        <div style="color:rgba(255,255,255,.4);font-size:14px">Desbloqueie por R$20 para acessar tudo</div>
+      </div>
+
+      <div class="meter-card" id="meter-card">
+        <div class="meter-title">🎯 Sua chance de contratação — calculada pela IA</div>
+        <div class="meter-row">
+          <div class="meter-circle" id="meter-circle" style="--pct:0%">
+            <div class="meter-num" id="meter-num">0%</div>
+          </div>
+          <div class="meter-info">
+            <h3 id="meter-nivel">Calculando...</h3>
+            <p id="meter-resumo">A IA está analisando seu perfil...</p>
+          </div>
+        </div>
+        <div class="meter-pontos">
+          <div class="mp-card"><div class="mp-label forte">✅ Pontos fortes</div><div id="pontos-fortes"></div></div>
+          <div class="mp-card"><div class="mp-label melhor">📈 Para melhorar</div><div id="pontos-melhorar"></div></div>
+        </div>
+      </div>
+
+      <div class="prev-card">
+        <div class="prev-label">📄 Seu currículo — prévia parcial</div>
+        <div class="cv-real" id="cv-preview-parcial"></div>
+        <div style="position:relative;margin-top:8px">
+          <div style="border-radius:12px;overflow:hidden">
+            <div style="background:white;padding:16px;border-radius:12px;filter:blur(7px);user-select:none">
+              <div class="cv-sec">Experiências</div>
+              <p style="font-size:12px;color:#4a3f2f;line-height:1.6">• Auxiliar no Comércio Familiar — atendimento ao cliente e organização.<br><br>• Atividades Voluntárias — desenvolvimento de habilidades interpessoais.</p>
+              <div class="cv-sec">Perfil Pessoal</div>
+              <p style="font-size:12px;color:#4a3f2f">Pessoa comunicativa, dedicada e proativa...</p>
+            </div>
+          </div>
+          <div class="lock-overlay"><div class="lock-icon">🔒</div><div class="lock-text">Desbloqueie para ver completo</div></div>
+        </div>
+      </div>
+
+      <div class="preview-grid">
+        <div class="prev-card">
+          <div class="prev-label">💼 Vagas encontradas — 8 portais</div>
+          <div id="vagas-preview"></div>
+        </div>
+        <div class="prev-card" style="position:relative">
+          <div class="prev-label">🔗 LinkedIn + 📧 Email gerados</div>
+          <div style="filter:blur(6px);user-select:none;pointer-events:none">
+            <div style="background:white;border-radius:10px;padding:14px;margin-bottom:10px">
+              <div style="font-size:13px;font-weight:800;color:#1a1208">Seu nome aqui</div>
+              <div style="font-size:11px;color:#9a8e7e">Área | Buscando primeiro emprego | Cidade</div>
+            </div>
+          </div>
+          <div class="lock-overlay"><div class="lock-icon">🔒</div><div class="lock-text">LinkedIn + email prontos para usar</div></div>
+        </div>
+      </div>
+
+      <div class="payment-box">
+        <div class="pay-title">Desbloqueie tudo agora! 🚀</div>
+        <div style="color:rgba(255,255,255,.45);font-size:14px;margin-bottom:8px">Acesso completo por apenas</div>
+        <div style="font-family:'Fraunces',serif;font-size:56px;font-weight:900;color:var(--accent3);line-height:1;margin:8px 0">R$20</div>
+        <div style="color:rgba(255,255,255,.35);font-size:13px;margin-bottom:24px">pagamento único · acesso imediato</div>
+        <div class="pay-items">
+          <div class="pay-item"><div class="pay-item-icon">📄</div><div class="pay-item-text">Currículo com foto em PDF</div></div>
+          <div class="pay-item"><div class="pay-item-icon">💼</div><div class="pay-item-text">Vagas em 8 portais</div></div>
+          <div class="pay-item"><div class="pay-item-icon">🔗</div><div class="pay-item-text">Perfil LinkedIn completo</div></div>
+          <div class="pay-item"><div class="pay-item-icon">📧</div><div class="pay-item-text">Email de candidatura</div></div>
+          <div class="pay-item"><div class="pay-item-icon">🎯</div><div class="pay-item-text">Dicas de entrevista</div></div>
+          <div class="pay-item"><div class="pay-item-icon">📱</div><div class="pay-item-text">Tutorial LinkedIn</div></div>
+        </div>
+        <button type="button" class="btn-pagar" id="btn-pagar">🔓 Desbloquear por R$20 — Mercado Pago</button>
+        <div class="pay-seguro">🔒 Pagamento seguro · Mercado Pago · Acesso imediato</div>
+      </div>
+    </div>
+
+    <!-- RESULTADO COMPLETO -->
+    <div id="result-screen" style="display:none;">
+      <div class="result-header">
+        <div class="result-badge">🎉 Acesso liberado!</div>
+        <div class="result-title" id="result-title">Tudo pronto para você!</div>
+        <div style="color:rgba(255,255,255,.4);font-size:14px">Seu pacote completo de emprego está aqui</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">📄 Currículo profissional completo</div>
+        <div class="cv-real" id="cv-completo"></div>
+        <div class="cv-actions">
+          <button type="button" class="btn-cv primary" id="btn-pdf">🖨️ Salvar PDF</button>
+          <button type="button" class="btn-cv secondary" id="btn-copiar-cv">📋 Copiar texto</button>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">💼 Vagas reais — 8 portais brasileiros</div>
+        <div style="background:rgba(45,106,79,.15);border:1px solid rgba(45,106,79,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:16px;">
+          🎯 Links diretos — já filtrados pela sua cidade e área!
+        </div>
+        <div id="vagas-completo"></div>
+      </div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="rc-label">🔗 Seu perfil LinkedIn</div>
+          <div class="linkedin-block" id="linkedin-block"></div>
+          <button type="button" class="btn-copy" id="btn-copiar-li">📋 Copiar para o LinkedIn</button>
+        </div>
+        <div class="result-card">
+          <div class="rc-label">📧 Email de candidatura</div>
+          <div class="email-block" id="email-block"></div>
+          <button type="button" class="btn-copy" id="btn-copiar-email">📋 Copiar email</button>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">🎯 Dicas personalizadas de entrevista</div>
+        <div id="entrevista-block"></div>
+      </div>
+      <div class="tutorial-section">
+        <div class="tutorial-title">📱 Como criar seu LinkedIn do zero</div>
+        <div class="tutorial-sub">Simples! LinkedIn é só uma rede social profissional.</div>
+        <div class="ts"><div class="ts-n">1</div><div><h4>Acesse linkedin.com e crie conta grátis</h4><p>Clique em "Cadastre-se", coloque email e senha. Leva 2 minutos.</p><div class="ts-tip">💡 Use o mesmo email do currículo.</div></div></div>
+        <div class="ts"><div class="ts-n">2</div><div><h4>Adicione uma foto profissional</h4><p>Boa luz + camisa arrumada + fundo neutro. Perfis com foto têm 14x mais views!</p></div></div>
+        <div class="ts"><div class="ts-n">3</div><div><h4>Cole o título profissional gerado</h4><p>Copie o texto que geramos acima e cole embaixo do seu nome.</p></div></div>
+        <div class="ts"><div class="ts-n">4</div><div><h4>Cole o texto "Sobre" gerado pela IA</h4><p>Na seção "Sobre", cole o texto que geramos. Foi feito para chamar atenção de recrutadores.</p></div></div>
+        <div class="ts"><div class="ts-n">5</div><div><h4>Adicione habilidades e experiências</h4><p>Copie do currículo e adicione nas seções do LinkedIn.</p><div class="ts-tip">💡 Coloque pelo menos 5 habilidades.</div></div></div>
+        <div class="ts"><div class="ts-n">6</div><div><h4>Siga empresas da sua área</h4><p>Pesquise empresas, siga e ative notificações de vagas.</p><div class="ts-tip">💡 Muitas empresas postam vagas só no LinkedIn!</div></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ==================== PLUS SECTION — DESTAQUE ==================== -->
+<section class="plus-section" id="plus-section">
+  <div class="plus-hero">
+    <div class="plus-badge">✨ EmpregaAI Plus</div>
+    <h2 class="plus-title">Seu coach de carreira<br><em>pessoal com IA</em></h2>
+    <p class="plus-sub">Enquanto outros enviam currículos e esperam, você treina, evolui e chega preparado.</p>
+    <div class="plus-price-row">
+      <span class="plus-price">R$59,90</span>
+      <span class="plus-price-label">/mês · cancele quando quiser</span>
+    </div>
+    <button class="btn-plus-cta" id="btn-abrir-plus">🚀 Começar agora — 7 dias grátis</button>
+  </div>
+
+  <div class="plus-features">
+    <div class="plus-feat">
+      <div class="plus-feat-icon">🎭</div>
+      <h4>Simulador de entrevista</h4>
+      <p>IA vira recrutador real. Perguntas difíceis, feedback honesto, nota ao final. Treine até ficar craque.</p>
+    </div>
+    <div class="plus-feat">
+      <div class="plus-feat-icon">📊</div>
+      <h4>Ranking de chance</h4>
+      <p>Cole a descrição de qualquer vaga. A IA diz sua chance real (0–100%) e o que falta para aumentar.</p>
+    </div>
+    <div class="plus-feat">
+      <div class="plus-feat-icon">📋</div>
+      <h4>Tarefas diárias</h4>
+      <p>Todo dia uma missão: "aplique em 3 vagas", "atualize o LinkedIn", "estude essa pergunta". Simples e eficaz.</p>
+    </div>
+    <div class="plus-feat">
+      <div class="plus-feat-icon">📈</div>
+      <h4>Evolução visível</h4>
+      <p>Veja seu progresso semana a semana. Quantas simulações fez, como suas notas melhoraram, o que ainda falta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MODAL PLUS ==================== -->
+<div class="plus-overlay" id="plus-overlay" style="display:none">
+  <div class="plus-modal" id="plus-modal">
+
+    <!-- TELA: LOGIN/CADASTRO -->
+    <div id="tela-auth" class="plus-tela active">
+      <button class="plus-close" id="btn-fechar-modal">✕</button>
+      <div class="pm-logo">✨ EmpregaAI <span>Plus</span></div>
+      <div class="pm-tabs">
+        <button class="pm-tab active" id="tab-login" onclick="plusTab('login')">Entrar</button>
+        <button class="pm-tab" id="tab-cadastro" onclick="plusTab('cadastro')">Criar conta</button>
+      </div>
+
+      <div id="form-login">
+        <div class="pm-field"><label>Email</label><input type="email" id="plus-email-login" placeholder="seu@email.com"></div>
+        <div class="pm-field"><label>Senha</label><input type="password" id="plus-senha-login" placeholder="••••••••"></div>
+        <div class="pm-error" id="login-erro"></div>
+        <button class="btn-pm-primary" id="btn-entrar">Entrar na conta →</button>
+        <div class="pm-hint">Não tem conta? <a onclick="plusTab('cadastro')" href="#">Crie grátis</a></div>
+      </div>
+
+      <div id="form-cadastro" style="display:none">
+        <div class="pm-field"><label>Nome</label><input type="text" id="plus-nome-cad" placeholder="Seu nome completo"></div>
+        <div class="pm-field"><label>Email</label><input type="email" id="plus-email-cad" placeholder="seu@email.com"></div>
+        <div class="pm-field"><label>Senha</label><input type="password" id="plus-senha-cad" placeholder="Mínimo 6 caracteres"></div>
+        <div class="pm-field"><label>Área de interesse</label>
+          <select id="plus-area-cad">
+            <option value="Administrativo">Administrativo</option>
+            <option value="Tecnologia">Tecnologia / TI</option>
+            <option value="Vendas">Vendas / Comercial</option>
+            <option value="Atendimento">Atendimento ao Cliente</option>
+            <option value="Logística">Logística</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Saúde">Saúde</option>
+            <option value="Finanças">Finanças</option>
+          </select>
+        </div>
+        <div class="pm-error" id="cad-erro"></div>
+        <button class="btn-pm-primary" id="btn-cadastrar">Criar conta grátis →</button>
+        <div class="pm-hint">7 dias grátis. Depois R$59,90/mês.</div>
+      </div>
+    </div>
+
+    <!-- TELA: DASHBOARD -->
+    <div id="tela-dashboard" class="plus-tela" style="display:none">
+      <div class="dash-header">
+        <div>
+          <div class="dash-hello" id="dash-hello">Olá! 👋</div>
+          <div class="dash-sub">Seu painel de evolução profissional</div>
+        </div>
+        <button class="btn-sair" id="btn-sair">Sair</button>
+      </div>
+
+      <div class="dash-stats">
+        <div class="dash-stat">
+          <div class="ds-num" id="stat-simulacoes">0</div>
+          <div class="ds-label">Simulações</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-num" id="stat-media">—</div>
+          <div class="ds-label">Nota média</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-num" id="stat-streak">0🔥</div>
+          <div class="ds-label">Dias seguidos</div>
+        </div>
+      </div>
+
+      <div class="dash-tarefa" id="dash-tarefa">
+        <div class="dt-label">📋 Sua tarefa de hoje</div>
+        <div class="dt-text" id="tarefa-texto">Carregando sua missão do dia...</div>
+      </div>
+
+      <div class="dash-actions">
+        <button class="btn-dash-action primary" id="btn-iniciar-sim">
+          🎭 Iniciar simulação de entrevista
+        </button>
+        <button class="btn-dash-action secondary" id="btn-ver-historico">
+          📊 Ver histórico de simulações
+        </button>
+      </div>
+
+      <div id="historico-lista" style="display:none">
+        <div class="hist-title">Suas simulações anteriores</div>
+        <div id="hist-items"></div>
+      </div>
+    </div>
+
+    <!-- TELA: SIMULADOR -->
+    <div id="tela-simulador" class="plus-tela" style="display:none">
+      <div class="sim-header">
+        <button class="btn-voltar-dash" id="btn-voltar-dash">← Dashboard</button>
+        <div class="sim-title">🎭 Simulação de Entrevista</div>
+      </div>
+
+      <!-- Config da simulação -->
+      <div id="sim-config">
+        <div class="sc-label">Escolha o tipo de entrevista:</div>
+        <div class="sc-tipos">
+          <div class="sc-tipo selected" data-tipo="geral" onclick="selecionarTipo(this)">
+            <div class="sct-icon">📚</div>
+            <div class="sct-nome">Treino geral</div>
+            <div class="sct-desc">Perguntas clássicas da sua área</div>
+          </div>
+          <div class="sc-tipo" data-tipo="vaga" onclick="selecionarTipo(this)">
+            <div class="sct-icon">🎯</div>
+            <div class="sct-nome">Por vaga específica</div>
+            <div class="sct-desc">Cole a descrição da vaga</div>
+          </div>
+          <div class="sc-tipo" data-tipo="dificil" onclick="selecionarTipo(this)">
+            <div class="sct-icon">😤</div>
+            <div class="sct-nome">Modo difícil</div>
+            <div class="sct-desc">Recrutador exigente que pressiona</div>
+          </div>
+        </div>
+
+        <div id="campo-vaga" style="display:none">
+          <div class="pm-field">
+            <label>Cole aqui a descrição da vaga</label>
+            <textarea id="desc-vaga" placeholder="Ex: Empresa XYZ busca assistente administrativo com experiência em Excel, atendimento ao cliente..." style="min-height:100px"></textarea>
+          </div>
+        </div>
+
+        <button class="btn-pm-primary" id="btn-comecar-sim">🎬 Começar entrevista</button>
+      </div>
+
+      <!-- Chat da entrevista -->
+      <div id="sim-chat" style="display:none">
+        <div class="chat-info" id="chat-info">
+          <span id="chat-progresso">Pergunta 1 de 5</span>
+          <span id="chat-tipo-label">Treino geral</span>
+        </div>
+        <div class="chat-msgs" id="chat-msgs"></div>
+        <div class="chat-input-area" id="chat-input-area">
+          <textarea id="chat-resposta" placeholder="Digite sua resposta aqui... Seja natural, como numa entrevista real." rows="3"></textarea>
+          <button class="btn-enviar" id="btn-enviar-resp">Enviar →</button>
+        </div>
+        <div class="chat-loading" id="chat-loading" style="display:none">
+          <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+        </div>
+      </div>
+
+      <!-- Feedback final -->
+      <div id="sim-feedback" style="display:none">
+        <div class="fb-header">
+          <div class="fb-title">🏁 Entrevista concluída!</div>
+          <div class="fb-sub">Veja como você se saiu</div>
+        </div>
+        <div class="fb-nota-wrapper">
+          <div class="fb-nota-circle" id="fb-nota-circle">
+            <span id="fb-nota-num">—</span>
+            <span class="fb-nota-label">/10</span>
+          </div>
+          <div class="fb-nivel" id="fb-nivel">Calculando...</div>
+        </div>
+        <div class="fb-resumo" id="fb-resumo"></div>
+        <div class="fb-pontos">
+          <div class="fb-col">
+            <div class="fb-col-title verde">✅ Você foi bem em</div>
+            <div id="fb-fortes"></div>
+          </div>
+          <div class="fb-col">
+            <div class="fb-col-title laranja">📈 Para melhorar</div>
+            <div id="fb-melhorar"></div>
+          </div>
+        </div>
+        <div class="fb-dica-box" id="fb-dica-box"></div>
+        <div class="fb-acoes">
+          <button class="btn-pm-primary" id="btn-nova-sim">🔄 Nova simulação</button>
+          <button class="btn-pm-secondary" id="btn-voltar-dash2">← Voltar ao painel</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- DEPOIMENTOS -->
+<section class="proof">
+  <div class="sec-label">Histórias reais</div>
+  <div class="sec-title">Quem usou o EmpregaAI</div>
+  <div class="testimonials">
+    <div class="testi">
+      <p>Os R$20 foram o melhor investimento que fiz. Recebi currículo com minha foto, apareceram vagas de 8 sites diferentes e minha chance de contratação estava em 78%! Fui chamada em 3 empresas!</p>
+      <div class="ta"><div class="ta-av" style="background:#fde8d8">👩</div><div><div class="ta-name">Letícia F., 20 anos</div><div class="ta-role">Atendente · Manaus, AM</div></div></div>
+    </div>
+    <div class="testi">
+      <p>Nunca sabia onde procurar emprego. O EmpregaAI me mostrou vagas no Indeed, LinkedIn, Catho tudo ao mesmo tempo já filtrado pra Manaus. Em 1 semana consegui entrevista no CIEE!</p>
+      <div class="ta"><div class="ta-av" style="background:#e8f5e9">👦</div><div><div class="ta-name">Lucas M., 18 anos</div><div class="ta-role">Jovem aprendiz · Manaus, AM</div></div></div>
+    </div>
+    <div class="testi">
+      <p>A IA disse que minha chance era 65% e o que faltava. Segui as dicas, atualizei o perfil e subi para 82%. O LinkedIn gerado foi incrível — recebi mensagem de recrutador em 2 dias!</p>
+      <div class="ta"><div class="ta-av" style="background:#e8f0fe">👦</div><div><div class="ta-name">Gabriel R., 17 anos</div><div class="ta-role">Auxiliar administrativo · Manaus, AM</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing-section">
+  <div class="sec-label">Investimento</div>
+  <div class="sec-title" style="margin:0 auto;text-align:center">Um preço justo<br>para mudar sua vida</div>
+  <div class="price-box">
+    <div class="price-hot">🔥 PACOTE COMPLETO</div>
+    <div class="price-name">Acesso único</div>
+    <div class="price-val">R$20</div>
+    <div class="price-per">pagamento único · sem mensalidade</div>
+    <ul class="price-list">
+      <li class="price-item"><span class="check">✓</span> Currículo com foto em PDF</li>
+      <li class="price-item"><span class="check">✓</span> Vagas em 8 portais brasileiros</li>
+      <li class="price-item"><span class="check">✓</span> Chance de contratação calculada</li>
+      <li class="price-item"><span class="check">✓</span> Perfil LinkedIn completo gerado</li>
+      <li class="price-item"><span class="check">✓</span> Email de candidatura pronto</li>
+      <li class="price-item"><span class="check">✓</span> Dicas personalizadas de entrevista</li>
+      <li class="price-item"><span class="check">✓</span> Tutorial LinkedIn do zero</li>
+    </ul>
+    <button class="btn-price" onclick="scrollToForm()">Começar agora →</button>
+  </div>
+</section>
+
+<footer><p>Feito com ❤️ e <span>IA</span> para quem está começando · EmpregaAI © 2025</p></footer>
+
+
+<script>
+// ============================================================
+// EMPREGAAI v3 — JavaScript limpo e sem conflitos
+// ============================================================
+
+var dadosGerados = null;
+var fotoDataURL  = '';  // foto como dataURL, só no browser
+
+// --- FOTO ---
+);
+
+// --- STEPS ---
+var currentStep = 1;
+
+function goStep(step) {
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  document.getElementById('step-' + step).classList.add('active');
+  for (var i = 1; i <= 4; i++) {
+    var ps = document.getElementById('ps-' + i);
+    if (i < step)      ps.className = 'ps done';
+    else if (i === step) ps.className = 'ps active';
+    else               ps.className = 'ps';
+  }
+  currentStep = step;
+  document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToForm() {
+  document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+// --- DADOS DO FORMULÁRIO ---
+function getDados() {
+  return {
+    nome:         document.getElementById('nome').value         || 'Candidato',
+    cidade:       document.getElementById('cidade').value       || 'Manaus, AM',
+    email:        document.getElementById('email').value        || 'email@email.com',
+    telefone:     document.getElementById('telefone').value     || '(92) 99999-9999',
+    escolaridade: document.getElementById('escolaridade').value || 'Ensino médio completo',
+    ano_conclusao:document.getElementById('ano_conclusao').value|| '',
+    areas:        Array.from(document.querySelectorAll('#areas .chip.selected')).map(function(c){return c.textContent.trim();}).join(', ') || 'Administrativo',
+    habilidades:  Array.from(document.querySelectorAll('#habilidades .chip.selected')).map(function(c){return c.textContent.trim();}).join(', ') || 'Comunicação',
+    experiencias: document.getElementById('experiencias').value || 'Sem experiência formal',
+    sobre:        document.getElementById('sobre').value        || 'Pessoa dedicada',
+    objetivo:     document.getElementById('objetivo').value     || 'Iniciar carreira profissional'
+  };
+}
+
+// --- LOADER ---
+function animarLoader() {
+  var ids = ['li-1','li-2','li-3','li-4','li-5'];
+  var i = 0;
+  var iv = setInterval(function() {
+    if (i > 0) document.getElementById(ids[i-1]).className = 'li done';
+    if (i < ids.length) { document.getElementById(ids[i]).className = 'li active'; i++; }
+    else clearInterval(iv);
+  }, 1400);
+}
+
+// --- GERAR PRÉVIA ---
+async function gerarPrevia() {
+  var dados = getDados();
+
+  // Esconde steps, mostra loading
+  document.getElementById('step-4').classList.remove('active');
+  document.getElementById('progress-bar').style.display = 'none';
+  document.getElementById('loading-screen').style.display = 'block';
+  scrollToForm();
+  animarLoader();
+
+  // DEBUG: mostra status da API no console
+  var apiStatus = 'nao_chamada';
+  try {
+    var resp = await fetch('/api/gerar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    });
+    apiStatus = 'http_' + resp.status;
+    var apiResult = await resp.json();
+    console.log('[EmpregaAI] API response:', JSON.stringify(apiResult).substring(0, 200));
+
+    if (apiResult.erro || !apiResult.cv_html) {
+      // API retornou erro — mostra no console e usa fallback
+      console.warn('[EmpregaAI] API erro:', apiResult.erro || 'sem cv_html');
+      var fb = fallbackLocal(dados);
+      dadosGerados = {
+        cv_html:             apiResult.cv_html            || fb.cv_html,
+        linkedin:            apiResult.linkedin            || fb.linkedin,
+        email_candidatura:   apiResult.email_candidatura  || fb.email_candidatura,
+        dicas_entrevista:    apiResult.dicas_entrevista    || fb.dicas_entrevista,
+        analise_contratacao: apiResult.analise_contratacao || fb.analise_contratacao,
+        vagas:               apiResult.vagas               || fb.vagas
+      };
+    } else {
+      console.log('[EmpregaAI] API OK! cv_html length:', (apiResult.cv_html||'').length);
+      var fb = fallbackLocal(dados);
+      dadosGerados = apiResult;
+      if (!dadosGerados.vagas || dadosGerados.vagas.length === 0) {
+        dadosGerados.vagas = fb.vagas;
+      }
+    }
+  } catch(ex) {
+    console.error('[EmpregaAI] Fetch exception:', ex.message);
+    apiStatus = 'exception: ' + ex.message;
+    dadosGerados = fallbackLocal(dados);
+  }
+  console.log('[EmpregaAI] apiStatus:', apiStatus);
+
+  await new Promise(function(r) { setTimeout(r, 800); });
+  mostrarPrevia(dados, dadosGerados);
+}
+
+// --- MOSTRAR PRÉVIA ---
+function mostrarPrevia(dados, resultado) {
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('preview-screen').style.display = 'block';
+
+  var nome = dados.nome.split(' ')[0];
+  document.getElementById('prev-title').textContent = 'Olha como ficou, ' + nome + '! 👀';
+
+  var analise = resultado.analise_contratacao || {};
+  animarMeter(analise.porcentagem || 65, analise);
+
+  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:16px;">' : '';
+  document.getElementById('cv-preview-parcial').innerHTML =
+    '<div style="overflow:hidden">' + fotoTag +
+    '<div class="cv-name">' + dados.nome + '</div>' +
+    '<div class="cv-role">' + dados.areas.split(',')[0].trim() + ' · Primeiro emprego</div>' +
+    '<div class="cv-contact"><span>📍 ' + dados.cidade + '</span> <span>📧 ' + dados.email + '</span></div></div>' +
+    '<div class="cv-sec">Objetivo</div><div class="cv-text">' + dados.objetivo + '</div>' +
+    '<div class="cv-sec">Habilidades</div><div class="cv-skills">' +
+    dados.habilidades.split(',').slice(0,4).map(function(h){ return '<span class="cv-skill">' + h.trim() + '</span>'; }).join('') +
+    '</div>';
+
+  var fonteConfig = {
+    'Indeed Brasil':   { classe:'fonte-indeed',   sigla:'in' },
+    'LinkedIn Vagas':  { classe:'fonte-linkedin',  sigla:'li' },
+    'Catho':           { classe:'fonte-catho',     sigla:'Ca' },
+    'InfoJobs':        { classe:'fonte-infojobs',  sigla:'IJ' },
+    'Gupy':            { classe:'fonte-ciee',      sigla:'Gu' },
+    'Empregos.com.br': { classe:'fonte-sine',      sigla:'Em' },
+    'Nube':            { classe:'fonte-trabalha',  sigla:'Nu' },
+    'Selpe':           { classe:'fonte-vagas',     sigla:'Se' }
+  };
+
+  document.getElementById('vagas-preview').innerHTML =
+    (resultado.vagas || []).slice(0,4).map(function(v) {
+      var cfg = fonteConfig[v.fonte] || { classe:'fonte-indeed', sigla:'??' };
+      return '<div class="vaga-prev"><div class="vaga-fonte-icon ' + cfg.classe + '">' + cfg.sigla + '</div>' +
+        '<div class="vaga-prev-info"><h5>' + v.cargo + '</h5><p>' + v.fonte + ' · ' + v.cidade + ' 🔒</p></div></div>';
+    }).join('') + '<div style="text-align:center;padding:10px 0;font-size:12px;color:rgba(255,255,255,.35)">+ ' + ((resultado.vagas||[]).length - 4) + ' portais desbloqueados...</div>';
+
+  scrollToForm();
+}
+
+// --- METER ---
+function animarMeter(pct, analise) {
+  var circle = document.getElementById('meter-circle');
+  var numEl  = document.getElementById('meter-num');
+  var atual  = 0;
+  var iv = setInterval(function() {
+    atual = Math.min(atual + 2, pct);
+    numEl.textContent = atual + '%';
+    circle.style.setProperty('--pct', atual + '%');
+    if (atual >= pct) clearInterval(iv);
+  }, 30);
+
+  document.getElementById('meter-nivel').textContent  = analise.nivel   || (pct >= 75 ? 'Ótimo!' : pct >= 55 ? 'Bom' : 'Regular');
+  document.getElementById('meter-resumo').textContent = analise.resumo  || 'Continue melhorando seu perfil!';
+  document.getElementById('pontos-fortes').innerHTML  = (analise.pontos_fortes   || ['Disposição para aprender','Objetivo claro']).map(function(p){ return '<div class="mp-item">✅ ' + p + '</div>'; }).join('');
+  document.getElementById('pontos-melhorar').innerHTML= (analise.pontos_melhorar || ['Adicionar mais experiências','Completar LinkedIn']).map(function(p){ return '<div class="mp-item">📈 ' + p + '</div>'; }).join('');
+}
+
+// --- PAGAMENTO ---
+function processarPagamento() {
+  var ok = confirm('🔓 Você será redirecionado para o Mercado Pago.\n\nApós pagar R$20, clique OK para liberar seu acesso.');
+  if (ok) liberarAcesso();
+}
+
+// --- LIBERAR ACESSO ---
+function liberarAcesso() {
+  var dados    = getDados();
+  var resultado = dadosGerados || fallbackLocal(dados);
+
+  document.getElementById('preview-screen').style.display  = 'none';
+  document.getElementById('result-screen').style.display   = 'block';
+
+  var nome = dados.nome.split(' ')[0];
+  document.getElementById('result-title').textContent = 'Tudo liberado, ' + nome + '! 🎉';
+
+  // Currículo completo com foto
+  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:20px;">' : '';
+  var cvHtml = resultado.cv_html || '';
+  if (!cvHtml) {
+    cvHtml = '<div style="overflow:hidden">' + fotoTag +
+      '<div class="cv-name">' + dados.nome + '</div>' +
+      '<div class="cv-role">' + dados.areas.split(',')[0].trim() + ' · Primeiro emprego</div>' +
+      '<div class="cv-contact"><span>📍 ' + dados.cidade + '</span><span>📧 ' + dados.email + '</span><span>📱 ' + dados.telefone + '</span></div></div>' +
+      '<div class="cv-sec">Objetivo</div><div class="cv-text">' + dados.objetivo + '</div>' +
+      '<div class="cv-sec">Formação</div><div class="cv-text"><strong>' + dados.escolaridade + (dados.ano_conclusao ? ' — ' + dados.ano_conclusao : '') + '</strong></div>' +
+      '<div class="cv-sec">Habilidades</div><div class="cv-skills">' + dados.habilidades.split(',').map(function(h){ return '<span class="cv-skill">' + h.trim() + '</span>'; }).join('') + '</div>' +
+      '<div class="cv-sec">Experiências</div><div class="cv-text">' + dados.experiencias + '</div>' +
+      '<div class="cv-sec">Sobre mim</div><div class="cv-text">' + dados.sobre + '</div>';
+  } else {
+    // Injeta foto no html da IA se vier sem foto
+    if (fotoTag && !cvHtml.includes('<img')) {
+      cvHtml = '<div style="overflow:hidden">' + fotoTag + '</div>' + cvHtml;
+    }
+  }
+  document.getElementById('cv-completo').innerHTML = cvHtml;
+
+  // Vagas
+  var fonteConfig = {
+    'Indeed Brasil':   { classe:'fonte-indeed',   sigla:'in' },
+    'LinkedIn Vagas':  { classe:'fonte-linkedin',  sigla:'li' },
+    'Catho':           { classe:'fonte-catho',     sigla:'Ca' },
+    'InfoJobs':        { classe:'fonte-infojobs',  sigla:'IJ' },
+    'Gupy':            { classe:'fonte-ciee',      sigla:'Gu' },
+    'Empregos.com.br': { classe:'fonte-sine',      sigla:'Em' },
+    'Nube':            { classe:'fonte-trabalha',  sigla:'Nu' },
+    'Selpe':           { classe:'fonte-vagas',     sigla:'Se' }
+  };
+  document.getElementById('vagas-completo').innerHTML = (resultado.vagas || []).map(function(v) {
+    var cfg = fonteConfig[v.fonte] || { classe:'fonte-indeed', sigla:'??' };
+    return '<div class="vaga-full"><div class="vf-logo ' + cfg.classe + '">' + cfg.sigla + '</div>' +
+      '<div class="vf-info"><h5>' + v.cargo + '</h5><p>' + v.empresa + ' · ' + v.cidade + '</p>' +
+      '<div class="vf-desc">' + (v.descricao||'') + '</div><div class="vf-fonte">📌 ' + v.fonte + '</div></div>' +
+      '<a href="' + v.link + '" target="_blank" rel="noopener" class="vf-btn">Buscar vagas →</a></div>';
+  }).join('');
+
+  // LinkedIn
+  var li = resultado.linkedin || {};
+  document.getElementById('linkedin-block').innerHTML =
+    '<div class="linkedin-name">' + dados.nome + '</div>' +
+    '<div class="linkedin-title">' + (li.titulo || dados.areas.split(',')[0].trim() + ' | Buscando primeiro emprego | ' + dados.cidade) + '</div>' +
+    '<div class="linkedin-about">' + (li.sobre || dados.sobre) + '</div>';
+
+  // Email
+  var area = dados.areas.split(',')[0].replace(/[^\w\s]/g,'').trim();
+  document.getElementById('email-block').textContent =
+    'Assunto: Candidatura — ' + area + ' — ' + dados.nome + '\n\n' +
+    (resultado.email_candidatura || 'Prezado(a) recrutador(a),\n\nVenho me candidatar à vaga de ' + area + '.\n' + dados.sobre.substring(0,100) + '\n\nAtenciosamente,\n' + dados.nome + '\n' + dados.telefone);
+
+  // Entrevista
+  var dicas = resultado.dicas_entrevista || [
+    'Prepare exemplos de ' + dados.habilidades.split(',')[0].trim(),
+    'Chegue 10 minutos antes',
+    'Pesquise a empresa antes',
+    "Prepare resposta para 'fale sobre você'",
+    'Pergunte sobre os próximos passos'
+  ];
+  document.getElementById('entrevista-block').innerHTML = dicas.map(function(d, i) {
+    return '<div class="ei"><div class="ei-num">' + (i+1) + '</div><div class="ei-text">' + d + '</div></div>';
+  }).join('');
+
+  scrollToForm();
+}
+
+// --- IMPRIMIR PDF ---
+function imprimirCV() {
+  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:20px;">' : '';
+  var conteudo = document.getElementById('cv-completo').innerHTML;
+  var win = window.open('', '_blank');
+  win.document.write('<html><head><title>Currículo — EmpregaAI</title><style>body{font-family:Arial,sans-serif;padding:40px;color:#1a1208;max-width:800px;margin:0 auto}.cv-name{font-size:26px;font-weight:900;margin-bottom:4px}.cv-role{color:#9a8e7e;font-size:13px;margin-bottom:10px}.cv-contact{font-size:11px;color:#9a8e7e;display:flex;gap:16px;flex-wrap:wrap}.cv-sec{font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e8521a;border-bottom:1px solid #e0d9d0;padding-bottom:4px;margin:14px 0 8px}.cv-text{font-size:13px;color:#4a3f2f;line-height:1.6}.cv-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.cv-skill{background:#f0ece4;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700}@media print{body{padding:20px}}
+
+  // Botão de foto — evento direto, sem onclick no HTML
+  document.getElementById('btn-foto').addEventListener('click', function() {
+    document.getElementById('foto-input').click();
+  });
+
+  document.getElementById('foto-input').addEventListener('change', function() {
+    var file = this.files[0];
+    if (!file) return;
+
+    document.getElementById('foto-nome').textContent = '✅ ' + file.name;
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      fotoDataURL = e.target.result;
+      var prev = document.getElementById('foto-preview');
+      prev.src = fotoDataURL;
+      prev.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // --- NAVEGAÇÃO entre steps ---
+  document.getElementById('btn-step1-next').addEventListener('click', function() { goStep(2); });
+  document.getElementById('btn-step2-back').addEventListener('click', function() { goStep(1); });
+  document.getElementById('btn-step2-next').addEventListener('click', function() { goStep(3); });
+  document.getElementById('btn-step3-back').addEventListener('click', function() { goStep(2); });
+  document.getElementById('btn-step3-next').addEventListener('click', function() { goStep(4); });
+  document.getElementById('btn-step4-back').addEventListener('click', function() { goStep(3); });
+  document.getElementById('btn-gerar').addEventListener('click', gerarPrevia);
+
+  // Pagamento
+  document.getElementById('btn-pagar').addEventListener('click', processarPagamento);
+
+  // Ações do resultado
+  document.getElementById('btn-pdf').addEventListener('click', imprimirCV);
+  document.getElementById('btn-copiar-cv').addEventListener('click', function() {
+    navigator.clipboard.writeText(document.getElementById('cv-completo').innerText)
+      .then(function() { alert('✅ Currículo copiado!'); });
+  });
+  document.getElementById('btn-copiar-li').addEventListener('click', function() {
+    navigator.clipboard.writeText(document.getElementById('linkedin-block').innerText)
+      .then(function() { alert('✅ LinkedIn copiado!'); });
+  });
+  document.getElementById('btn-copiar-email').addEventListener('click', function() {
+    navigator.clipboard.writeText(document.getElementById('email-block').innerText)
+      .then(function() { alert('✅ Email copiado!'); });
+  });
+
+  // Chips
+  document.querySelectorAll('.chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      this.classList.toggle('selected');
+    });
+  });
+
+});
+
+// --- STEPS ---
+var currentStep = 1;
+
+function goStep(step) {
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  document.getElementById('step-' + step).classList.add('active');
+  for (var i = 1; i <= 4; i++) {
+    var ps = document.getElementById('ps-' + i);
+    if (i < step)      ps.className = 'ps done';
+    else if (i === step) ps.className = 'ps active';
+    else               ps.className = 'ps';
+  }
+  currentStep = step;
+  document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToForm() {
+  document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+// --- DADOS DO FORMULÁRIO ---
+function getDados() {
+  return {
+    nome:         document.getElementById('nome').value         || 'Candidato',
+    cidade:       document.getElementById('cidade').value       || 'Manaus, AM',
+    email:        document.getElementById('email').value        || 'email@email.com',
+    telefone:     document.getElementById('telefone').value     || '(92) 99999-9999',
+    escolaridade: document.getElementById('escolaridade').value || 'Ensino médio completo',
+    ano_conclusao:document.getElementById('ano_conclusao').value|| '',
+    areas:        Array.from(document.querySelectorAll('#areas .chip.selected')).map(function(c){return c.textContent.trim();}).join(', ') || 'Administrativo',
+    habilidades:  Array.from(document.querySelectorAll('#habilidades .chip.selected')).map(function(c){return c.textContent.trim();}).join(', ') || 'Comunicação',
+    experiencias: document.getElementById('experiencias').value || 'Sem experiência formal',
+    sobre:        document.getElementById('sobre').value        || 'Pessoa dedicada',
+    objetivo:     document.getElementById('objetivo').value     || 'Iniciar carreira profissional'
+  };
+}
+
+// --- LOADER ---
+function animarLoader() {
+  var ids = ['li-1','li-2','li-3','li-4','li-5'];
+  var i = 0;
+  var iv = setInterval(function() {
+    if (i > 0) document.getElementById(ids[i-1]).className = 'li done';
+    if (i < ids.length) { document.getElementById(ids[i]).className = 'li active'; i++; }
+    else clearInterval(iv);
+  }, 1400);
+}
+
+// --- GERAR PRÉVIA ---
+async function gerarPrevia() {
+  var dados = getDados();
+
+  // Esconde steps, mostra loading
+  document.getElementById('step-4').classList.remove('active');
+  document.getElementById('progress-bar').style.display = 'none';
+  document.getElementById('loading-screen').style.display = 'block';
+  scrollToForm();
+  animarLoader();
+
+  // DEBUG: mostra status da API no console
+  var apiStatus = 'nao_chamada';
+  try {
+    var resp = await fetch('/api/gerar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    });
+    apiStatus = 'http_' + resp.status;
+    var apiResult = await resp.json();
+    console.log('[EmpregaAI] API response:', JSON.stringify(apiResult).substring(0, 200));
+
+    if (apiResult.erro || !apiResult.cv_html) {
+      // API retornou erro — mostra no console e usa fallback
+      console.warn('[EmpregaAI] API erro:', apiResult.erro || 'sem cv_html');
+      var fb = fallbackLocal(dados);
+      dadosGerados = {
+        cv_html:             apiResult.cv_html            || fb.cv_html,
+        linkedin:            apiResult.linkedin            || fb.linkedin,
+        email_candidatura:   apiResult.email_candidatura  || fb.email_candidatura,
+        dicas_entrevista:    apiResult.dicas_entrevista    || fb.dicas_entrevista,
+        analise_contratacao: apiResult.analise_contratacao || fb.analise_contratacao,
+        vagas:               apiResult.vagas               || fb.vagas
+      };
+    } else {
+      console.log('[EmpregaAI] API OK! cv_html length:', (apiResult.cv_html||'').length);
+      var fb = fallbackLocal(dados);
+      dadosGerados = apiResult;
+      if (!dadosGerados.vagas || dadosGerados.vagas.length === 0) {
+        dadosGerados.vagas = fb.vagas;
+      }
+    }
+  } catch(ex) {
+    console.error('[EmpregaAI] Fetch exception:', ex.message);
+    apiStatus = 'exception: ' + ex.message;
+    dadosGerados = fallbackLocal(dados);
+  }
+  console.log('[EmpregaAI] apiStatus:', apiStatus);
+
+  await new Promise(function(r) { setTimeout(r, 800); });
+  mostrarPrevia(dados, dadosGerados);
+}
+
+// --- MOSTRAR PRÉVIA ---
+function mostrarPrevia(dados, resultado) {
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('preview-screen').style.display = 'block';
+
+  var nome = dados.nome.split(' ')[0];
+  document.getElementById('prev-title').textContent = 'Olha como ficou, ' + nome + '! 👀';
+
+  var analise = resultado.analise_contratacao || {};
+  animarMeter(analise.porcentagem || 65, analise);
+
+  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:16px;">' : '';
+  document.getElementById('cv-preview-parcial').innerHTML =
+    '<div style="overflow:hidden">' + fotoTag +
+    '<div class="cv-name">' + dados.nome + '</div>' +
+    '<div class="cv-role">' + dados.areas.split(',')[0].trim() + ' · Primeiro emprego</div>' +
+    '<div class="cv-contact"><span>📍 ' + dados.cidade + '</span> <span>📧 ' + dados.email + '</span></div></div>' +
+    '<div class="cv-sec">Objetivo</div><div class="cv-text">' + dados.objetivo + '</div>' +
+    '<div class="cv-sec">Habilidades</div><div class="cv-skills">' +
+    dados.habilidades.split(',').slice(0,4).map(function(h){ return '<span class="cv-skill">' + h.trim() + '</span>'; }).join('') +
+    '</div>';
+
+  var fonteConfig = {
+    'Indeed Brasil':   { classe:'fonte-indeed',   sigla:'in' },
+    'LinkedIn Vagas':  { classe:'fonte-linkedin',  sigla:'li' },
+    'Catho':           { classe:'fonte-catho',     sigla:'Ca' },
+    'InfoJobs':        { classe:'fonte-infojobs',  sigla:'IJ' },
+    'Gupy':            { classe:'fonte-ciee',      sigla:'Gu' },
+    'Empregos.com.br': { classe:'fonte-sine',      sigla:'Em' },
+    'Nube':            { classe:'fonte-trabalha',  sigla:'Nu' },
+    'Selpe':           { classe:'fonte-vagas',     sigla:'Se' }
+  };
+
+  document.getElementById('vagas-preview').innerHTML =
+    (resultado.vagas || []).slice(0,4).map(function(v) {
+      var cfg = fonteConfig[v.fonte] || { classe:'fonte-indeed', sigla:'??' };
+      return '<div class="vaga-prev"><div class="vaga-fonte-icon ' + cfg.classe + '">' + cfg.sigla + '</div>' +
+        '<div class="vaga-prev-info"><h5>' + v.cargo + '</h5><p>' + v.fonte + ' · ' + v.cidade + ' 🔒</p></div></div>';
+    }).join('') + '<div style="text-align:center;padding:10px 0;font-size:12px;color:rgba(255,255,255,.35)">+ ' + ((resultado.vagas||[]).length - 4) + ' portais desbloqueados...</div>';
+
+  scrollToForm();
+}
+
+// --- METER ---
+function animarMeter(pct, analise) {
+  var circle = document.getElementById('meter-circle');
+  var numEl  = document.getElementById('meter-num');
+  var atual  = 0;
+  var iv = setInterval(function() {
+    atual = Math.min(atual + 2, pct);
+    numEl.textContent = atual + '%';
+    circle.style.setProperty('--pct', atual + '%');
+    if (atual >= pct) clearInterval(iv);
+  }, 30);
+
+  document.getElementById('meter-nivel').textContent  = analise.nivel   || (pct >= 75 ? 'Ótimo!' : pct >= 55 ? 'Bom' : 'Regular');
+  document.getElementById('meter-resumo').textContent = analise.resumo  || 'Continue melhorando seu perfil!';
+  document.getElementById('pontos-fortes').innerHTML  = (analise.pontos_fortes   || ['Disposição para aprender','Objetivo claro']).map(function(p){ return '<div class="mp-item">✅ ' + p + '</div>'; }).join('');
+  document.getElementById('pontos-melhorar').innerHTML= (analise.pontos_melhorar || ['Adicionar mais experiências','Completar LinkedIn']).map(function(p){ return '<div class="mp-item">📈 ' + p + '</div>'; }).join('');
+}
+
+// --- PAGAMENTO ---
+function processarPagamento() {
+  var ok = confirm('🔓 Você será redirecionado para o Mercado Pago.\n\nApós pagar R$20, clique OK para liberar seu acesso.');
+  if (ok) liberarAcesso();
+}
+
+// --- LIBERAR ACESSO ---
+function liberarAcesso() {
+  var dados    = getDados();
+  var resultado = dadosGerados || fallbackLocal(dados);
+
+  document.getElementById('preview-screen').style.display  = 'none';
+  document.getElementById('result-screen').style.display   = 'block';
+
+  var nome = dados.nome.split(' ')[0];
+  document.getElementById('result-title').textContent = 'Tudo liberado, ' + nome + '! 🎉';
+
+  // Currículo completo com foto
+  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:20px;">' : '';
+  var cvHtml = resultado.cv_html || '';
+  if (!cvHtml) {
+    cvHtml = '<div style="overflow:hidden">' + fotoTag +
+      '<div class="cv-name">' + dados.nome + '</div>' +
+      '<div class="cv-role">' + dados.areas.split(',')[0].trim() + ' · Primeiro emprego</div>' +
+      '<div class="cv-contact"><span>📍 ' + dados.cidade + '</span><span>📧 ' + dados.email + '</span><span>📱 ' + dados.telefone + '</span></div></div>' +
+      '<div class="cv-sec">Objetivo</div><div class="cv-text">' + dados.objetivo + '</div>' +
+      '<div class="cv-sec">Formação</div><div class="cv-text"><strong>' + dados.escolaridade + (dados.ano_conclusao ? ' — ' + dados.ano_conclusao : '') + '</strong></div>' +
+      '<div class="cv-sec">Habilidades</div><div class="cv-skills">' + dados.habilidades.split(',').map(function(h){ return '<span class="cv-skill">' + h.trim() + '</span>'; }).join('') + '</div>' +
+      '<div class="cv-sec">Experiências</div><div class="cv-text">' + dados.experiencias + '</div>' +
+      '<div class="cv-sec">Sobre mim</div><div class="cv-text">' + dados.sobre + '</div>';
+  } else {
+    // Injeta foto no html da IA se vier sem foto
+    if (fotoTag && !cvHtml.includes('<img')) {
+      cvHtml = '<div style="overflow:hidden">' + fotoTag + '</div>' + cvHtml;
+    }
+  }
+  document.getElementById('cv-completo').innerHTML = cvHtml;
+
+  // Vagas
+  var fonteConfig = {
+    'Indeed Brasil':   { classe:'fonte-indeed',   sigla:'in' },
+    'LinkedIn Vagas':  { classe:'fonte-linkedin',  sigla:'li' },
+    'Catho':           { classe:'fonte-catho',     sigla:'Ca' },
+    'InfoJobs':        { classe:'fonte-infojobs',  sigla:'IJ' },
+    'Gupy':            { classe:'fonte-ciee',      sigla:'Gu' },
+    'Empregos.com.br': { classe:'fonte-sine',      sigla:'Em' },
+    'Nube':            { classe:'fonte-trabalha',  sigla:'Nu' },
+    'Selpe':           { classe:'fonte-vagas',     sigla:'Se' }
+  };
+  document.getElementById('vagas-completo').innerHTML = (resultado.vagas || []).map(function(v) {
+    var cfg = fonteConfig[v.fonte] || { classe:'fonte-indeed', sigla:'??' };
+    return '<div class="vaga-full"><div class="vf-logo ' + cfg.classe + '">' + cfg.sigla + '</div>' +
+      '<div class="vf-info"><h5>' + v.cargo + '</h5><p>' + v.empresa + ' · ' + v.cidade + '</p>' +
+      '<div class="vf-desc">' + (v.descricao||'') + '</div><div class="vf-fonte">📌 ' + v.fonte + '</div></div>' +
+      '<a href="' + v.link + '" target="_blank" rel="noopener" class="vf-btn">Buscar vagas →</a></div>';
+  }).join('');
+
+  // LinkedIn
+  var li = resultado.linkedin || {};
+  document.getElementById('linkedin-block').innerHTML =
+    '<div class="linkedin-name">' + dados.nome + '</div>' +
+    '<div class="linkedin-title">' + (li.titulo || dados.areas.split(',')[0].trim() + ' | Buscando primeiro emprego | ' + dados.cidade) + '</div>' +
+    '<div class="linkedin-about">' + (li.sobre || dados.sobre) + '</div>';
+
+  // Email
+  var area = dados.areas.split(',')[0].replace(/[^\w\s]/g,'').trim();
+  document.getElementById('email-block').textContent =
+    'Assunto: Candidatura — ' + area + ' — ' + dados.nome + '\n\n' +
+    (resultado.email_candidatura || 'Prezado(a) recrutador(a),\n\nVenho me candidatar à vaga de ' + area + '.\n' + dados.sobre.substring(0,100) + '\n\nAtenciosamente,\n' + dados.nome + '\n' + dados.telefone);
+
+  // Entrevista
+  var dicas = resultado.dicas_entrevista || [
+    'Prepare exemplos de ' + dados.habilidades.split(',')[0].trim(),
+    'Chegue 10 minutos antes',
+    'Pesquise a empresa antes',
+    "Prepare resposta para 'fale sobre você'",
+    'Pergunte sobre os próximos passos'
+  ];
+  document.getElementById('entrevista-block').innerHTML = dicas.map(function(d, i) {
+    return '<div class="ei"><div class="ei-num">' + (i+1) + '</div><div class="ei-text">' + d + '</div></div>';
+  }).join('');
+
+  scrollToForm();
+}
+
+// --- IMPRIMIR PDF ---
+function imprimirCV() {
+  var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:20px;">' : '';
+  var conteudo = document.getElementById('cv-completo').innerHTML;
+  var win = window.open('', '_blank');
+  win.document.write('<html><head><title>Currículo — EmpregaAI</title><style>body{font-family:Arial,sans-serif;padding:40px;color:#1a1208;max-width:800px;margin:0 auto}.cv-name{font-size:26px;font-weight:900;margin-bottom:4px}.cv-role{color:#9a8e7e;font-size:13px;margin-bottom:10px}.cv-contact{font-size:11px;color:#9a8e7e;display:flex;gap:16px;flex-wrap:wrap}.cv-sec{font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e8521a;border-bottom:1px solid #e0d9d0;padding-bottom:4px;margin:14px 0 8px}.cv-text{font-size:13px;color:#4a3f2f;line-height:1.6}.cv-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.cv-skill{background:#f0ece4;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700}@media print{body{padding:20px}}
