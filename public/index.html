@@ -727,6 +727,222 @@ footer span { color:var(--accent); }
   </div>
 </section>
 
+
+<!-- ==================== PLUS SECTION ==================== -->
+<section class="plus-section" id="plus-section">
+  <div class="plus-hero">
+    <div class="plus-badge">✨ EmpregaAI Plus</div>
+    <h2 class="plus-title">Seu coach de carreira<br><em>pessoal com IA</em></h2>
+    <p class="plus-sub">Enquanto outros enviam currículos e esperam, você treina, evolui e chega preparado.</p>
+    <div class="plus-price-row">
+      <span class="plus-price">R$39,90</span>
+      <span class="plus-price-label">/mês · cancele quando quiser</span>
+    </div>
+    <button class="btn-plus-cta" id="btn-abrir-plus">🚀 Começar agora — 7 dias grátis</button>
+  </div>
+
+  <div class="plus-features">
+    <div class="plus-feat">
+      <div class="plus-feat-icon">🎭</div>
+      <h4>Simulador de entrevista</h4>
+      <p>IA vira recrutador real. Perguntas difíceis, feedback honesto, nota ao final. Treine até ficar craque.</p>
+    </div>
+    <div class="plus-feat">
+      <div class="plus-feat-icon">📊</div>
+      <h4>Ranking de chance</h4>
+      <p>Cole a descrição de qualquer vaga. A IA diz sua chance real (0–100%) e o que falta para aumentar.</p>
+    </div>
+    <div class="plus-feat">
+      <div class="plus-feat-icon">📋</div>
+      <h4>Tarefas diárias</h4>
+      <p>Todo dia uma missão: "aplique em 3 vagas", "atualize o LinkedIn", "estude essa pergunta". Simples e eficaz.</p>
+    </div>
+    <div class="plus-feat">
+      <div class="plus-feat-icon">📈</div>
+      <h4>Evolução visível</h4>
+      <p>Veja seu progresso semana a semana. Quantas simulações fez, como suas notas melhoraram, o que ainda falta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MODAL PLUS ==================== -->
+<div class="plus-overlay" id="plus-overlay" style="display:none">
+  <div class="plus-modal" id="plus-modal">
+
+    <!-- TELA: LOGIN/CADASTRO -->
+    <div id="tela-auth" class="plus-tela active">
+      <button class="plus-close" id="btn-fechar-modal">✕</button>
+      <div class="pm-logo">✨ EmpregaAI <span>Plus</span></div>
+      <div class="pm-tabs">
+        <button class="pm-tab active" id="tab-login" onclick="plusTab('login')">Entrar</button>
+        <button class="pm-tab" id="tab-cadastro" onclick="plusTab('cadastro')">Criar conta</button>
+      </div>
+
+      <div id="form-login">
+        <div class="pm-field"><label>Email</label><input type="email" id="plus-email-login" placeholder="seu@email.com"></div>
+        <div class="pm-field"><label>Senha</label><input type="password" id="plus-senha-login" placeholder="••••••••"></div>
+        <div class="pm-error" id="login-erro"></div>
+        <button class="btn-pm-primary" id="btn-entrar">Entrar na conta →</button>
+        <div class="pm-hint">Não tem conta? <a onclick="plusTab('cadastro')" href="#">Crie grátis</a></div>
+      </div>
+
+      <div id="form-cadastro" style="display:none">
+        <div class="pm-field"><label>Nome</label><input type="text" id="plus-nome-cad" placeholder="Seu nome completo"></div>
+        <div class="pm-field"><label>Email</label><input type="email" id="plus-email-cad" placeholder="seu@email.com"></div>
+        <div class="pm-field"><label>Senha</label><input type="password" id="plus-senha-cad" placeholder="Mínimo 6 caracteres"></div>
+        <div class="pm-field"><label>Área de interesse</label>
+          <select id="plus-area-cad">
+            <option value="Administrativo">Administrativo</option>
+            <option value="Tecnologia">Tecnologia / TI</option>
+            <option value="Vendas">Vendas / Comercial</option>
+            <option value="Atendimento">Atendimento ao Cliente</option>
+            <option value="Logística">Logística</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Saúde">Saúde</option>
+            <option value="Finanças">Finanças</option>
+          </select>
+        </div>
+        <div class="pm-error" id="cad-erro"></div>
+        <button class="btn-pm-primary" id="btn-cadastrar">Criar conta grátis →</button>
+        <div class="pm-hint">7 dias grátis. Depois R$39,90/mês.</div>
+      </div>
+    </div>
+
+    <!-- TELA: DASHBOARD -->
+    <div id="tela-dashboard" class="plus-tela" style="display:none">
+      <div class="dash-header">
+        <div>
+          <div class="dash-hello" id="dash-hello">Olá! 👋</div>
+          <div class="dash-sub">Seu painel de evolução profissional</div>
+        </div>
+        <button class="btn-sair" id="btn-sair">Sair</button>
+      </div>
+
+      <div class="dash-stats">
+        <div class="dash-stat">
+          <div class="ds-num" id="stat-simulacoes">0</div>
+          <div class="ds-label">Simulações</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-num" id="stat-media">—</div>
+          <div class="ds-label">Nota média</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-num" id="stat-streak">0🔥</div>
+          <div class="ds-label">Dias seguidos</div>
+        </div>
+      </div>
+
+      <div class="dash-tarefa" id="dash-tarefa">
+        <div class="dt-label">📋 Sua tarefa de hoje</div>
+        <div class="dt-text" id="tarefa-texto">Carregando sua missão do dia...</div>
+      </div>
+
+      <div class="dash-actions">
+        <button class="btn-dash-action primary" id="btn-iniciar-sim">
+          🎭 Iniciar simulação de entrevista
+        </button>
+        <button class="btn-dash-action secondary" id="btn-ver-historico">
+          📊 Ver histórico de simulações
+        </button>
+      </div>
+
+      <div id="historico-lista" style="display:none">
+        <div class="hist-title">Suas simulações anteriores</div>
+        <div id="hist-items"></div>
+      </div>
+    </div>
+
+    <!-- TELA: SIMULADOR -->
+    <div id="tela-simulador" class="plus-tela" style="display:none">
+      <div class="sim-header">
+        <button class="btn-voltar-dash" id="btn-voltar-dash">← Dashboard</button>
+        <div class="sim-title">🎭 Simulação de Entrevista</div>
+      </div>
+
+      <!-- Config da simulação -->
+      <div id="sim-config">
+        <div class="sc-label">Escolha o tipo de entrevista:</div>
+        <div class="sc-tipos">
+          <div class="sc-tipo selected" data-tipo="geral" onclick="selecionarTipo(this)">
+            <div class="sct-icon">📚</div>
+            <div class="sct-nome">Treino geral</div>
+            <div class="sct-desc">Perguntas clássicas da sua área</div>
+          </div>
+          <div class="sc-tipo" data-tipo="vaga" onclick="selecionarTipo(this)">
+            <div class="sct-icon">🎯</div>
+            <div class="sct-nome">Por vaga específica</div>
+            <div class="sct-desc">Cole a descrição da vaga</div>
+          </div>
+          <div class="sc-tipo" data-tipo="dificil" onclick="selecionarTipo(this)">
+            <div class="sct-icon">😤</div>
+            <div class="sct-nome">Modo difícil</div>
+            <div class="sct-desc">Recrutador exigente que pressiona</div>
+          </div>
+        </div>
+
+        <div id="campo-vaga" style="display:none">
+          <div class="pm-field">
+            <label>Cole aqui a descrição da vaga</label>
+            <textarea id="desc-vaga" placeholder="Ex: Empresa XYZ busca assistente administrativo com experiência em Excel, atendimento ao cliente..." style="min-height:100px"></textarea>
+          </div>
+        </div>
+
+        <button class="btn-pm-primary" id="btn-comecar-sim">🎬 Começar entrevista</button>
+      </div>
+
+      <!-- Chat da entrevista -->
+      <div id="sim-chat" style="display:none">
+        <div class="chat-info" id="chat-info">
+          <span id="chat-progresso">Pergunta 1 de 5</span>
+          <span id="chat-tipo-label">Treino geral</span>
+        </div>
+        <div class="chat-msgs" id="chat-msgs"></div>
+        <div class="chat-input-area" id="chat-input-area">
+          <textarea id="chat-resposta" placeholder="Digite sua resposta aqui... Seja natural, como numa entrevista real." rows="3"></textarea>
+          <button class="btn-enviar" id="btn-enviar-resp">Enviar →</button>
+        </div>
+        <div class="chat-loading" id="chat-loading" style="display:none">
+          <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+        </div>
+      </div>
+
+      <!-- Feedback final -->
+      <div id="sim-feedback" style="display:none">
+        <div class="fb-header">
+          <div class="fb-title">🏁 Entrevista concluída!</div>
+          <div class="fb-sub">Veja como você se saiu</div>
+        </div>
+        <div class="fb-nota-wrapper">
+          <div class="fb-nota-circle" id="fb-nota-circle">
+            <span id="fb-nota-num">—</span>
+            <span class="fb-nota-label">/10</span>
+          </div>
+          <div class="fb-nivel" id="fb-nivel">Calculando...</div>
+        </div>
+        <div class="fb-resumo" id="fb-resumo"></div>
+        <div class="fb-pontos">
+          <div class="fb-col">
+            <div class="fb-col-title verde">✅ Você foi bem em</div>
+            <div id="fb-fortes"></div>
+          </div>
+          <div class="fb-col">
+            <div class="fb-col-title laranja">📈 Para melhorar</div>
+            <div id="fb-melhorar"></div>
+          </div>
+        </div>
+        <div class="fb-dica-box" id="fb-dica-box"></div>
+        <div class="fb-acoes">
+          <button class="btn-pm-primary" id="btn-nova-sim">🔄 Nova simulação</button>
+          <button class="btn-pm-secondary" id="btn-voltar-dash2">← Voltar ao painel</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 <!-- DEPOIMENTOS -->
 <section class="proof">
   <div class="sec-label">Histórias reais</div>
@@ -1093,7 +1309,213 @@ function imprimirCV() {
   var fotoTag = fotoDataURL ? '<img src="' + fotoDataURL + '" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;margin-left:20px;">' : '';
   var conteudo = document.getElementById('cv-completo').innerHTML;
   var win = window.open('', '_blank');
-  win.document.write('<html><head><title>Currículo — EmpregaAI</title><style>body{font-family:Arial,sans-serif;padding:40px;color:#1a1208;max-width:800px;margin:0 auto}.cv-name{font-size:26px;font-weight:900;margin-bottom:4px}.cv-role{color:#9a8e7e;font-size:13px;margin-bottom:10px}.cv-contact{font-size:11px;color:#9a8e7e;display:flex;gap:16px;flex-wrap:wrap}.cv-sec{font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e8521a;border-bottom:1px solid #e0d9d0;padding-bottom:4px;margin:14px 0 8px}.cv-text{font-size:13px;color:#4a3f2f;line-height:1.6}.cv-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.cv-skill{background:#f0ece4;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700}@media print{body{padding:20px}}</style></head><body>' + conteudo + '</body></html>');
+  win.document.write('<html><head><title>Currículo — EmpregaAI</title><style>body{font-family:Arial,sans-serif;padding:40px;color:#1a1208;max-width:800px;margin:0 auto}.cv-name{font-size:26px;font-weight:900;margin-bottom:4px}.cv-role{color:#9a8e7e;font-size:13px;margin-bottom:10px}.cv-contact{font-size:11px;color:#9a8e7e;display:flex;gap:16px;flex-wrap:wrap}.cv-sec{font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e8521a;border-bottom:1px solid #e0d9d0;padding-bottom:4px;margin:14px 0 8px}.cv-text{font-size:13px;color:#4a3f2f;line-height:1.6}.cv-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.cv-skill{background:#f0ece4;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700}@media print{body{padding:20px}}
+/* ==================== PLUS CSS ==================== */
+.plus-section {
+  padding: 100px 48px;
+  background: var(--ink);
+  color: var(--white);
+  text-align: center;
+}
+.plus-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #f4a935, #e8521a);
+  color: white;
+  font-size: 12px; font-weight: 800; letter-spacing: 2px;
+  padding: 6px 18px; border-radius: 100px; margin-bottom: 24px;
+  text-transform: uppercase;
+}
+.plus-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900; line-height: 1.1;
+  margin-bottom: 16px; color: var(--white);
+}
+.plus-title em { color: var(--accent3); font-style: italic; }
+.plus-sub { font-size: 18px; color: rgba(255,255,255,.5); max-width: 520px; margin: 0 auto 32px; }
+.plus-price-row { margin-bottom: 32px; }
+.plus-price { font-family: 'Fraunces', serif; font-size: 52px; font-weight: 900; color: var(--accent3); }
+.plus-price-label { font-size: 14px; color: rgba(255,255,255,.4); margin-left: 8px; }
+.btn-plus-cta {
+  background: linear-gradient(135deg, #f4a935, #e8521a);
+  color: white; border: none; padding: 18px 40px;
+  border-radius: 100px; font-size: 16px; font-weight: 800;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  box-shadow: 0 8px 32px rgba(232,82,26,.4);
+  transition: all .2s; letter-spacing: .3px;
+}
+.btn-plus-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(232,82,26,.5); }
+.plus-features {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px; max-width: 900px; margin: 64px auto 0; text-align: left;
+}
+.plus-feat {
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px; padding: 28px;
+  transition: all .2s;
+}
+.plus-feat:hover { background: rgba(255,255,255,.08); transform: translateY(-3px); }
+.plus-feat-icon { font-size: 32px; margin-bottom: 12px; }
+.plus-feat h4 { font-size: 16px; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+.plus-feat p { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.6; }
+
+/* OVERLAY */
+.plus-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
+  z-index: 1000; display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+}
+.plus-modal {
+  background: var(--ink);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px; width: 100%; max-width: 520px;
+  max-height: 90vh; overflow-y: auto;
+  padding: 36px; position: relative;
+  box-shadow: 0 32px 80px rgba(0,0,0,.6);
+}
+.plus-tela { animation: fadeIn .2s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.plus-close {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(255,255,255,.1); border: none; color: rgba(255,255,255,.6);
+  width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 14px;
+  transition: all .15s;
+}
+.plus-close:hover { background: rgba(255,255,255,.2); color: white; }
+.pm-logo {
+  font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900;
+  color: var(--white); margin-bottom: 24px; text-align: center;
+}
+.pm-logo span { color: var(--accent3); }
+.pm-tabs { display: flex; gap: 4px; background: rgba(255,255,255,.06); border-radius: 10px; padding: 4px; margin-bottom: 24px; }
+.pm-tab {
+  flex: 1; background: none; border: none; color: rgba(255,255,255,.4);
+  padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: all .15s; font-family: 'DM Sans', sans-serif;
+}
+.pm-tab.active { background: rgba(255,255,255,.12); color: white; }
+.pm-field { margin-bottom: 16px; }
+.pm-field label { display: block; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); margin-bottom: 6px; letter-spacing: .5px; text-transform: uppercase; }
+.pm-field input, .pm-field select, .pm-field textarea {
+  width: 100%; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  color: white; padding: 12px 14px; border-radius: 10px; font-size: 14px;
+  font-family: 'DM Sans', sans-serif; outline: none; transition: border .15s;
+}
+.pm-field input:focus, .pm-field select, .pm-field textarea:focus { border-color: var(--accent3); }
+.pm-field select option { background: #1a1208; }
+.pm-error { color: #ff6b6b; font-size: 13px; margin-bottom: 12px; min-height: 18px; }
+.btn-pm-primary {
+  width: 100%; background: linear-gradient(135deg, #f4a935, #e8521a);
+  border: none; color: white; padding: 14px; border-radius: 12px;
+  font-size: 15px; font-weight: 800; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: all .2s; margin-top: 4px;
+}
+.btn-pm-primary:hover { opacity: .9; transform: translateY(-1px); }
+.btn-pm-secondary {
+  width: 100%; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.7); padding: 13px; border-radius: 12px;
+  font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: all .2s; margin-top: 8px;
+}
+.btn-pm-secondary:hover { background: rgba(255,255,255,.12); }
+.pm-hint { text-align: center; font-size: 12px; color: rgba(255,255,255,.3); margin-top: 14px; }
+.pm-hint a { color: var(--accent3); cursor: pointer; text-decoration: none; }
+
+/* DASHBOARD */
+.dash-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+.dash-hello { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 900; color: var(--white); }
+.dash-sub { font-size: 13px; color: rgba(255,255,255,.4); margin-top: 4px; }
+.btn-sair { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.5); padding: 8px 16px; border-radius: 100px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.dash-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+.dash-stat { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 16px; text-align: center; }
+.ds-num { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 900; color: var(--accent3); }
+.ds-label { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+.dash-tarefa { background: rgba(244,169,53,.1); border: 1px solid rgba(244,169,53,.25); border-radius: 12px; padding: 16px; margin-bottom: 20px; }
+.dt-label { font-size: 11px; font-weight: 800; color: var(--accent3); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+.dt-text { font-size: 14px; color: rgba(255,255,255,.8); line-height: 1.5; }
+.dash-actions { display: flex; flex-direction: column; gap: 10px; }
+.btn-dash-action {
+  width: 100%; padding: 14px; border-radius: 12px;
+  font-size: 15px; font-weight: 800; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  border: none; transition: all .2s;
+}
+.btn-dash-action.primary { background: linear-gradient(135deg, #f4a935, #e8521a); color: white; }
+.btn-dash-action.primary:hover { opacity: .9; transform: translateY(-1px); }
+.btn-dash-action.secondary { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.7); }
+.btn-dash-action.secondary:hover { background: rgba(255,255,255,.12); }
+.hist-title { font-size: 13px; font-weight: 800; color: rgba(255,255,255,.5); letter-spacing: 1px; text-transform: uppercase; margin: 20px 0 12px; }
+.hist-item { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+.hi-tipo { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.7); }
+.hi-data { font-size: 11px; color: rgba(255,255,255,.3); }
+.hi-nota { font-family: 'Fraunces',serif; font-size: 20px; font-weight: 900; color: var(--accent3); }
+
+/* SIMULADOR */
+.sim-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.btn-voltar-dash { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.6); padding: 8px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.sim-title { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 900; color: var(--white); }
+.sc-label { font-size: 14px; font-weight: 700; color: rgba(255,255,255,.6); margin-bottom: 16px; }
+.sc-tipos { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
+.sc-tipo {
+  background: rgba(255,255,255,.05); border: 2px solid rgba(255,255,255,.1);
+  border-radius: 12px; padding: 16px 12px; cursor: pointer; text-align: center;
+  transition: all .2s;
+}
+.sc-tipo.selected { border-color: var(--accent3); background: rgba(244,169,53,.1); }
+.sc-tipo:hover { border-color: rgba(255,255,255,.25); }
+.sct-icon { font-size: 24px; margin-bottom: 8px; }
+.sct-nome { font-size: 13px; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+.sct-desc { font-size: 11px; color: rgba(255,255,255,.4); line-height: 1.4; }
+
+/* CHAT */
+.chat-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 10px 14px; background: rgba(255,255,255,.05); border-radius: 10px; }
+.chat-info span { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); }
+.chat-msgs { min-height: 200px; max-height: 340px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; padding-right: 4px; }
+.chat-msgs::-webkit-scrollbar { width: 4px; }
+.chat-msgs::-webkit-scrollbar-track { background: transparent; }
+.chat-msgs::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 2px; }
+.msg { padding: 12px 16px; border-radius: 14px; font-size: 14px; line-height: 1.6; max-width: 88%; }
+.msg.recrutador { background: rgba(255,255,255,.08); color: rgba(255,255,255,.85); align-self: flex-start; border-bottom-left-radius: 4px; }
+.msg.recrutador .msg-label { font-size: 10px; font-weight: 800; color: var(--accent3); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.msg.usuario { background: linear-gradient(135deg, rgba(244,169,53,.2), rgba(232,82,26,.2)); border: 1px solid rgba(244,169,53,.2); color: rgba(255,255,255,.9); align-self: flex-end; border-bottom-right-radius: 4px; }
+.chat-input-area { display: flex; gap: 10px; align-items: flex-end; }
+.chat-input-area textarea { flex: 1; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15); color: white; padding: 12px 14px; border-radius: 12px; font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; resize: none; transition: border .15s; }
+.chat-input-area textarea:focus { border-color: var(--accent3); }
+.btn-enviar { background: var(--accent); border: none; color: white; padding: 12px 20px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; transition: all .15s; }
+.btn-enviar:hover { background: #d4461a; }
+.chat-loading { display: flex; gap: 6px; padding: 12px 16px; align-self: flex-start; }
+.typing-dot { width: 8px; height: 8px; background: rgba(255,255,255,.4); border-radius: 50%; animation: typing 1.2s infinite; }
+.typing-dot:nth-child(2) { animation-delay: .2s; }
+.typing-dot:nth-child(3) { animation-delay: .4s; }
+@keyframes typing { 0%,60%,100% { transform:translateY(0); opacity:.4; } 30% { transform:translateY(-6px); opacity:1; } }
+
+/* FEEDBACK */
+.fb-header { text-align: center; margin-bottom: 24px; }
+.fb-title { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 900; color: var(--white); }
+.fb-sub { font-size: 14px; color: rgba(255,255,255,.4); margin-top: 6px; }
+.fb-nota-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 24px; }
+.fb-nota-circle {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: conic-gradient(var(--accent3) calc(var(--pct, 0%) * 3.6deg), rgba(255,255,255,.08) 0);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; margin-bottom: 12px;
+}
+.fb-nota-circle::before { content:''; position:absolute; inset:8px; border-radius:50%; background:var(--ink); }
+.fb-nota-num { font-family:'Fraunces',serif; font-size:30px; font-weight:900; color:var(--accent3); position:relative; z-index:1; line-height:1; }
+.fb-nota-label { font-size:12px; color:rgba(255,255,255,.4); position:relative; z-index:1; }
+.fb-nivel { font-size:16px; font-weight:800; color:var(--white); }
+.fb-resumo { background:rgba(255,255,255,.05); border-radius:12px; padding:16px; font-size:14px; color:rgba(255,255,255,.7); line-height:1.6; margin-bottom:20px; }
+.fb-pontos { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+.fb-col { background:rgba(255,255,255,.04); border-radius:12px; padding:14px; }
+.fb-col-title { font-size:11px; font-weight:800; letter-spacing:1px; text-transform:uppercase; margin-bottom:10px; }
+.fb-col-title.verde { color:#4ade80; }
+.fb-col-title.laranja { color:var(--accent3); }
+.fb-item { font-size:13px; color:rgba(255,255,255,.7); padding:5px 0; border-bottom:1px solid rgba(255,255,255,.05); line-height:1.4; }
+.fb-item:last-child { border-bottom:none; }
+.fb-dica-box { background:rgba(244,169,53,.1); border:1px solid rgba(244,169,53,.25); border-radius:12px; padding:16px; font-size:13px; color:rgba(255,255,255,.8); line-height:1.6; margin-bottom:20px; }
+.fb-acoes { display:flex; flex-direction:column; gap:10px; }
+
+</style></head><body>' + conteudo + '</body></html>');
   win.document.close();
   setTimeout(function(){ win.print(); }, 500);
 }
@@ -1198,5 +1620,427 @@ function fallbackLocal(d) {
     ]
   };
 }
+
+
+
+// ==================== PLUS JS ====================
+
+var plusUser = null;
+
+// Carrega usuário da sessão
+function plusInit() {
+  var saved = localStorage.getItem('empregaai_plus_user');
+  if (saved) {
+    try { plusUser = JSON.parse(saved); } catch(e) {}
+  }
+}
+
+function plusTab(tab) {
+  document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+  document.getElementById('tab-cadastro').classList.toggle('active', tab === 'cadastro');
+  document.getElementById('form-login').style.display   = tab === 'login' ? 'block' : 'none';
+  document.getElementById('form-cadastro').style.display = tab === 'cadastro' ? 'block' : 'none';
+}
+
+function abrirPlus() {
+  document.getElementById('plus-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  if (plusUser) {
+    mostrarTela('tela-dashboard');
+    carregarDashboard();
+  } else {
+    mostrarTela('tela-auth');
+  }
+}
+
+function fecharPlus() {
+  document.getElementById('plus-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function mostrarTela(id) {
+  ['tela-auth','tela-dashboard','tela-simulador'].forEach(function(t) {
+    var el = document.getElementById(t);
+    if (el) el.style.display = t === id ? 'block' : 'none';
+  });
+}
+
+// AUTH
+function cadastrarUsuario() {
+  var nome  = document.getElementById('plus-nome-cad').value.trim();
+  var email = document.getElementById('plus-email-cad').value.trim();
+  var senha = document.getElementById('plus-senha-cad').value;
+  var area  = document.getElementById('plus-area-cad').value;
+  var erro  = document.getElementById('cad-erro');
+
+  if (!nome || !email || !senha) { erro.textContent = 'Preencha todos os campos.'; return; }
+  if (senha.length < 6) { erro.textContent = 'Senha precisa ter pelo menos 6 caracteres.'; return; }
+
+  // Salva usuário localmente (produção: substituir por backend real)
+  var usuarios = JSON.parse(localStorage.getItem('empregaai_usuarios') || '{}');
+  if (usuarios[email]) { erro.textContent = 'Email já cadastrado. Faça login.'; return; }
+
+  usuarios[email] = { nome, email, senha, area, criado: new Date().toISOString(), simulacoes: [], streak: 0, ultimaAtividade: '' };
+  localStorage.setItem('empregaai_usuarios', JSON.stringify(usuarios));
+
+  plusUser = usuarios[email];
+  localStorage.setItem('empregaai_plus_user', JSON.stringify(plusUser));
+  erro.textContent = '';
+  mostrarTela('tela-dashboard');
+  carregarDashboard();
+}
+
+function loginUsuario() {
+  var email = document.getElementById('plus-email-login').value.trim();
+  var senha = document.getElementById('plus-senha-login').value;
+  var erro  = document.getElementById('login-erro');
+
+  var usuarios = JSON.parse(localStorage.getItem('empregaai_usuarios') || '{}');
+  var user = usuarios[email];
+
+  if (!user) { erro.textContent = 'Email não encontrado. Crie uma conta.'; return; }
+  if (user.senha !== senha) { erro.textContent = 'Senha incorreta.'; return; }
+
+  plusUser = user;
+  localStorage.setItem('empregaai_plus_user', JSON.stringify(plusUser));
+  erro.textContent = '';
+  mostrarTela('tela-dashboard');
+  carregarDashboard();
+}
+
+function sairUsuario() {
+  plusUser = null;
+  localStorage.removeItem('empregaai_plus_user');
+  mostrarTela('tela-auth');
+  plusTab('login');
+}
+
+// DASHBOARD
+var TAREFAS = [
+  'Aplique em pelo menos 3 vagas hoje nos portais que geramos para você.',
+  'Atualize o campo "Sobre" do seu LinkedIn com o texto que a IA gerou.',
+  'Faça uma simulação de entrevista no modo Treino Geral agora.',
+  'Pesquise 2 empresas da sua área em Manaus e anote o que elas fazem.',
+  'Grave um vídeo de 1 minuto se apresentando e assista — identifique o que melhorar.',
+  'Envie seu currículo para 2 empresas por email hoje.',
+  'Atualize seu perfil no LinkedIn com suas habilidades.',
+  'Pesquise 3 perguntas comuns de entrevista da sua área e escreva suas respostas.',
+  'Faça uma simulação no modo Difícil para testar seus limites.',
+  'Conecte-se com 5 profissionais da sua área no LinkedIn.',
+];
+
+function carregarDashboard() {
+  if (!plusUser) return;
+
+  // Atualiza streak
+  var hoje = new Date().toDateString();
+  if (plusUser.ultimaAtividade !== hoje) {
+    var ontem = new Date(Date.now() - 86400000).toDateString();
+    if (plusUser.ultimaAtividade === ontem) {
+      plusUser.streak = (plusUser.streak || 0) + 1;
+    } else if (plusUser.ultimaAtividade !== hoje) {
+      plusUser.streak = 1;
+    }
+    plusUser.ultimaAtividade = hoje;
+    salvarUser();
+  }
+
+  document.getElementById('dash-hello').textContent = 'Olá, ' + plusUser.nome.split(' ')[0] + '! 👋';
+  document.getElementById('stat-simulacoes').textContent = (plusUser.simulacoes || []).length;
+
+  var sims = plusUser.simulacoes || [];
+  var media = sims.length ? (sims.reduce(function(s,x){ return s + (x.nota||0); }, 0) / sims.length).toFixed(1) : '—';
+  document.getElementById('stat-media').textContent = media;
+  document.getElementById('stat-streak').textContent = (plusUser.streak || 0) + '🔥';
+
+  var diaIdx = new Date().getDay();
+  document.getElementById('tarefa-texto').textContent = TAREFAS[diaIdx % TAREFAS.length];
+}
+
+// SIMULADOR
+var tipoSelecionado = 'geral';
+var perguntasFeitas = [];
+var respostasUsuario = [];
+var totalPerguntas = 5;
+var perguntaAtual = 0;
+
+function selecionarTipo(el) {
+  document.querySelectorAll('.sc-tipo').forEach(function(t){ t.classList.remove('selected'); });
+  el.classList.add('selected');
+  tipoSelecionado = el.getAttribute('data-tipo');
+  document.getElementById('campo-vaga').style.display = tipoSelecionado === 'vaga' ? 'block' : 'none';
+}
+
+function iniciarSimulacao() {
+  perguntasFeitas = [];
+  respostasUsuario = [];
+  perguntaAtual = 0;
+
+  document.getElementById('sim-config').style.display = 'none';
+  document.getElementById('sim-chat').style.display   = 'block';
+  document.getElementById('sim-feedback').style.display = 'none';
+  document.getElementById('chat-msgs').innerHTML = '';
+
+  var tipoLabel = { geral: 'Treino geral', vaga: 'Vaga específica', dificil: 'Modo difícil' };
+  document.getElementById('chat-tipo-label').textContent = tipoLabel[tipoSelecionado] || '';
+  document.getElementById('chat-progresso').textContent = 'Pergunta 1 de ' + totalPerguntas;
+
+  // Mensagem de abertura do recrutador
+  var abertura = tipoSelecionado === 'dificil'
+    ? 'Olá. Vou ser direto — esse processo é concorrido. Temos pouquíssimas vagas e muitos candidatos. Me convença. Pra começar: por que devo te contratar em vez dos outros?'
+    : 'Olá! Que bom te ver aqui. Vou conduzir sua entrevista hoje. Pode ficar à vontade — é uma conversa para te conhecer melhor. Para começar: me conte um pouco sobre você e por que tem interesse nessa área.';
+
+  adicionarMsgRecrutador(abertura);
+  perguntasFeitas.push(abertura);
+}
+
+function adicionarMsgRecrutador(texto) {
+  var msgs = document.getElementById('chat-msgs');
+  var div = document.createElement('div');
+  div.className = 'msg recrutador';
+  div.innerHTML = '<div class="msg-label">🎙️ Recrutador</div>' + texto;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function adicionarMsgUsuario(texto) {
+  var msgs = document.getElementById('chat-msgs');
+  var div = document.createElement('div');
+  div.className = 'msg usuario';
+  div.textContent = texto;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+async function enviarResposta() {
+  var input = document.getElementById('chat-resposta');
+  var resp  = input.value.trim();
+  if (!resp) return;
+
+  adicionarMsgUsuario(resp);
+  respostasUsuario.push(resp);
+  input.value = '';
+
+  perguntaAtual++;
+  document.getElementById('chat-progresso').textContent = 'Pergunta ' + Math.min(perguntaAtual+1, totalPerguntas) + ' de ' + totalPerguntas;
+
+  if (perguntaAtual >= totalPerguntas) {
+    // Acabou — gera feedback
+    document.getElementById('chat-input-area').style.display = 'none';
+    mostrarLoadingChat(true);
+    await gerarFeedback();
+    return;
+  }
+
+  // Próxima pergunta
+  mostrarLoadingChat(true);
+  try {
+    var proxPergunta = await chamarIAEntrevista('proxima_pergunta');
+    mostrarLoadingChat(false);
+    adicionarMsgRecrutador(proxPergunta);
+    perguntasFeitas.push(proxPergunta);
+  } catch(e) {
+    mostrarLoadingChat(false);
+    var perguntas = perguntasGerais[tipoSelecionado] || perguntasGerais.geral;
+    var p = perguntas[perguntaAtual % perguntas.length];
+    adicionarMsgRecrutador(p);
+    perguntasFeitas.push(p);
+  }
+}
+
+var perguntasGerais = {
+  geral: [
+    'Quais são suas principais habilidades e como elas se aplicam a essa vaga?',
+    'Conte uma situação em que você resolveu um problema — mesmo que fora do trabalho.',
+    'Como você se organiza para cumprir prazos e tarefas?',
+    'Por que você quer trabalhar nessa área especificamente?',
+    'Onde você se vê profissionalmente daqui a 2 anos?',
+  ],
+  dificil: [
+    'Você não tem experiência formal. Por que eu deveria arriscar em você?',
+    'Me dê um exemplo CONCRETO de algo difícil que você já fez. Seja específico.',
+    'Se você errar algo importante no primeiro mês, o que acontece?',
+    'Você prefere trabalhar sozinho ou em equipe? Por quê? Qual é seu ponto fraco nesse aspecto?',
+    'Qual foi sua maior falha recente? O que você aprendeu?',
+  ],
+  vaga: [
+    'O que você sabe sobre o setor onde essa empresa atua?',
+    'Que habilidades suas se encaixam melhor nessa vaga?',
+    'Como você lidaria com um dia de muito volume de trabalho nessa função?',
+    'Você tem alguma dúvida sobre a vaga ou a empresa?',
+    'Por que você é a melhor escolha para essa posição específica?',
+  ]
+};
+
+async function chamarIAEntrevista(modo) {
+  var area = (plusUser && plusUser.area) || 'Administrativo';
+  var descVaga = document.getElementById('desc-vaga') ? document.getElementById('desc-vaga').value : '';
+
+  var contexto = (
+    'Você é um recrutador ' + (tipoSelecionado === 'dificil' ? 'rigoroso e exigente' : 'simpático e profissional') + ' entrevistando um candidato de primeiro emprego para a área de ' + area + '.\n' +
+    (descVaga ? 'Vaga: ' + descVaga + '\n' : '') +
+    'Perguntas já feitas:\n' + perguntasFeitas.map(function(p,i){ return (i+1)+'. '+p; }).join('\n') + '\n' +
+    'Respostas do candidato:\n' + respostasUsuario.map(function(r,i){ return (i+1)+'. '+r; }).join('\n') + '\n\n'
+  );
+
+  var prompt = modo === 'proxima_pergunta'
+    ? contexto + 'Faça a próxima pergunta da entrevista. Apenas a pergunta, sem explicação. Máximo 2 frases.'
+    : contexto + 'Gere um feedback detalhado em JSON:\n{"nota":8,"nivel":"Muito bom","resumo":"...","fortes":["...","...","..."],"melhorar":["...","..."],"dica":"conselho prático de 2-3 frases"}';
+
+  var resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 600,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  var data = await resp.json();
+  return data.content[0].text;
+}
+
+async function gerarFeedback() {
+  try {
+    var raw = await chamarIAEntrevista('feedback');
+    var clean = raw.replace(/```json|```/g,'').trim();
+    var fb = JSON.parse(clean);
+    mostrarLoadingChat(false);
+    exibirFeedback(fb);
+  } catch(e) {
+    mostrarLoadingChat(false);
+    // Feedback baseado na quantidade de respostas
+    var nota = Math.min(10, Math.max(4, respostasUsuario.filter(function(r){ return r.length > 30; }).length * 2 + 2));
+    exibirFeedback({
+      nota: nota,
+      nivel: nota >= 8 ? 'Excelente!' : nota >= 6 ? 'Bom trabalho' : 'Continue praticando',
+      resumo: 'Você completou a simulação! Continue praticando para melhorar sua performance nas entrevistas reais.',
+      fortes: ['Completou todas as perguntas', 'Demonstrou disposição', 'Praticou comunicação'],
+      melhorar: ['Use exemplos mais específicos nas respostas', 'Detalhe mais suas experiências'],
+      dica: 'Pratique responder em voz alta para ganhar fluidez. A repetição é o segredo da confiança em entrevistas.'
+    });
+  }
+}
+
+function exibirFeedback(fb) {
+  document.getElementById('sim-chat').style.display    = 'none';
+  document.getElementById('sim-feedback').style.display = 'block';
+
+  var nota = fb.nota || 7;
+  document.getElementById('fb-nota-num').textContent = nota;
+  document.getElementById('fb-nota-circle').style.setProperty('--pct', nota * 10);
+  document.getElementById('fb-nivel').textContent = fb.nivel || 'Bom trabalho';
+  document.getElementById('fb-resumo').textContent = fb.resumo || '';
+
+  document.getElementById('fb-fortes').innerHTML = (fb.fortes || []).map(function(f){
+    return '<div class="fb-item">✅ ' + f + '</div>';
+  }).join('');
+  document.getElementById('fb-melhorar').innerHTML = (fb.melhorar || []).map(function(m){
+    return '<div class="fb-item">📈 ' + m + '</div>';
+  }).join('');
+  document.getElementById('fb-dica-box').innerHTML = '💡 <strong>Dica do coach:</strong> ' + (fb.dica || '');
+
+  // Salva no histórico
+  if (plusUser) {
+    plusUser.simulacoes = plusUser.simulacoes || [];
+    plusUser.simulacoes.unshift({
+      tipo: tipoSelecionado,
+      nota: nota,
+      data: new Date().toLocaleDateString('pt-BR')
+    });
+    salvarUser();
+  }
+}
+
+function mostrarLoadingChat(show) {
+  document.getElementById('chat-loading').style.display = show ? 'flex' : 'none';
+  var msgs = document.getElementById('chat-msgs');
+  if (show && msgs) msgs.appendChild(document.getElementById('chat-loading'));
+  if (msgs) msgs.scrollTop = msgs.scrollHeight;
+}
+
+function salvarUser() {
+  localStorage.setItem('empregaai_plus_user', JSON.stringify(plusUser));
+  var usuarios = JSON.parse(localStorage.getItem('empregaai_usuarios') || '{}');
+  if (plusUser && plusUser.email) {
+    usuarios[plusUser.email] = plusUser;
+    localStorage.setItem('empregaai_usuarios', JSON.stringify(usuarios));
+  }
+}
+
+function verHistorico() {
+  var hist = document.getElementById('historico-lista');
+  var visible = hist.style.display !== 'none';
+  hist.style.display = visible ? 'none' : 'block';
+  document.getElementById('btn-ver-historico').textContent = visible ? '📊 Ver histórico de simulações' : '📊 Ocultar histórico';
+
+  if (!visible && plusUser) {
+    var items = (plusUser.simulacoes || []);
+    if (items.length === 0) {
+      document.getElementById('hist-items').innerHTML = '<div style="color:rgba(255,255,255,.3);font-size:13px;text-align:center;padding:20px">Nenhuma simulação ainda. Faça a primeira agora!</div>';
+    } else {
+      var tipoNome = { geral:'Treino geral', vaga:'Vaga específica', dificil:'Modo difícil' };
+      document.getElementById('hist-items').innerHTML = items.map(function(s) {
+        return '<div class="hist-item"><div><div class="hi-tipo">' + (tipoNome[s.tipo]||s.tipo) + '</div><div class="hi-data">' + s.data + '</div></div><div class="hi-nota">' + s.nota + '/10</div></div>';
+      }).join('');
+    }
+  }
+}
+
+// SETUP EVENTOS
+document.addEventListener('DOMContentLoaded', function() {
+  plusInit();
+
+  document.getElementById('btn-abrir-plus').addEventListener('click', abrirPlus);
+  document.getElementById('btn-fechar-modal').addEventListener('click', fecharPlus);
+  document.getElementById('plus-overlay').addEventListener('click', function(e) {
+    if (e.target === this) fecharPlus();
+  });
+
+  document.getElementById('btn-entrar').addEventListener('click', loginUsuario);
+  document.getElementById('btn-cadastrar').addEventListener('click', cadastrarUsuario);
+  document.getElementById('btn-sair').addEventListener('click', sairUsuario);
+
+  document.getElementById('btn-iniciar-sim').addEventListener('click', function() {
+    document.getElementById('sim-config').style.display = 'block';
+    document.getElementById('sim-chat').style.display   = 'none';
+    document.getElementById('sim-feedback').style.display = 'none';
+    document.getElementById('chat-input-area').style.display = 'flex';
+    mostrarTela('tela-simulador');
+  });
+
+  document.getElementById('btn-ver-historico').addEventListener('click', verHistorico);
+
+  document.getElementById('btn-voltar-dash').addEventListener('click', function() {
+    mostrarTela('tela-dashboard');
+    carregarDashboard();
+  });
+  document.getElementById('btn-voltar-dash2').addEventListener('click', function() {
+    mostrarTela('tela-dashboard');
+    carregarDashboard();
+  });
+
+  document.getElementById('btn-comecar-sim').addEventListener('click', iniciarSimulacao);
+
+  document.getElementById('btn-enviar-resp').addEventListener('click', enviarResposta);
+  document.getElementById('chat-resposta').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); enviarResposta(); }
+  });
+
+  document.getElementById('btn-nova-sim').addEventListener('click', function() {
+    document.getElementById('sim-config').style.display = 'block';
+    document.getElementById('sim-chat').style.display   = 'none';
+    document.getElementById('sim-feedback').style.display = 'none';
+    document.getElementById('chat-input-area').style.display = 'flex';
+  });
+
+  // Enter nos campos de login/cadastro
+  document.getElementById('plus-senha-login').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') loginUsuario();
+  });
+  document.getElementById('plus-senha-cad').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') cadastrarUsuario();
+  });
+});
 
 </script>
