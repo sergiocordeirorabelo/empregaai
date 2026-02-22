@@ -812,6 +812,7 @@ footer span { color:var(--accent); }
 let dadosGerados = null;
 let currentStep  = 1;
 let fotoBase64   = '';
+let fotoObjectURL = null;
 
 function scrollToForm() { document.getElementById('form-section').scrollIntoView({ behavior:'smooth' }); }
 
@@ -820,33 +821,16 @@ function processarFoto(input) {
   const file = input.files[0];
   if (!file) return;
 
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const img = new Image();
-    img.onload = () => {
-      // Foto só para exibição no currículo — NÃO enviada para API
-      // Reduz para 200x200px para não travar nada
-      const MAX = 200;
-      let w = img.width, h = img.height;
-      if (w > h) { if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; } }
-      else        { if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; } }
+  // URL.createObjectURL: INSTANTÂNEO — sem FileReader, sem canvas, sem base64
+  // Não lê o arquivo, só cria um ponteiro temporário. Nunca trava.
+  if (fotoObjectURL) URL.revokeObjectURL(fotoObjectURL); // libera memória anterior
+  fotoObjectURL = URL.createObjectURL(file);
+  fotoBase64 = fotoObjectURL; // usado para exibir no currículo
 
-      const canvas = document.createElement('canvas');
-      canvas.width = w; canvas.height = h;
-      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-
-      // Qualidade baixa (0.6) — só para mostrar no currículo
-      const dataURL = canvas.toDataURL('image/jpeg', 0.6);
-      fotoBase64 = dataURL; // guarda o dataURL completo, não o base64 raw
-
-      const preview = document.getElementById('foto-preview');
-      preview.src = dataURL;
-      preview.style.display = 'block';
-      document.getElementById('foto-placeholder').style.display = 'none';
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
+  const preview = document.getElementById('foto-preview');
+  preview.src = fotoObjectURL;
+  preview.style.display = 'block';
+  document.getElementById('foto-placeholder').style.display = 'none';
 }
 
 // STEPS
