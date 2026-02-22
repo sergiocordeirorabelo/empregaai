@@ -126,7 +126,7 @@ def gerar_com_ia(dados: dict) -> dict:
 
     area   = dados.get("areas", "Administrativo").split(",")[0].strip()
     cidade = dados.get("cidade", "Manaus, AM")
-    foto_b64 = dados.get("foto_b64", "")
+    # foto_b64 removida — foto processada só no navegador, não enviada para API
     escolaridade = dados.get("escolaridade", "")
     ano_conclusao = dados.get("ano_conclusao", "")
     formacao_completa = f"{escolaridade}" + (f" — {ano_conclusao}" if ano_conclusao else "")
@@ -153,7 +153,7 @@ REGRAS IMPORTANTES:
 
 Responda APENAS em JSON válido (sem markdown, sem texto antes ou depois):
 {{
-  "cv_html": "HTML completo com foto_placeholder onde a foto deve aparecer, usando classes: cv-name, cv-role, cv-contact, cv-sec, cv-text, cv-skills, cv-skill. Inclua seções: objetivo, formação (com o ano exato informado), habilidades, experiências (com os períodos exatos informados), sobre mim",
+  "cv_html": "HTML completo do currículo usando classes: cv-name, cv-role, cv-contact, cv-sec, cv-text, cv-skills, cv-skill. Inclua seções: objetivo, formação (com o ano exato informado), habilidades, experiências (com os períodos exatos informados), sobre mim",
   "linkedin": {{
     "titulo": "título LinkedIn impactante (máx 120 chars)",
     "sobre": "texto Sobre do LinkedIn (3 parágrafos, envolvente e profissional)"
@@ -205,8 +205,7 @@ Responda APENAS em JSON válido (sem markdown, sem texto antes ou depois):
 def fallback_sem_ia(dados: dict) -> dict:
     area = dados.get("areas","Administrativo").split(",")[0].replace("💼","").replace("💻","").strip()
     nome = dados.get("nome","Candidato")
-    foto_b64 = dados.get("foto_b64","")
-    foto_tag = f'<img src="data:image/jpeg;base64,{foto_b64}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #e8521a;float:right;" />' if foto_b64 else ""
+    foto_tag = ""  # foto processada no navegador, não no servidor
 
     return {
         "cv_html": f"""
