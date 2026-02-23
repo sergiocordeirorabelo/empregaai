@@ -525,7 +525,9 @@ footer span{color:var(--accent);}
   <div class="result-actions">
     <button class="btn-action primary" id="btn-pdf">📄 Salvar PDF</button>
     <button class="btn-action" id="btn-copiar-cv">📋 Copiar</button>
+    <button class="btn-action" id="btn-enviar-email">📧 Enviar por email</button>
   </div>
+  <div id="email-msg" style="font-size:13px;text-align:center;margin:-6px 0 12px;min-height:16px;"></div>
   <div class="cv-paper"><div class="cv-wrapper" id="cv-completo"></div></div>
 
   <div class="section-card">
@@ -907,6 +909,46 @@ function fallbackLocal(d) {
   };
 }
 
+// ---- EMAIL ----
+async function enviarEmail() {
+  var btn  = document.getElementById('btn-enviar-email');
+  var msg  = document.getElementById('email-msg');
+  var dados = getDados();
+  if (!dados.email) { msg.style.color='#dc2626'; msg.textContent='❌ Email não preenchido no formulário.'; return; }
+  btn.disabled = true; btn.textContent = '⏳ Enviando...'; msg.textContent = '';
+  try {
+    var cvHtml  = document.getElementById('cv-completo').innerHTML;
+    var linkedin = (document.getElementById('linkedin-titulo').textContent||'') +
+                   '\n\n' + (document.getElementById('linkedin-sobre').textContent||'');
+    var emailCand = document.getElementById('email-candidatura').textContent || '';
+    var resp = await fetch('/api/email', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        email:              dados.email,
+        nome:               dados.nome,
+        cv_html:            cvHtml,
+        linkedin:           linkedin,
+        email_candidatura:  emailCand
+      })
+    });
+    var r = await resp.json();
+    if (r.ok) {
+      msg.style.color = '#16a34a';
+      msg.textContent = '✅ Enviado para ' + dados.email + '! Verifique sua caixa de entrada.';
+      btn.textContent = '✅ Enviado!';
+    } else {
+      msg.style.color = '#dc2626';
+      msg.textContent = '❌ Erro ao enviar. Tente novamente.';
+      btn.disabled = false; btn.textContent = '📧 Enviar por email';
+    }
+  } catch(e) {
+    msg.style.color = '#dc2626';
+    msg.textContent = '❌ Erro ao enviar. Tente novamente.';
+    btn.disabled = false; btn.textContent = '📧 Enviar por email';
+  }
+}
+
 // ---- INIT ----
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -964,11 +1006,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Pagamento
   document.getElementById('btn-pagar').addEventListener('click', function() {
-    if (confirm('Redirecionar para pagamento de R$20?\n\n(Integração Mercado Pago em breve)')) liberarAcesso();
+    window.open('https://mpago.la/1ha3cn8','_blank');
   });
 
   // PDF / Copiar
   document.getElementById('btn-pdf').addEventListener('click', imprimirPDF);
+  document.getElementById('btn-enviar-email').addEventListener('click', enviarEmail);
   document.getElementById('btn-copiar-cv').addEventListener('click', function() {
     navigator.clipboard.writeText(document.getElementById('cv-completo').innerText)
       .then(function(){ alert('✅ Copiado!'); });
