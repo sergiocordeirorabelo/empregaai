@@ -314,6 +314,100 @@ def fallback_chance(dados):
         'pontos_melhorar': ['Complete seu perfil com habilidades relevantes','Pesquise mais sobre a empresa','Adapte seu currículo para a vaga']
     }
 
+# ─── email ────────────────────────────────────────────────────────────────────
+
+def rota_email(dados):
+    email     = dados.get('email','').strip()
+    nome      = dados.get('nome','Candidato').strip()
+    cv_html   = dados.get('cv_html','')
+    linkedin  = dados.get('linkedin','')
+    email_cand= dados.get('email_candidatura','')
+
+    if not email:
+        return {'erro': 'Email não informado'}
+
+    resend_key = os.environ.get('RESEND_API_KEY', 're_MkDTntJv_9XrUiCTJ4BmEfyVDcsXjoXQ8')
+
+    html_email = f"""<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body{{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5ede0;margin:0;padding:0;}}
+  .wrap{{max-width:640px;margin:0 auto;background:#fff;border-radius:16px;overflow:hidden;}}
+  .header{{background:#1a0f06;padding:32px 40px;text-align:center;}}
+  .logo{{font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.5px;}}
+  .logo span{{color:#e8521a;}}
+  .badge{{display:inline-block;background:rgba(232,82,26,.15);border:1px solid rgba(232,82,26,.3);
+    border-radius:100px;padding:6px 16px;font-size:12px;font-weight:700;color:#f4a935;
+    margin-top:10px;letter-spacing:1px;text-transform:uppercase;}}
+  .body{{padding:36px 40px;}}
+  .greeting{{font-size:22px;font-weight:900;color:#1a0f06;margin-bottom:8px;}}
+  .intro{{font-size:15px;color:#6b5e4a;line-height:1.6;margin-bottom:28px;}}
+  .cv-box{{background:#fdf8f0;border:1px solid #e8dfd0;border-radius:12px;padding:28px;margin-bottom:24px;}}
+  .cv-box h2{{font-size:12px;font-weight:800;color:#e8521a;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;}}
+  .cv-name{{font-size:24px;font-weight:900;color:#1a0f06;margin-bottom:4px;}}
+  .cv-role{{font-size:13px;color:#9a8e7e;margin-bottom:12px;}}
+  .cv-sec-title{{font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;
+    color:#e8521a;padding-bottom:4px;border-bottom:1px solid #ede8df;margin:14px 0 6px;}}
+  .cv-body{{font-size:13px;color:#3a3020;line-height:1.7;}}
+  .cv-bullet{{font-size:13px;color:#3a3020;padding:2px 0 2px 12px;text-indent:-12px;}}
+  .skill-tag{{display:inline-block;background:#ede8df;border:1px solid #d4cdc0;border-radius:100px;
+    padding:3px 10px;font-size:11px;font-weight:600;color:#4a3f2f;margin:2px;}}
+  .section-title{{font-size:12px;font-weight:800;color:#9a8e7e;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}}
+  .extra-box{{background:#f5ede0;border-radius:12px;padding:20px;margin-bottom:16px;font-size:13px;color:#3a3020;line-height:1.7;white-space:pre-line;}}
+  .cta{{background:#e8521a;color:#fff;display:block;text-align:center;padding:16px;border-radius:12px;
+    font-size:16px;font-weight:800;text-decoration:none;margin:28px 0 8px;}}
+  .footer{{background:#1a0f06;padding:20px 40px;text-align:center;font-size:12px;color:rgba(255,255,255,.4);}}
+</style></head><body>
+<div class="wrap">
+  <div class="header">
+    <div class="logo">Emprega<span>AI</span></div>
+    <div class="badge">✦ Seu currículo está pronto</div>
+  </div>
+  <div class="body">
+    <div class="greeting">Parabéns, {nome}! 🎉</div>
+    <div class="intro">Seu currículo profissional foi gerado com sucesso. Aqui está tudo que você precisa para começar a aplicar para vagas hoje mesmo.</div>
+
+    <div class="cv-box">
+      <h2>📄 Seu Currículo</h2>
+      {cv_html}
+    </div>
+
+    <div class="section-title">🔗 Seu Perfil LinkedIn</div>
+    <div class="extra-box">{linkedin}</div>
+
+    <div class="section-title">📧 Email de Candidatura Pronto</div>
+    <div class="extra-box">{email_cand}</div>
+
+    <a href="https://empregaai-mu.vercel.app" class="cta">🚀 Acessar EmpregaAI Plus →</a>
+    <div style="font-size:12px;color:#9a8e7e;text-align:center;">Dúvidas? Responda este email que te ajudamos.</div>
+  </div>
+  <div class="footer">EmpregaAI © 2025 · Feito com ❤️ e IA para quem está começando</div>
+</div>
+</body></html>"""
+
+    body = json.dumps({
+        'from':    'EmpregaAI <onboarding@resend.dev>',
+        'to':      [email],
+        'subject': f'🎉 {nome}, seu currículo profissional está aqui!',
+        'html':    html_email
+    }).encode('utf-8')
+
+    req = urllib.request.Request(
+        'https://api.resend.com/emails',
+        data=body,
+        headers={
+            'Authorization': f'Bearer {resend_key}',
+            'Content-Type':  'application/json'
+        }
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            resp = json.loads(r.read().decode())
+            return {'ok': True, 'id': resp.get('id','')}
+    except urllib.error.HTTPError as e:
+        erro = e.read().decode()
+        return {'erro': f'Resend error: {erro}'}
+
 # ─── HTTP handler ─────────────────────────────────────────────────────────────
 
 ROTAS = {
@@ -321,6 +415,7 @@ ROTAS = {
     '/api/chat':     (rota_chat,     fallback_chat),
     '/api/feedback': (rota_feedback, fallback_feedback),
     '/api/chance':   (rota_chance,   fallback_chance),
+    '/api/email':    (rota_email,    lambda d: {'erro': 'Serviço de email indisponível'}),
 }
 
 class handler(BaseHTTPRequestHandler):
