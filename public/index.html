@@ -159,6 +159,15 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 #btn-pagar{background:linear-gradient(135deg,#f4a935,#e8521a);color:white;border:none;padding:18px 48px;border-radius:14px;font-size:17px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;transition:all .2s;}
 #btn-pagar:hover{opacity:.9;transform:translateY(-2px);}
 .pagamento-info{font-size:12px;color:var(--muted);text-align:center;margin-top:8px;}
+.cupom-wrap{display:flex;gap:8px;margin-bottom:12px;}
+#inp-cupom{flex:1;background:var(--white);border:1.5px solid var(--border);color:var(--ink);padding:12px 16px;border-radius:12px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border .15s;}
+#inp-cupom:focus{border-color:var(--accent);}
+#inp-cupom::placeholder{color:var(--muted);}
+#btn-cupom{background:var(--ink);color:var(--bg);border:none;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all .15s;}
+#btn-cupom:hover{opacity:.85;}
+#cupom-msg{font-size:12px;text-align:center;margin-bottom:8px;min-height:16px;}
+.cupom-ok{color:#16a34a;font-weight:700;}
+.cupom-err{color:#dc2626;font-weight:700;}
 
 /* RESULT */
 #result-screen{display:none;max-width:700px;margin:0 auto;padding:40px 24px;}
@@ -500,6 +509,11 @@ footer span{color:var(--accent);}
     </div>
   </div>
   <div class="btn-pagar-wrap">
+    <div class="cupom-wrap">
+      <input type="text" id="inp-cupom" placeholder="Tem um cupom? Digite aqui" maxlength="30">
+      <button id="btn-cupom">Aplicar</button>
+    </div>
+    <div id="cupom-msg"></div>
     <button id="btn-pagar">💳 Desbloquear por R$20 →</button>
     <div class="pagamento-info">Pagamento único — sem assinatura</div>
   </div>
@@ -925,6 +939,27 @@ document.addEventListener('DOMContentLoaded', function() {
   // Chips
   document.querySelectorAll('#chips-area .chip').forEach(function(c) {
     c.addEventListener('click', function() { this.classList.toggle('selected'); });
+  });
+
+  // Cupons válidos — adicione quantos quiser aqui
+  var CUPONS_VALIDOS = ['AMIGO2025','AMIGODONO','BETA100','GRATUITO','SERGIO123'];
+
+  document.getElementById('btn-cupom').addEventListener('click', function() {
+    var cupom = document.getElementById('inp-cupom').value.trim().toUpperCase();
+    var msg   = document.getElementById('cupom-msg');
+    if (!cupom) { msg.className='cupom-err'; msg.textContent='Digite um cupom.'; return; }
+    if (CUPONS_VALIDOS.indexOf(cupom) !== -1) {
+      msg.className='cupom-ok'; msg.textContent='✅ Cupom válido! Liberando acesso...';
+      document.getElementById('btn-pagar').style.display = 'none';
+      document.querySelector('.pagamento-info').style.display = 'none';
+      setTimeout(liberarAcesso, 900);
+    } else {
+      msg.className='cupom-err'; msg.textContent='❌ Cupom inválido ou expirado.';
+    }
+  });
+
+  document.getElementById('inp-cupom').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('btn-cupom').click();
   });
 
   // Pagamento
