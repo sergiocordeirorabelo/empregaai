@@ -1,39 +1,18 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "api/gerar.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
-    }
+    { "src": "api/gerar.py", "use": "@vercel/python" },
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "empregaai-plus.html", "use": "@vercel/static" }
   ],
   "routes": [
-    {
-      "src": "/api/gerar",
-      "dest": "/api/gerar.py"
-    },
-    {
-      "src": "/api/chat",
-      "dest": "/api/gerar.py"
-    },
-    {
-      "src": "/api/feedback",
-      "dest": "/api/gerar.py"
-    },
-    {
-      "src": "/api/chance",
-      "dest": "/api/gerar.py"
-    },
-    {
-      "src": "/",
-      "dest": "/public/index.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/public/$1"
-    }
+    { "src": "/api/gerar",    "dest": "/api/gerar.py" },
+    { "src": "/api/chat",     "dest": "/api/gerar.py" },
+    { "src": "/api/feedback", "dest": "/api/gerar.py" },
+    { "src": "/api/chance",   "dest": "/api/gerar.py" },
+    { "src": "/api/email",    "dest": "/api/gerar.py" },
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/empregaai-plus.html", "dest": "/empregaai-plus.html" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
