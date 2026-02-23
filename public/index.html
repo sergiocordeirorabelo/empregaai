@@ -1485,48 +1485,12 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('btn-nav-plus').addEventListener('click', function(){ window.open('empregaai-plus.html','_blank'); });
   document.getElementById('btn-plus-cta').addEventListener('click', function(){ window.open('empregaai-plus.html','_blank'); });
   document.getElementById('btn-pricing-plus').addEventListener('click', function(){ window.open('empregaai-plus.html','_blank'); });
-  document.getElementById('btn-fechar-plus').addEventListener('click', fecharPlus);
-  document.getElementById('plus-overlay').addEventListener('click', function(e){ if(e.target===this) fecharPlus(); });
-
-  document.getElementById('btn-entrar').addEventListener('click', loginUsuario);
-  document.getElementById('btn-cadastrar').addEventListener('click', cadastrarUsuario);
-  document.getElementById('btn-sair').addEventListener('click', function() {
-    plusUser=null; localStorage.removeItem('empregaai_plus_user');
-    mostrarTela('tela-auth'); plusTab('login');
-  });
-  document.getElementById('plus-senha-login').addEventListener('keydown', function(e){ if(e.key==='Enter') loginUsuario(); });
-  document.getElementById('plus-senha-cad').addEventListener('keydown', function(e){ if(e.key==='Enter') cadastrarUsuario(); });
-
-  document.getElementById('btn-ir-sim').addEventListener('click', function() {
-    document.getElementById('sim-config').style.display   = 'block';
-    document.getElementById('sim-chat').style.display     = 'none';
-    document.getElementById('sim-feedback').style.display = 'none';
-    document.getElementById('chat-input-area').style.display = 'flex';
-    mostrarTela('tela-simulador');
-  });
-  document.getElementById('btn-historico').addEventListener('click', function() {
-    var w = document.getElementById('historico-wrap');
-    var show = w.style.display==='none';
-    w.style.display = show?'block':'none';
-    this.textContent = show?'📊 Ocultar histórico':'📊 Ver histórico';
-    if (show && plusUser) {
-      var items = plusUser.simulacoes||[];
-      var tipos = {geral:'Treino geral',vaga:'Vaga específica',dificil:'Modo difícil'};
-      document.getElementById('hist-items').innerHTML = items.length
-        ? items.map(function(s){return '<div class="hist-item"><div><div class="hi-tipo">'+(tipos[s.tipo]||s.tipo)+'</div><div class="hi-data">'+s.data+'</div></div><div class="hi-nota">'+s.nota+'/10</div></div>';}).join('')
-        : '<div style="color:rgba(255,255,255,.3);font-size:13px;text-align:center;padding:16px">Nenhuma simulação ainda.</div>';
-    }
-  });
-  document.getElementById('btn-voltar-dash').addEventListener('click', function() { mostrarTela('tela-dashboard'); carregarDash(); });
-  document.getElementById('btn-voltar-dash2').addEventListener('click', function() { mostrarTela('tela-dashboard'); carregarDash(); });
-  document.getElementById('btn-comecar').addEventListener('click', iniciarSim);
-  document.getElementById('btn-enviar').addEventListener('click', enviarResp);
-  document.getElementById('chat-resp').addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); enviarResp(); } });
-  document.getElementById('btn-nova-sim').addEventListener('click', function() {
-    document.getElementById('sim-config').style.display   = 'block';
-    document.getElementById('sim-chat').style.display     = 'none';
-    document.getElementById('sim-feedback').style.display = 'none';
-    document.getElementById('chat-input-area').style.display = 'flex';
+  // Plus — abre em página separada
+  ['btn-fechar-plus','plus-overlay','btn-entrar','btn-cadastrar','btn-sair',
+   'plus-senha-login','plus-senha-cad','btn-ir-sim','btn-historico',
+   'btn-voltar-dash','btn-voltar-dash2','btn-comecar','btn-enviar',
+   'chat-resp','btn-nova-sim'].forEach(function(id){
+    // Estes elementos foram movidos para empregaai-plus.html
   });
 
   // Scroll suave da nav
