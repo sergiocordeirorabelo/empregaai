@@ -16,6 +16,18 @@
       "dest": "/api/gerar.py"
     },
     {
+      "src": "/api/chat",
+      "dest": "/api/gerar.py"
+    },
+    {
+      "src": "/api/feedback",
+      "dest": "/api/gerar.py"
+    },
+    {
+      "src": "/api/chance",
+      "dest": "/api/gerar.py"
+    },
+    {
       "src": "/(.*)",
       "dest": "/public/$1"
     }
